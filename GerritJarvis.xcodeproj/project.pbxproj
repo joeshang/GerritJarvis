@@ -1,0 +1,467 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		34234613F759A8FDA570579D /* Pods_GerritJarvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B26E29560B9E746C992026B /* Pods_GerritJarvis.framework */; };
+		D207F0DD2272BBA5000EB2B4 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207F0DC2272BBA4000EB2B4 /* Avatar.swift */; };
+		D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207F0DF2272BE06000EB2B4 /* GerritResponseUtils.swift */; };
+		D2350AE32180616A0002A17D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2350AE22180616A0002A17D /* AppDelegate.swift */; };
+		D2350AE52180616A0002A17D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2350AE42180616A0002A17D /* ViewController.swift */; };
+		D2350AE72180616B0002A17D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2350AE62180616B0002A17D /* Assets.xcassets */; };
+		D2350AEA2180616B0002A17D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2350AE82180616B0002A17D /* Main.storyboard */; };
+		D288598C220BE3C1003495BC /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2885989220BE3C1003495BC /* Change.swift */; };
+		D288598D220BE3C1003495BC /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598A220BE3C1003495BC /* Author.swift */; };
+		D288598E220BE3C1003495BC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598B220BE3C1003495BC /* Message.swift */; };
+		D2885990220BE633003495BC /* GerritService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598F220BE633003495BC /* GerritService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1FF6B182DE0D111FB41DB06F /* Pods-GerritJarvis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GerritJarvis.debug.xcconfig"; path = "Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis.debug.xcconfig"; sourceTree = "<group>"; };
+		9B26E29560B9E746C992026B /* Pods_GerritJarvis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GerritJarvis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE23891BEBE2BB3A0F844D90 /* Pods-GerritJarvis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GerritJarvis.release.xcconfig"; path = "Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis.release.xcconfig"; sourceTree = "<group>"; };
+		D207F0DC2272BBA4000EB2B4 /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		D207F0DF2272BE06000EB2B4 /* GerritResponseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerritResponseUtils.swift; sourceTree = "<group>"; };
+		D2350ADF2180616A0002A17D /* GerritJarvis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GerritJarvis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2350AE22180616A0002A17D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D2350AE42180616A0002A17D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D2350AE62180616B0002A17D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D2350AE92180616B0002A17D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D2350AEB2180616B0002A17D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2350AEC2180616B0002A17D /* GerritJarvis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GerritJarvis.entitlements; sourceTree = "<group>"; };
+		D2885989220BE3C1003495BC /* Change.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
+		D288598A220BE3C1003495BC /* Author.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		D288598B220BE3C1003495BC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		D288598F220BE633003495BC /* GerritService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerritService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2350ADC2180616A0002A17D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34234613F759A8FDA570579D /* Pods_GerritJarvis.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		16F9A22B1FC8DDE16E5F6120 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1FF6B182DE0D111FB41DB06F /* Pods-GerritJarvis.debug.xcconfig */,
+				CE23891BEBE2BB3A0F844D90 /* Pods-GerritJarvis.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		823CDCC9841A8CA39E6370FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B26E29560B9E746C992026B /* Pods_GerritJarvis.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D207F0DE2272BDD7000EB2B4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D207F0DF2272BE06000EB2B4 /* GerritResponseUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		D2350AD62180616A0002A17D = {
+			isa = PBXGroup;
+			children = (
+				D2350AE12180616A0002A17D /* GerritJarvis */,
+				D2350AE02180616A0002A17D /* Products */,
+				16F9A22B1FC8DDE16E5F6120 /* Pods */,
+				823CDCC9841A8CA39E6370FB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D2350AE02180616A0002A17D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2350ADF2180616A0002A17D /* GerritJarvis.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D2350AE12180616A0002A17D /* GerritJarvis */ = {
+			isa = PBXGroup;
+			children = (
+				D2885986220B125F003495BC /* Gerrit */,
+				D2350AE22180616A0002A17D /* AppDelegate.swift */,
+				D2350AE42180616A0002A17D /* ViewController.swift */,
+				D2350AE62180616B0002A17D /* Assets.xcassets */,
+				D2350AE82180616B0002A17D /* Main.storyboard */,
+				D2350AEB2180616B0002A17D /* Info.plist */,
+				D2350AEC2180616B0002A17D /* GerritJarvis.entitlements */,
+			);
+			path = GerritJarvis;
+			sourceTree = "<group>";
+		};
+		D2885986220B125F003495BC /* Gerrit */ = {
+			isa = PBXGroup;
+			children = (
+				D207F0DE2272BDD7000EB2B4 /* Utils */,
+				D2885988220B1279003495BC /* Model */,
+				D2885987220B1274003495BC /* Service */,
+			);
+			path = Gerrit;
+			sourceTree = "<group>";
+		};
+		D2885987220B1274003495BC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D288598F220BE633003495BC /* GerritService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D2885988220B1279003495BC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D207F0DC2272BBA4000EB2B4 /* Avatar.swift */,
+				D288598A220BE3C1003495BC /* Author.swift */,
+				D2885989220BE3C1003495BC /* Change.swift */,
+				D288598B220BE3C1003495BC /* Message.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D2350ADE2180616A0002A17D /* GerritJarvis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2350AEF2180616B0002A17D /* Build configuration list for PBXNativeTarget "GerritJarvis" */;
+			buildPhases = (
+				A56C44897EADABFF3E67E881 /* [CP] Check Pods Manifest.lock */,
+				D2350ADB2180616A0002A17D /* Sources */,
+				D2350ADC2180616A0002A17D /* Frameworks */,
+				D2350ADD2180616A0002A17D /* Resources */,
+				92BF40094E15E4C335813F84 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GerritJarvis;
+			productName = GerritJarvis;
+			productReference = D2350ADF2180616A0002A17D /* GerritJarvis.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D2350AD72180616A0002A17D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = "Chuanren Shang";
+				TargetAttributes = {
+					D2350ADE2180616A0002A17D = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = D2350ADA2180616A0002A17D /* Build configuration list for PBXProject "GerritJarvis" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D2350AD62180616A0002A17D;
+			productRefGroup = D2350AE02180616A0002A17D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2350ADE2180616A0002A17D /* GerritJarvis */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D2350ADD2180616A0002A17D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2350AE72180616B0002A17D /* Assets.xcassets in Resources */,
+				D2350AEA2180616B0002A17D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		92BF40094E15E4C335813F84 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A56C44897EADABFF3E67E881 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GerritJarvis-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2350ADB2180616A0002A17D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2885990220BE633003495BC /* GerritService.swift in Sources */,
+				D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */,
+				D2350AE52180616A0002A17D /* ViewController.swift in Sources */,
+				D2350AE32180616A0002A17D /* AppDelegate.swift in Sources */,
+				D288598E220BE3C1003495BC /* Message.swift in Sources */,
+				D207F0DD2272BBA5000EB2B4 /* Avatar.swift in Sources */,
+				D288598D220BE3C1003495BC /* Author.swift in Sources */,
+				D288598C220BE3C1003495BC /* Change.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D2350AE82180616B0002A17D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2350AE92180616B0002A17D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D2350AED2180616B0002A17D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D2350AEE2180616B0002A17D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		D2350AF02180616B0002A17D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FF6B182DE0D111FB41DB06F /* Pods-GerritJarvis.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GerritJarvis/GerritJarvis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 97E5G9BYSZ;
+				INFOPLIST_FILE = GerritJarvis/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = JoeShang.GerritJarvis;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		D2350AF12180616B0002A17D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE23891BEBE2BB3A0F844D90 /* Pods-GerritJarvis.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GerritJarvis/GerritJarvis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 97E5G9BYSZ;
+				INFOPLIST_FILE = GerritJarvis/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = JoeShang.GerritJarvis;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D2350ADA2180616A0002A17D /* Build configuration list for PBXProject "GerritJarvis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2350AED2180616B0002A17D /* Debug */,
+				D2350AEE2180616B0002A17D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2350AEF2180616B0002A17D /* Build configuration list for PBXNativeTarget "GerritJarvis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2350AF02180616B0002A17D /* Debug */,
+				D2350AF12180616B0002A17D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D2350AD72180616A0002A17D /* Project object */;
+}
