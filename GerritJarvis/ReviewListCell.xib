@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="ReviewListCell" id="c22-O7-iKe" customClass="ReviewListCell" customModule="GerritJarvis" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hgi-Ia-ir4">
+                    <rect key="frame" x="87" y="60" width="312" height="15"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="left" title="project" usesSingleLineMode="YES" id="vb3-AR-i1i">
+                        <font key="font" metaFont="systemLight" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="tK5-7P-U9Z">
+                    <rect key="frame" x="0.0" y="-2" width="500" height="5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="L0U-Uq-ny1"/>
+                    </constraints>
+                </box>
+                <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="0ZI-4K-c7q">
+                    <rect key="frame" x="442" y="10" width="5" height="64"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </box>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fLa-dD-d6Z">
+                    <rect key="frame" x="66" y="60" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Folder" id="uhJ-wX-vgb"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOI-Rn-avY">
+                    <rect key="frame" x="66" y="42" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Branch" id="Zc6-ls-SNX"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D0b-9S-3HE">
+                    <rect key="frame" x="18" y="35" width="36" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DefaultAvatar" id="ICE-Va-sp4"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-If-UDN">
+                    <rect key="frame" x="64" y="3" width="374" height="38"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="charWrapping" enabled="NO" allowsUndo="NO" title="Commit" id="Lpy-qs-ntx" customClass="VerticallyCenteredTextFieldCell" customModule="GerritJarvis" customModuleProvider="target">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-kf-J5y">
+                    <rect key="frame" x="14" y="12" width="45" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="猿辅导" id="gK8-vu-q2I">
+                        <font key="font" metaFont="systemMedium" size="12"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FXA-qv-eQ7">
+                    <rect key="frame" x="43" y="55" width="18" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="RedPoint" id="Do4-a4-18p"/>
+                </imageView>
+                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lf2-sV-hXU">
+                    <rect key="frame" x="5" y="31" width="7" height="7"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="RedPoint" id="LKl-aa-fep"/>
+                </imageView>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o7Y-FQ-Hrv">
+                    <rect key="frame" x="36" y="57" width="32" height="15"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" alignment="center" title="0" id="KQn-rR-GZt">
+                        <font key="font" metaFont="systemMedium" size="11"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S8V-bR-aNE">
+                    <rect key="frame" x="454" y="33" width="36" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="lbu-Bc-QUx"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7bG-ha-edn">
+                    <rect key="frame" x="87" y="42" width="312" height="15"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="left" title="branch" usesSingleLineMode="YES" id="5d9-8p-541">
+                        <font key="font" metaFont="systemLight" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hxN-OX-Fw9">
+                    <rect key="frame" x="416" y="52" width="26" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Conflict " id="EVG-JS-jkG"/>
+                </imageView>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cJC-vM-h5K">
+                    <rect key="frame" x="446" y="2" width="52" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="More" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Fx1-WR-Hxe">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="buttonAction:" target="c22-O7-iKe" id="o1N-mZ-1qk"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="tK5-7P-U9Z" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="qIe-vr-MVX"/>
+                <constraint firstAttribute="trailing" secondItem="tK5-7P-U9Z" secondAttribute="trailing" id="qpN-je-3ws"/>
+                <constraint firstAttribute="bottom" secondItem="tK5-7P-U9Z" secondAttribute="bottom" id="uXH-DH-wdP"/>
+            </constraints>
+            <connections>
+                <outlet property="avatarImageView" destination="D0b-9S-3HE" id="0lG-ry-OPr"/>
+                <outlet property="branchLabel" destination="7bG-ha-edn" id="KvC-oo-0ru"/>
+                <outlet property="commentImageView" destination="FXA-qv-eQ7" id="eL6-s8-ckk"/>
+                <outlet property="commentLabel" destination="o7Y-FQ-Hrv" id="jll-5j-Alk"/>
+                <outlet property="commitLabel" destination="bGl-If-UDN" id="QV6-nl-KPu"/>
+                <outlet property="conflictImageView" destination="hxN-OX-Fw9" id="Ds9-G8-9JK"/>
+                <outlet property="nameLabel" destination="lrF-kf-J5y" id="5QH-mh-MeF"/>
+                <outlet property="newReviewImageView" destination="lf2-sV-hXU" id="2fd-tI-IVu"/>
+                <outlet property="projectLabel" destination="Hgi-Ia-ir4" id="w5E-K7-0eN"/>
+                <outlet property="redPointView" destination="FXA-qv-eQ7" id="W9E-kh-zgS"/>
+                <outlet property="reviewImageView" destination="S8V-bR-aNE" id="seC-bg-wIZ"/>
+                <outlet property="titleLabel" destination="Hgi-Ia-ir4" id="LBd-fE-dhW"/>
+            </connections>
+            <point key="canvasLocation" x="163" y="272"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="Branch" width="24" height="24"/>
+        <image name="Conflict " width="64" height="64"/>
+        <image name="DefaultAvatar" width="256" height="256"/>
+        <image name="Folder" width="24" height="24"/>
+        <image name="RedPoint" width="64" height="64"/>
+    </resources>
+</document>
