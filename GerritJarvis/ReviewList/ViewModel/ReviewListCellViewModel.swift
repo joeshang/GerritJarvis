@@ -16,7 +16,7 @@ class ReviewListCellViewModel: NSObject {
     var commitMessage: String = ""
     var commentCounts: Int = 0
     var reviewScore: ReviewScore = .Zero
-    var isNewReview: Bool = false
+    var hasNewEvent: Bool = false
     var isMergeConflict: Bool = false
 
     class func viewModel(with change: Change) -> ReviewListCellViewModel {
@@ -24,6 +24,8 @@ class ReviewListCellViewModel: NSObject {
         vm.project = change.project ?? ""
         vm.branch = change.branch ?? ""
         vm.name = change.owner?.name ?? ""
+        vm.avatar = ReviewUtils.avatar(for: vm.name)
+        vm.commitMessage = change.subject ?? ""
         vm.isMergeConflict = change.mergeable ?? false
         return vm
     }

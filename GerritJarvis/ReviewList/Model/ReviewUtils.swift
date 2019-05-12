@@ -10,6 +10,9 @@ import Cocoa
 
 class ReviewUtils {
     class func avatar(for name: String) -> NSImage? {
+        if name.isEmpty {
+            return nil
+        }
         var imageName = ""
         return NSImage.init(named: imageName)
     }

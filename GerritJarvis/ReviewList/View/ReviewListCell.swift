@@ -33,7 +33,7 @@ class ReviewListCell: NSTableCellView {
         commitLabel.stringValue = viewModel.commitMessage
         nameLabel.stringValue = viewModel.name
 
-        newReviewImageView.isHidden = !viewModel.isNewReview
+        newReviewImageView.isHidden = !viewModel.hasNewEvent
         conflictImageView.isHidden = !viewModel.isMergeConflict
 
         commentLabel.stringValue = "\(viewModel.commentCounts)"

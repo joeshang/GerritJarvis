@@ -25,6 +25,8 @@
 		D291E2F9228582060033614B /* ReviewListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2F8228582060033614B /* ReviewListCellViewModel.swift */; };
 		D291E2FB22858A620033614B /* ReviewScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2FA22858A620033614B /* ReviewScore.swift */; };
 		D291E2FE22858F5E0033614B /* ReviewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2FD22858F5E0033614B /* ReviewUtils.swift */; };
+		D291E3052287FB810033614B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3042287FB810033614B /* ConfigManager.swift */; };
+		D291E3072287FEB90033614B /* ReviewListAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3062287FEB90033614B /* ReviewListAgent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		D291E2F8228582060033614B /* ReviewListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCellViewModel.swift; sourceTree = "<group>"; };
 		D291E2FA22858A620033614B /* ReviewScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScore.swift; sourceTree = "<group>"; };
 		D291E2FD22858F5E0033614B /* ReviewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUtils.swift; sourceTree = "<group>"; };
+		D291E3042287FB810033614B /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		D291E3062287FEB90033614B /* ReviewListAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListAgent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,7 @@
 		D2350AE12180616A0002A17D /* GerritJarvis */ = {
 			isa = PBXGroup;
 			children = (
+				D291E3022287FB440033614B /* Manager */,
 				D2885986220B125F003495BC /* Gerrit */,
 				D291E2F4228581CA0033614B /* ReviewList */,
 				D2350AE22180616A0002A17D /* AppDelegate.swift */,
@@ -196,6 +201,23 @@
 				D291E2FD22858F5E0033614B /* ReviewUtils.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D291E3022287FB440033614B /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D291E3062287FEB90033614B /* ReviewListAgent.swift */,
+				D291E3032287FB6A0033614B /* Config */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		D291E3032287FB6A0033614B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D291E3042287FB810033614B /* ConfigManager.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +353,8 @@
 				D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */,
 				D26AC9A42272D5BE00D65397 /* GerritModelHelper.swift in Sources */,
 				D26AC9A62272E96900D65397 /* ReviewListViewController.swift in Sources */,
+				D291E3072287FEB90033614B /* ReviewListAgent.swift in Sources */,
+				D291E3052287FB810033614B /* ConfigManager.swift in Sources */,
 				D291E2F9228582060033614B /* ReviewListCellViewModel.swift in Sources */,
 				D2350AE32180616A0002A17D /* AppDelegate.swift in Sources */,
 				D288598E220BE3C1003495BC /* Message.swift in Sources */,
