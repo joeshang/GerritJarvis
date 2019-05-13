@@ -11,6 +11,7 @@ import SnapKit
 
 class ReviewListViewController: NSViewController {
     
+    @IBOutlet var settingMenu: NSMenu!
     @IBOutlet weak var refreshButton: NSButton!
     @IBOutlet weak var tableView: NSTableView! {
         didSet {
@@ -33,9 +34,23 @@ class ReviewListViewController: NSViewController {
     }
 
     @IBAction func refressButtonPressed(_ sender: Any) {
+        ReviewListAgent.shared.fetchReviewList()
     }
 
-    @IBAction func settingButtonPressed(_ sender: Any) {
+    @IBAction func settingButtonPressed(_ sender: NSButton) {
+        var point = sender.frame.origin
+        point.x = point.x + sender.frame.size.width
+        settingMenu.popUp(positioning: nil, at: point, in: view)
+    }
+
+    @IBAction func aboutItemClicked(_ sender: NSMenuItem) {
+    }
+
+    @IBAction func settingItemClicked(_ sender: NSMenuItem) {
+    }
+
+    @IBAction func quitItemClicked(_ sender: NSMenuItem) {
+        NSApplication.shared.terminate(self)
     }
 
 }

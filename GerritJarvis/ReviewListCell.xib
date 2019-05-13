@@ -129,9 +129,7 @@
                 <outlet property="nameLabel" destination="lrF-kf-J5y" id="5QH-mh-MeF"/>
                 <outlet property="newReviewImageView" destination="lf2-sV-hXU" id="2fd-tI-IVu"/>
                 <outlet property="projectLabel" destination="Hgi-Ia-ir4" id="w5E-K7-0eN"/>
-                <outlet property="redPointView" destination="FXA-qv-eQ7" id="W9E-kh-zgS"/>
                 <outlet property="reviewImageView" destination="S8V-bR-aNE" id="seC-bg-wIZ"/>
-                <outlet property="titleLabel" destination="Hgi-Ia-ir4" id="LBd-fE-dhW"/>
             </connections>
             <point key="canvasLocation" x="163" y="272"/>
         </customView>

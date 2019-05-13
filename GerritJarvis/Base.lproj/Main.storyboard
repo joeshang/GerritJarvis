@@ -171,10 +171,34 @@
                     </view>
                     <connections>
                         <outlet property="refreshButton" destination="9iI-oH-AY7" id="9yo-QU-uyx"/>
+                        <outlet property="settingMenu" destination="4HL-aB-HDg" id="8QG-he-oaC"/>
                         <outlet property="tableView" destination="Tdd-82-7JL" id="S5j-OE-wyd"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="4HL-aB-HDg">
+                    <items>
+                        <menuItem title="About GerritJarvis" id="dEB-hr-esW">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="aboutItemClicked:" target="XfG-lQ-9wD" id="fOo-mi-v68"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Setting" id="vhJ-OG-Gyn">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="settingItemClicked:" target="XfG-lQ-9wD" id="Jkx-UJ-TvM"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="I2S-38-MPO"/>
+                        <menuItem title="Quit" id="EBb-19-GVR">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="quitItemClicked:" target="XfG-lQ-9wD" id="rPM-Gh-4yY"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="74" y="798.5"/>
         </scene>
