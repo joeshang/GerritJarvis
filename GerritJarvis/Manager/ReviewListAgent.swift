@@ -8,12 +8,14 @@
 
 import Cocoa
 
-class ReviewListAgent {
+class ReviewListAgent: NSObject {
 
     static let shared = ReviewListAgent()
     static let ReviewListUpdatedNotification = Notification.Name("ReviewListUpdatedNotification")
     static let ReviewListNewEventsNotification = Notification.Name("ReviewListNewEventsNotification")
     static let ReviewListNewEventsKey = "ReviewListNewEventsKey"
+    static let ReviewChangeIdKey = "ReviewChangeIdKey"
+    static let ReviewChangeNumberKey = "ReviewChangeNumberKey"
 
     private(set) var cellViewModels = [ReviewListCellViewModel]()
     private(set) var changes = [Change]()
@@ -21,10 +23,14 @@ class ReviewListAgent {
     private var gerritService: GerritService?
     private var timer: Timer?
 
+    override init() {
+        super.init()
+        NSUserNotificationCenter.default.delegate = self
+    }
+
     func changeAccount(user: String, password: String) {
         stopTimer()
         gerritService = GerritService(user: user, password: password)
-        fetchReviewList()
         startTimer()
     }
 
@@ -43,8 +49,8 @@ class ReviewListAgent {
         if timer != nil {
             return
         }
-        let interval: TimeInterval = 5 * 60
-        timer = Timer(timeInterval: interval, repeats: true, block: { _ in
+        let interval: TimeInterval = ConfigManager.shared.refreshFrequency * 60
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { _ in
             self.fetchReviewList()
         })
         timer?.fire()
@@ -62,9 +68,9 @@ extension ReviewListAgent {
 
     private func updateChanges(_ newChanges: [Change]) {
         var viewModels = [ReviewListCellViewModel]()
-        for new in newChanges {
+        for newChange in newChanges {
             var targetIndex: Int? = nil
-            guard let newId = new.id else {
+            guard let newId = newChange.id else {
                 continue
             }
             for (index, old) in changes.enumerated() {
@@ -76,29 +82,43 @@ extension ReviewListAgent {
                     break
                 }
             }
-            var newMessages: [Message]? = nil
+            var viewModel: ReviewListCellViewModel? = nil
             if let targetIndex = targetIndex {
                 // 更新已有的 Change
-                let target = changes[targetIndex]
-                if target.isSame(new) {
+                let originChange = changes[targetIndex]
+                if originChange.isSame(newChange) {
                     // 如果没变化，直接复用之前的 ViewModel
-                    viewModels.append(cellViewModels[targetIndex])
+                    viewModel = cellViewModels[targetIndex]
                 } else {
                     // 否则从新 Change 中找出新的 Message
-                    newMessages = new.newMessages(from: target)
+                    let vm = ReviewListCellViewModel.viewModel(with: newChange)
+                    let (score, comments) = handleMessages(newChange.newMessages(baseOn: originChange), for: newChange)
+                    vm.reviewScore = score
+                    vm.commentCounts = comments
+                    if let mergable = originChange.mergeable,
+                        newChange.isOurs() && mergable && vm.isMergeConflict {
+                        // 我提的 Review 出现了 Merge Conflict
+                        vm.hasNewEvent = true
+                        postLocationNotification(title: "Merge Conflict",
+                                                 imageName: "Conflict",
+                                                 change: newChange)
+                    } else {
+                        vm.hasNewEvent = newChange.hasNewEvent()
+                    }
+                    viewModel = vm
                 }
             } else {
                 // 新的 Change
-                newMessages = new.messages ?? []
-            }
-
-            if let newMessages = newMessages {
-                let vm = ReviewListCellViewModel.viewModel(with: new)
-                let (score, comments) = handleMessages(newMessages, for: new)
+                let vm = ReviewListCellViewModel.viewModel(with: newChange)
+                let (score, comments) = handleMessages(newChange.messages ?? [], for: newChange)
                 vm.reviewScore = score
                 vm.commentCounts = comments
-                vm.hasNewEvent = new.hasNewEvent()
-                viewModels.append(vm)
+                vm.hasNewEvent = newChange.hasNewEvent()
+                viewModel = vm
+            }
+
+            if let viewModel = viewModel {
+                viewModels.append(viewModel)
             }
         }
         changes = newChanges
@@ -118,7 +138,8 @@ extension ReviewListAgent {
             }
 
             // 如果不以 Patch Set 开头，则认为是非 Review 操作，根据 Revision 是否变化判断有更新
-            if !content.hasPrefix("Patch Set \(revisionNumber):") {
+            if !content.hasPrefix("Patch Set \(revisionNumber):")
+                || content.hasSuffix("was rebased.") {
                 if currentRevision != revisionNumber {
                     currentRevision = revisionNumber
                     currentComments = 0
@@ -136,32 +157,51 @@ extension ReviewListAgent {
                                          options: .regularExpression) {
                 score = ReviewScore(rawValue: String(content[range])) ?? score
             }
-            if let range = content.range(of: #"(?<=\()\d+\s(?=comments?\))"#,
+            if let range = content.range(of: #"(?<=\()\d+(?=\scomments?\))"#,
                                          options: .regularExpression) {
                 comments = Int(String(content[range])) ?? comments
             }
-            if var (s, c) = reviews[name] {
-                s = updateScore(score, originalScore: s)
-                if message.author?.name != ConfigManager.shared.user {
-                    c += comments
-                }
-            } else {
-                reviews[name] = (score, comments)
-            }
-
             // 自己的 Comment 不会通知也不显示红点，但是计入 Code Review 打分
-            if message.author?.name != ConfigManager.shared.user {
+            if message.author?.username != ConfigManager.shared.user {
                 currentComments += comments
             }
             currentScore = updateScore(score, originalScore: currentScore)
+
+            if message.author?.username != ConfigManager.shared.user {
+                if var (s, c) = reviews[name] {
+                    s = updateScore(score, originalScore: s)
+                    c += comments
+                } else {
+                    reviews[name] = (score, comments)
+                }
+            }
         }
+
+        for (key, review) in reviews {
+            let (score, comments) = review
+            var title = key
+            var imageName = "Comment"
+            if score != .Zero {
+                title += " Code-Review\(score.rawValue)"
+                imageName = "Review\(score.rawValue)"
+            }
+            if comments != 0 {
+                title += "  \(comments) "
+                if comments == 1 {
+                    title += "Comment"
+                } else {
+                    title += "Comments"
+                }
+            }
+            postLocationNotification(title: title, imageName: imageName, change: change)
+        }
+
         return (currentScore, currentComments)
     }
 
     private func updateScore(_ newScore: ReviewScore, originalScore: ReviewScore) -> ReviewScore {
-        if newScore == .Zero
-            || (newScore == .MinusOne && originalScore == .MinusTwo)
-            || (newScore == .PlusOne && originalScore == .PlusTwo) {
+        // 将 Score 更新为 0 认为是一种无效的设置，维持原值不变
+        if newScore == .Zero {
             return originalScore
         }
         return newScore
@@ -169,7 +209,50 @@ extension ReviewListAgent {
 
 }
 
-// MARK: - Notification
+// MARK: - Local Notification
+extension ReviewListAgent : NSUserNotificationCenterDelegate {
+
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+
+        if let id = userInfo[ReviewListAgent.ReviewChangeIdKey] as? String {
+            var target: Int? = nil
+            for (index, change) in changes.enumerated() {
+                if change.id == id {
+                    target = index
+                    break
+                }
+            }
+            if let target = target {
+                let vm = cellViewModels[target]
+                vm.resetEvent()
+                notifyNewEventsCount()
+                notifyReviewListUpdated()
+            }
+        }
+
+        if let number = userInfo[ReviewListAgent.ReviewChangeNumberKey] as? Int {
+            GerritOpenUrlUtils.openGerrit(number: number)
+        }
+    }
+
+    private func postLocationNotification(title: String, imageName: String, change: Change) {
+        let notification = NSUserNotification()
+        notification.title = title
+        notification.informativeText = change.subject
+        notification.contentImage = NSImage.init(named: NSImage.Name(imageName))
+        if let id = change.id, let number = change.number {
+            notification.userInfo = [ ReviewListAgent.ReviewChangeIdKey: id, ReviewListAgent.ReviewChangeNumberKey: number ]
+        }
+        // TODO:
+//        NSUserNotificationCenter.default.deliver(notification)
+        debugPrint(notification)
+    }
+
+}
+
 extension ReviewListAgent {
 
     func notifyNewEventsCount() {
@@ -190,10 +273,6 @@ extension ReviewListAgent {
         NotificationCenter.default.post(name: ReviewListAgent.ReviewListUpdatedNotification,
                                         object: nil,
                                         userInfo: nil)
-    }
-
-    private func notifyReview(info: [String: (ReviewScore, Int)], change: Change) {
-        // TODO:
     }
 
 }
@@ -221,12 +300,10 @@ extension ReviewListAgent {
                 continue
             }
             gerritService?.fetchChangeDetail(changeId: changeId, completion: { change in
-                guard let change = change else {
+                guard let change = change, change.isMerged() else {
                     return
                 }
-                if change.isMerged() {
-                    // TODO:
-                }
+                self.postLocationNotification(title: "Review Merged!", imageName: "Merged", change: change)
             })
         }
     }

@@ -36,7 +36,7 @@ extension Change {
         return !last.isUser(ldap)
     }
 
-    func newMessages(from originChange: Change) -> [Message] {
+    func newMessages(baseOn originChange: Change) -> [Message] {
         var result = [Message]()
         guard let messages = messages else {
             return result

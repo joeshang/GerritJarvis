@@ -66,8 +66,7 @@ extension ReviewListViewController {
         }
 
         let vm: ReviewListCellViewModel = ReviewListAgent.shared.cellViewModels[table.selectedRow]
-        vm.hasNewEvent = false
-        vm.commentCounts = 0
+        vm.resetEvent()
         ReviewListAgent.shared.notifyNewEventsCount()
 
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
@@ -77,8 +76,8 @@ extension ReviewListViewController {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             let change: Change = ReviewListAgent.shared.changes[table.selectedRow]
-            if let id = change.number, let url = URL(string: "http://gerrit.zhenguanyu.com/#/c/\(id)") {
-                NSWorkspace.shared.open(url)
+            if let number = change.number {
+                GerritOpenUrlUtils.openGerrit(number: number)
             }
             table.deselectRow(table.selectedRow)
             self.renderTableView()

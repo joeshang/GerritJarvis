@@ -26,7 +26,12 @@ class ReviewListCellViewModel: NSObject {
         vm.name = change.owner?.name ?? ""
         vm.avatar = change.owner?.avatarImage()
         vm.commitMessage = change.subject ?? ""
-        vm.isMergeConflict = change.mergeable ?? false
+        vm.isMergeConflict = !(change.mergeable ?? true)
         return vm
+    }
+
+    func resetEvent() {
+        hasNewEvent = false
+        commentCounts = 0
     }
 }

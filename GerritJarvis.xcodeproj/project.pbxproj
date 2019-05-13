@@ -26,6 +26,7 @@
 		D291E2FB22858A620033614B /* ReviewScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2FA22858A620033614B /* ReviewScore.swift */; };
 		D291E3052287FB810033614B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3042287FB810033614B /* ConfigManager.swift */; };
 		D291E3072287FEB90033614B /* ReviewListAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3062287FEB90033614B /* ReviewListAgent.swift */; };
+		D291E309228976610033614B /* GerritOpenUrlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E308228976610033614B /* GerritOpenUrlUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		D291E2FA22858A620033614B /* ReviewScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScore.swift; sourceTree = "<group>"; };
 		D291E3042287FB810033614B /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		D291E3062287FEB90033614B /* ReviewListAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListAgent.swift; sourceTree = "<group>"; };
+		D291E308228976610033614B /* GerritOpenUrlUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerritOpenUrlUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				D207F0DF2272BE06000EB2B4 /* GerritResponseUtils.swift */,
+				D291E308228976610033614B /* GerritOpenUrlUtils.swift */,
 				D26AC9A32272D5BE00D65397 /* GerritModelHelper.swift */,
 			);
 			path = Utils;
@@ -348,6 +351,7 @@
 				D26AC9AE22731A1500D65397 /* ReviewListCell.swift in Sources */,
 				D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */,
 				D26AC9A42272D5BE00D65397 /* GerritModelHelper.swift in Sources */,
+				D291E309228976610033614B /* GerritOpenUrlUtils.swift in Sources */,
 				D26AC9A62272E96900D65397 /* ReviewListViewController.swift in Sources */,
 				D291E3072287FEB90033614B /* ReviewListAgent.swift in Sources */,
 				D291E3052287FB810033614B /* ConfigManager.swift in Sources */,

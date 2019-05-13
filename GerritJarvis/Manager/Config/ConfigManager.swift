@@ -12,15 +12,15 @@ class ConfigManager {
     fileprivate let UserKey = "UserKey"
     fileprivate let PasswordKey = "PasswordKey"
     fileprivate let RefreshFrequencyKey = "RefreshFrequencyKey"
-    fileprivate let DefaultRefreshFrequency = 5 // minutes
+    fileprivate let DefaultRefreshFrequency: TimeInterval = 1 // minutes
 
     static let shared = ConfigManager()
 
     private(set) var user: String?
     private(set) var password: String?
-    var refreshFrequency: Int {
+    var refreshFrequency: TimeInterval {
         get {
-            let frequency = UserDefaults.standard.integer(forKey: PasswordKey)
+            let frequency = UserDefaults.standard.double(forKey: PasswordKey)
             guard frequency != 0 else {
                 return DefaultRefreshFrequency
             }

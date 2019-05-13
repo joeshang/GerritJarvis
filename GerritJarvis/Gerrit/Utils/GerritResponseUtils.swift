@@ -9,6 +9,7 @@
 import Foundation
 
 class GerritResponseUtils {
+
     static func filterResponse(_ data: Data?) -> String? {
         guard let data = data, var string = String(data: data, encoding: .utf8) else {
             return nil
@@ -18,4 +19,5 @@ class GerritResponseUtils {
         string.removeFirst(weirdPrefix.count + 1)
         return string
     }
+
 }
