@@ -32,6 +32,7 @@ class ReviewListCell: NSTableCellView {
         branchLabel.stringValue = viewModel.branch
         commitLabel.stringValue = viewModel.commitMessage
         nameLabel.stringValue = viewModel.name
+        avatarImageView.image = viewModel.avatar
 
         newReviewImageView.isHidden = !viewModel.hasNewEvent
         conflictImageView.isHidden = !viewModel.isMergeConflict

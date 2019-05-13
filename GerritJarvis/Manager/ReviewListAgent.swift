@@ -16,9 +16,9 @@ class ReviewListAgent {
     static let ReviewListNewEventsKey = "ReviewListNewEventsKey"
 
     private(set) var cellViewModels = [ReviewListCellViewModel]()
+    private(set) var changes = [Change]()
 
     private var gerritService: GerritService?
-    private var changes = [Change]()
     private var timer: Timer?
 
     func changeAccount(user: String, password: String) {
@@ -101,6 +101,7 @@ extension ReviewListAgent {
                 viewModels.append(vm)
             }
         }
+        changes = newChanges
         cellViewModels = viewModels
     }
 

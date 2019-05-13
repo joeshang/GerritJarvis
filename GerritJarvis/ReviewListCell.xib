@@ -44,7 +44,7 @@
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D0b-9S-3HE">
                     <rect key="frame" x="18" y="35" width="36" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DefaultAvatar" id="ICE-Va-sp4"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ICE-Va-sp4"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-If-UDN">
                     <rect key="frame" x="64" y="3" width="374" height="38"/>
@@ -139,7 +139,6 @@
     <resources>
         <image name="Branch" width="24" height="24"/>
         <image name="Conflict " width="64" height="64"/>
-        <image name="DefaultAvatar" width="256" height="256"/>
         <image name="Folder" width="24" height="24"/>
         <image name="RedPoint" width="64" height="64"/>
     </resources>

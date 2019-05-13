@@ -24,7 +24,7 @@ class ReviewListCellViewModel: NSObject {
         vm.project = change.project ?? ""
         vm.branch = change.branch ?? ""
         vm.name = change.owner?.name ?? ""
-        vm.avatar = ReviewUtils.avatar(for: vm.name)
+        vm.avatar = change.owner?.avatarImage()
         vm.commitMessage = change.subject ?? ""
         vm.isMergeConflict = change.mergeable ?? false
         return vm

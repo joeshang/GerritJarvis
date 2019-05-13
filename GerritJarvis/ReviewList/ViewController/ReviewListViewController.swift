@@ -61,12 +61,28 @@ extension ReviewListViewController {
 
     @objc func tableViewSelectionDidChange(notification: NSNotification) {
         let table = notification.object as! NSTableView
-        print(table.selectedRow);
-        table.deselectRow(table.selectedRow)
+        guard table.selectedRow >= 0 else {
+            return
+        }
+
+        let vm: ReviewListCellViewModel = ReviewListAgent.shared.cellViewModels[table.selectedRow]
+        vm.hasNewEvent = false
+        vm.commentCounts = 0
+        ReviewListAgent.shared.notifyNewEventsCount()
+
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return
         }
         appDelegate.closePopover(sender: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+            let change: Change = ReviewListAgent.shared.changes[table.selectedRow]
+            if let id = change.number, let url = URL(string: "http://gerrit.zhenguanyu.com/#/c/\(id)") {
+                NSWorkspace.shared.open(url)
+            }
+            table.deselectRow(table.selectedRow)
+            self.renderTableView()
+        })
     }
 
     @objc func reviewListDidChange(notification: NSNotification) {

@@ -24,7 +24,6 @@
 		D291E2F322856E1C0033614B /* VerticallyCenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2F222856E1C0033614B /* VerticallyCenteredTextFieldCell.swift */; };
 		D291E2F9228582060033614B /* ReviewListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2F8228582060033614B /* ReviewListCellViewModel.swift */; };
 		D291E2FB22858A620033614B /* ReviewScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2FA22858A620033614B /* ReviewScore.swift */; };
-		D291E2FE22858F5E0033614B /* ReviewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2FD22858F5E0033614B /* ReviewUtils.swift */; };
 		D291E3052287FB810033614B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3042287FB810033614B /* ConfigManager.swift */; };
 		D291E3072287FEB90033614B /* ReviewListAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3062287FEB90033614B /* ReviewListAgent.swift */; };
 /* End PBXBuildFile section */
@@ -52,7 +51,6 @@
 		D291E2F222856E1C0033614B /* VerticallyCenteredTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyCenteredTextFieldCell.swift; sourceTree = "<group>"; };
 		D291E2F8228582060033614B /* ReviewListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCellViewModel.swift; sourceTree = "<group>"; };
 		D291E2FA22858A620033614B /* ReviewScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScore.swift; sourceTree = "<group>"; };
-		D291E2FD22858F5E0033614B /* ReviewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUtils.swift; sourceTree = "<group>"; };
 		D291E3042287FB810033614B /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		D291E3062287FEB90033614B /* ReviewListAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListAgent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,7 +196,6 @@
 			isa = PBXGroup;
 			children = (
 				D291E2FA22858A620033614B /* ReviewScore.swift */,
-				D291E2FD22858F5E0033614B /* ReviewUtils.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,7 +343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D291E2F322856E1C0033614B /* VerticallyCenteredTextFieldCell.swift in Sources */,
-				D291E2FE22858F5E0033614B /* ReviewUtils.swift in Sources */,
 				D291E2FB22858A620033614B /* ReviewScore.swift in Sources */,
 				D2885990220BE633003495BC /* GerritService.swift in Sources */,
 				D26AC9AE22731A1500D65397 /* ReviewListCell.swift in Sources */,

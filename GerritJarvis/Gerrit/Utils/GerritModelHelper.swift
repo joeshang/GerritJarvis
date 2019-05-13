@@ -6,7 +6,7 @@
 //  Copyright © 2019 Chuanren Shang. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 extension Change {
 
@@ -33,7 +33,7 @@ extension Change {
             return false
         }
         // 只要最新的 Message 不是自己导致，说明有更新或操作，就认为有新事件
-        return last.isUser(ldap)
+        return !last.isUser(ldap)
     }
 
     func newMessages(from originChange: Change) -> [Message] {
@@ -72,6 +72,18 @@ extension Author {
             return false
         }
         return ldap == username
+    }
+
+    func avatarImage() -> NSImage? {
+        if let currentUser = ConfigManager.shared.user,
+            currentUser == username {
+            return NSImage.init(named: NSImage.Name("AvatarMyself"))
+        }
+        var index = 0
+        if let accountId = accountId {
+            index = accountId % 46
+        }
+        return NSImage.init(named: NSImage.Name("Avatar\(index)"))
     }
 
 }
