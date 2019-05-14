@@ -19,18 +19,45 @@ class ReviewListViewController: NSViewController {
         }
     }
 
+    private lazy var emptyView: ReviewListEmptyView = {
+        let view = ReviewListEmptyView()
+        view.isHidden = true
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUserInterface()
         regiseterNotifications()
-        renderTableView()
+        renderContentView()
     }
 
     deinit {
         unregisterNotifications()
     }
 
-    private func renderTableView() {
+    private func setupUserInterface() {
+        view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.edges.equalTo(tableView)
+        }
+    }
+
+    private func renderContentView() {
         tableView.reloadData()
+        if !ConfigManager.shared.hasUser() {
+            emptyView.isHidden = false
+            emptyView.titleLabel.stringValue = "No Gerrit User"
+            emptyView.imageView.image = NSImage.init(named: "EmptyUser")
+            emptyView.preferenceButton.isHidden = false
+        } else if ReviewListAgent.shared.cellViewModels.count == 0 {
+            emptyView.isHidden = false
+            emptyView.titleLabel.stringValue = "Empty Review"
+            emptyView.imageView.image = NSImage.init(named: "EmptyReview")
+            emptyView.preferenceButton.isHidden = true
+        } else {
+            emptyView.isHidden = true
+        }
     }
 
     @IBAction func refressButtonPressed(_ sender: Any) {
@@ -98,12 +125,12 @@ extension ReviewListViewController {
                 GerritOpenUrlUtils.openGerrit(number: number)
             }
             table.deselectRow(table.selectedRow)
-            self.renderTableView()
+            self.renderContentView()
         })
     }
 
     @objc func reviewListDidChange(notification: NSNotification) {
-        renderTableView()
+        renderContentView()
     }
 
 }

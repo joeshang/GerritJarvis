@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ReviewListEmptyView" customModule="GerritJarvis" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="c22-O7-iKe" id="WMc-Ue-0Xj"/>
+                <outlet property="imageView" destination="kh8-gA-iPF" id="bBD-Zk-tkx"/>
+                <outlet property="preferenceButton" destination="Uco-2B-weJ" id="23f-Qf-V6t"/>
+                <outlet property="titleLabel" destination="mdd-bp-lN0" id="421-TG-8U1"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="515"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o3r-fm-0WG">
+                    <rect key="frame" x="186" y="169" width="128" height="177"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kh8-gA-iPF">
+                            <rect key="frame" x="0.0" y="49" width="128" height="128"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Wtn-rd-mpi"/>
+                        </imageView>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mdd-bp-lN0">
+                            <rect key="frame" x="37" y="0.0" width="54" height="19"/>
+                            <textFieldCell key="cell" lineBreakMode="clipping" id="J2m-bq-Ym9">
+                                <font key="font" metaFont="system" size="16"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uco-2B-weJ">
+                            <rect key="frame" x="-6" y="149" width="145" height="32"/>
+                            <buttonCell key="cell" type="push" title="Go To Preference" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bPy-zU-uur">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="preferenceButtonClicked:" target="-2" id="jZo-Cb-9OA"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="o3r-fm-0WG" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="lF5-Ha-Mol"/>
+                <constraint firstItem="o3r-fm-0WG" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="tw9-lZ-Hlt"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="153.5"/>
+        </customView>
+    </objects>
+</document>
