@@ -27,6 +27,11 @@
 		D291E3052287FB810033614B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3042287FB810033614B /* ConfigManager.swift */; };
 		D291E3072287FEB90033614B /* ReviewListAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3062287FEB90033614B /* ReviewListAgent.swift */; };
 		D291E309228976610033614B /* GerritOpenUrlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E308228976610033614B /* GerritOpenUrlUtils.swift */; };
+		D291E318228B15EC0033614B /* GeneralPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E316228B15EC0033614B /* GeneralPreferenceViewController.swift */; };
+		D291E319228B15EC0033614B /* GeneralPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D291E317228B15EC0033614B /* GeneralPreferenceViewController.xib */; };
+		D291E31D228B172E0033614B /* AccountPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E31B228B172E0033614B /* AccountPreferenceViewController.swift */; };
+		D291E31E228B172E0033614B /* AccountPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D291E31C228B172E0033614B /* AccountPreferenceViewController.xib */; };
+		D291E320228B2C300033614B /* PasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E31F228B2C300033614B /* PasteTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +60,11 @@
 		D291E3042287FB810033614B /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		D291E3062287FEB90033614B /* ReviewListAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListAgent.swift; sourceTree = "<group>"; };
 		D291E308228976610033614B /* GerritOpenUrlUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerritOpenUrlUtils.swift; sourceTree = "<group>"; };
+		D291E316228B15EC0033614B /* GeneralPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferenceViewController.swift; sourceTree = "<group>"; };
+		D291E317228B15EC0033614B /* GeneralPreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferenceViewController.xib; sourceTree = "<group>"; };
+		D291E31B228B172E0033614B /* AccountPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPreferenceViewController.swift; sourceTree = "<group>"; };
+		D291E31C228B172E0033614B /* AccountPreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPreferenceViewController.xib; sourceTree = "<group>"; };
+		D291E31F228B2C300033614B /* PasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,13 +127,12 @@
 		D2350AE12180616A0002A17D /* GerritJarvis */ = {
 			isa = PBXGroup;
 			children = (
-				D291E3022287FB440033614B /* Manager */,
 				D2885986220B125F003495BC /* Gerrit */,
+				D291E314228B157F0033614B /* Preference */,
 				D291E2F4228581CA0033614B /* ReviewList */,
 				D2350AE22180616A0002A17D /* AppDelegate.swift */,
 				D2350AE62180616B0002A17D /* Assets.xcassets */,
 				D2350AE82180616B0002A17D /* Main.storyboard */,
-				D26AC9AB227319F100D65397 /* ReviewListCell.xib */,
 				D2350AEB2180616B0002A17D /* Info.plist */,
 				D2350AEC2180616B0002A17D /* GerritJarvis.entitlements */,
 			);
@@ -162,9 +171,11 @@
 		D291E2F4228581CA0033614B /* ReviewList */ = {
 			isa = PBXGroup;
 			children = (
+				D291E3022287FB440033614B /* Agent */,
 				D291E2FC22858A690033614B /* Model */,
 				D291E2F7228581EE0033614B /* ViewModel */,
 				D291E2F6228581E90033614B /* View */,
+				D291E322228B33FB0033614B /* Xib */,
 				D291E2F5228581E10033614B /* ViewController */,
 			);
 			path = ReviewList;
@@ -203,21 +214,57 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D291E3022287FB440033614B /* Manager */ = {
+		D291E3022287FB440033614B /* Agent */ = {
 			isa = PBXGroup;
 			children = (
 				D291E3062287FEB90033614B /* ReviewListAgent.swift */,
-				D291E3032287FB6A0033614B /* Config */,
 			);
-			path = Manager;
+			path = Agent;
 			sourceTree = "<group>";
 		};
-		D291E3032287FB6A0033614B /* Config */ = {
+		D291E314228B157F0033614B /* Preference */ = {
+			isa = PBXGroup;
+			children = (
+				D291E321228B33CD0033614B /* Manager */,
+				D291E315228B15C60033614B /* General */,
+				D291E31A228B161F0033614B /* Account */,
+			);
+			path = Preference;
+			sourceTree = "<group>";
+		};
+		D291E315228B15C60033614B /* General */ = {
+			isa = PBXGroup;
+			children = (
+				D291E316228B15EC0033614B /* GeneralPreferenceViewController.swift */,
+				D291E317228B15EC0033614B /* GeneralPreferenceViewController.xib */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		D291E31A228B161F0033614B /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				D291E31B228B172E0033614B /* AccountPreferenceViewController.swift */,
+				D291E31C228B172E0033614B /* AccountPreferenceViewController.xib */,
+				D291E31F228B2C300033614B /* PasteTextField.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		D291E321228B33CD0033614B /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				D291E3042287FB810033614B /* ConfigManager.swift */,
 			);
-			path = Config;
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		D291E322228B33FB0033614B /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				D26AC9AB227319F100D65397 /* ReviewListCell.xib */,
+			);
+			path = Xib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +328,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D291E319228B15EC0033614B /* GeneralPreferenceViewController.xib in Resources */,
+				D291E31E228B172E0033614B /* AccountPreferenceViewController.xib in Resources */,
 				D26AC9AC227319F100D65397 /* ReviewListCell.xib in Resources */,
 				D2350AE72180616B0002A17D /* Assets.xcassets in Resources */,
 				D2350AEA2180616B0002A17D /* Main.storyboard in Resources */,
@@ -301,6 +350,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -309,6 +359,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Preferences.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,8 +400,10 @@
 				D291E2FB22858A620033614B /* ReviewScore.swift in Sources */,
 				D2885990220BE633003495BC /* GerritService.swift in Sources */,
 				D26AC9AE22731A1500D65397 /* ReviewListCell.swift in Sources */,
+				D291E318228B15EC0033614B /* GeneralPreferenceViewController.swift in Sources */,
 				D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */,
 				D26AC9A42272D5BE00D65397 /* GerritModelHelper.swift in Sources */,
+				D291E320228B2C300033614B /* PasteTextField.swift in Sources */,
 				D291E309228976610033614B /* GerritOpenUrlUtils.swift in Sources */,
 				D26AC9A62272E96900D65397 /* ReviewListViewController.swift in Sources */,
 				D291E3072287FEB90033614B /* ReviewListAgent.swift in Sources */,
@@ -361,6 +414,7 @@
 				D207F0DD2272BBA5000EB2B4 /* Avatar.swift in Sources */,
 				D288598D220BE3C1003495BC /* Author.swift in Sources */,
 				D288598C220BE3C1003495BC /* Change.swift in Sources */,
+				D291E31D228B172E0033614B /* AccountPreferenceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -184,10 +184,10 @@
                                 <action selector="aboutItemClicked:" target="XfG-lQ-9wD" id="fOo-mi-v68"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Setting" id="vhJ-OG-Gyn">
+                        <menuItem title="Preferences" id="vhJ-OG-Gyn">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="settingItemClicked:" target="XfG-lQ-9wD" id="Jkx-UJ-TvM"/>
+                                <action selector="preferencesItemClicked:" target="XfG-lQ-9wD" id="mPh-HI-kA2"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="I2S-38-MPO"/>

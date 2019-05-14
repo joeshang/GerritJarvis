@@ -9,6 +9,7 @@
 import Cocoa
 
 class ConfigManager {
+
     fileprivate let UserKey = "UserKey"
     fileprivate let PasswordKey = "PasswordKey"
     fileprivate let RefreshFrequencyKey = "RefreshFrequencyKey"
@@ -37,6 +38,15 @@ class ConfigManager {
     init() {
         self.user = UserDefaults.standard.string(forKey: UserKey)
         self.password = UserDefaults.standard.string(forKey: PasswordKey)
+    }
+
+    func hasUser() -> Bool {
+        if let user = user, let password = password,
+            !user.isEmpty && !password.isEmpty {
+            return true
+        } else {
+            return false
+        }
     }
 
     func update(user: String, password: String) {

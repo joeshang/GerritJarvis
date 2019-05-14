@@ -46,7 +46,10 @@ class ReviewListViewController: NSViewController {
     @IBAction func aboutItemClicked(_ sender: NSMenuItem) {
     }
 
-    @IBAction func settingItemClicked(_ sender: NSMenuItem) {
+    @IBAction func preferencesItemClicked(_ sender: NSMenuItem) {
+        if let delegate = NSApplication.shared.delegate as? AppDelegate {
+            delegate.showPreference()
+        }
     }
 
     @IBAction func quitItemClicked(_ sender: NSMenuItem) {

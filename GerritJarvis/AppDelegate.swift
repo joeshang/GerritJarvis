@@ -7,6 +7,12 @@
 //
 
 import Cocoa
+import Preferences
+
+extension PreferencePane.Identifier {
+    static let general = Identifier("general")
+    static let account = Identifier("account")
+}
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -20,6 +26,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return pop
     }()
 
+    lazy var preferencesWindowController = PreferencesWindowController(
+        preferencePanes: [
+            GeneralPreferenceViewController(),
+            AccountPreferenceViewController()
+        ]
+    )
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         initPopover()
@@ -28,10 +41,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                selector: #selector(reviewListUpdated(notification:)),
                                                name: ReviewListAgent.ReviewListNewEventsNotification,
                                                object: nil)
-        let user = ""
-        let password = ""
-        ConfigManager.shared.update(user: user, password: password)
-        ReviewListAgent.shared.changeAccount(user: user, password: password)
+
+        if ConfigManager.shared.hasUser(),
+            let user = ConfigManager.shared.user,
+            let password = ConfigManager.shared.password {
+            ReviewListAgent.shared.changeAccount(user: user, password: password)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -68,6 +83,19 @@ extension AppDelegate {
 
     func closePopover(sender: Any?) {
         popover.performClose(sender)
+    }
+
+}
+
+// MARK: - Preference
+extension AppDelegate {
+
+    func showPreference() {
+        if ConfigManager.shared.hasUser() {
+            preferencesWindowController.show(preferencePane: .general)
+        } else {
+            preferencesWindowController.show(preferencePane: .account)
+        }
     }
 
 }
