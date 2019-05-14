@@ -36,9 +36,11 @@ class ReviewListAgent: NSObject {
 
     func fetchReviewList() {
         gerritService?.fetchReviewList { changes in
-            guard let newChanges = changes else {
+            guard let changes = changes else {
                 return
             }
+            let newChanges = self.reorderChanges(changes)
+            self.checkMerged(newChanges)
             self.updateChanges(newChanges)
             self.notifyReviewListUpdated()
             self.notifyNewEventsCount()
@@ -181,16 +183,19 @@ extension ReviewListAgent {
             let (score, comments) = review
             var title = key
             var imageName = "Comment"
+            if score == .Zero && comments == 0 {
+                continue
+            }
             if score != .Zero {
                 title += " Code-Review\(score.rawValue)"
                 imageName = "Review\(score.rawValue)"
             }
             if comments != 0 {
-                title += "  \(comments) "
+                title += " (\(comments) "
                 if comments == 1 {
-                    title += "Comment"
+                    title += "Comment)"
                 } else {
-                    title += "Comments"
+                    title += "Comments)"
                 }
             }
             postLocationNotification(title: title, imageName: imageName, change: change)
@@ -205,6 +210,20 @@ extension ReviewListAgent {
             return originalScore
         }
         return newScore
+    }
+
+    private func reorderChanges(_ changes: [Change]) -> [Change] {
+        var newChanges = [Change]()
+        var insert = 0
+        for change in changes {
+            if change.isOurs() {
+                newChanges.insert(change, at: insert)
+                insert += 1
+            } else {
+                newChanges.append(change)
+            }
+        }
+        return newChanges
     }
 
 }
@@ -296,14 +315,20 @@ extension ReviewListAgent {
         }
 
         for change in leaveChanges {
-            guard let changeId = change.id else {
+            guard change.isOurs(),
+                let changeId = change.changeId else {
                 continue
             }
             gerritService?.fetchChangeDetail(changeId: changeId, completion: { change in
                 guard let change = change, change.isMerged() else {
                     return
                 }
-                self.postLocationNotification(title: "Review Merged!", imageName: "Merged", change: change)
+                guard let name = change.owner?.name,
+                    let mergedName = change.mergedBy(),
+                    name != mergedName else {
+                    return
+                }
+                self.postLocationNotification(title: "我的 Review Merged!", imageName: "Merged", change: change)
             })
         }
     }

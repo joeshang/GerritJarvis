@@ -178,7 +178,7 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="4HL-aB-HDg">
                     <items>
-                        <menuItem title="About GerritJarvis" id="dEB-hr-esW">
+                        <menuItem title="About" id="dEB-hr-esW">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="aboutItemClicked:" target="XfG-lQ-9wD" id="fOo-mi-v68"/>

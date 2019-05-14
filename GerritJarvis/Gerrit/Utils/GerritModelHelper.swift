@@ -63,6 +63,17 @@ extension Change {
         return status == "MERGED"
     }
 
+    func mergedBy() -> String? {
+        let prefix = "Change has been successfully merged by "
+        guard let last = messages?.last,
+            var message = last.message,
+            message.hasPrefix(prefix) else {
+            return nil
+        }
+        message.removeFirst(prefix.count)
+        return message
+    }
+
 }
 
 extension Author {
