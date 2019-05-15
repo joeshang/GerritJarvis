@@ -20,9 +20,9 @@ extension Change {
         return owner.isUser(ldap)
     }
 
-    func isSame(_ newChange: Change) -> Bool {
+    func hasNewMessages(diffWith newChange: Change) -> Bool {
         // 如果没有变化，消息数是不变的
-        return messages?.count == newChange.messages?.count
+        return messages?.count != newChange.messages?.count
     }
 
     func hasNewEvent() -> Bool {

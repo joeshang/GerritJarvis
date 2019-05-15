@@ -22,6 +22,7 @@ class ReviewListAgent: NSObject {
 
     private var gerritService: GerritService?
     private var timer: Timer?
+    private var isFirstLoading: Bool = false
 
     override init() {
         super.init()
@@ -30,6 +31,7 @@ class ReviewListAgent: NSObject {
 
     func changeAccount(user: String, password: String) {
         stopTimer()
+        isFirstLoading = true
         gerritService = GerritService(user: user, password: password)
         startTimer()
     }
@@ -44,7 +46,15 @@ class ReviewListAgent: NSObject {
             self.updateChanges(newChanges)
             self.notifyReviewListUpdated()
             self.notifyNewEventsCount()
+            self.isFirstLoading = false
         }
+    }
+
+    func clearNewEvent() {
+        for vm in cellViewModels {
+            vm.resetEvent()
+        }
+        notifyNewEventsCount()
     }
 
     private func startTimer() {
@@ -88,35 +98,45 @@ extension ReviewListAgent {
             if let targetIndex = targetIndex {
                 // 更新已有的 Change
                 let originChange = changes[targetIndex]
-                if originChange.isSame(newChange) {
-                    // 如果没变化，直接复用之前的 ViewModel
-                    viewModel = cellViewModels[targetIndex]
+                let originViewModel = cellViewModels[targetIndex]
+                if originChange.hasNewMessages(diffWith: newChange) {
+                    viewModel = ReviewListCellViewModel.viewModel(with: newChange)
+                    let (score, comments) = handleMessages(newChange.newMessages(baseOn: originChange),
+                                                           for: newChange,
+                                                           originScore: originViewModel.reviewScore)
+                    viewModel?.reviewScore = score
+                    viewModel?.commentCounts = comments
+                    viewModel?.hasNewEvent = newChange.hasNewEvent()
                 } else {
-                    // 否则从新 Change 中找出新的 Message
-                    let vm = ReviewListCellViewModel.viewModel(with: newChange)
-                    let (score, comments) = handleMessages(newChange.newMessages(baseOn: originChange), for: newChange)
-                    vm.reviewScore = score
-                    vm.commentCounts = comments
-                    if let mergable = originChange.mergeable,
-                        newChange.isOurs() && mergable && vm.isMergeConflict {
-                        // 我提的 Review 出现了 Merge Conflict
-                        vm.hasNewEvent = true
-                        postLocationNotification(title: "Merge Conflict",
-                                                 imageName: "Conflict",
-                                                 change: newChange)
-                    } else {
-                        vm.hasNewEvent = newChange.hasNewEvent()
+                    if let mergeable = newChange.mergeable {
+                        originViewModel.isMergeConflict = !mergeable
                     }
-                    viewModel = vm
+                    viewModel = originViewModel
+                }
+
+                // 我提的 Review 出现了 Merge Conflict
+                if let mergeable = originChange.mergeable,
+                    let newMergeable = newChange.mergeable,
+                    newChange.isOurs() && mergeable && !newMergeable {
+                    viewModel?.hasNewEvent = true
+                    postLocationNotification(title: "Merge Conflict",
+                                             imageName: "Conflict",
+                                             change: newChange)
                 }
             } else {
                 // 新的 Change
-                let vm = ReviewListCellViewModel.viewModel(with: newChange)
-                let (score, comments) = handleMessages(newChange.messages ?? [], for: newChange)
-                vm.reviewScore = score
-                vm.commentCounts = comments
-                vm.hasNewEvent = newChange.hasNewEvent()
-                viewModel = vm
+                viewModel = ReviewListCellViewModel.viewModel(with: newChange)
+                let (score, comments) = handleMessages(newChange.messages ?? [],
+                                                       for: newChange,
+                                                       originScore: nil)
+                viewModel?.reviewScore = score
+                viewModel?.commentCounts = comments
+                if let mergeable = newChange.mergeable,
+                    newChange.isOurs() && !mergeable {
+                    viewModel?.hasNewEvent = true
+                } else {
+                    viewModel?.hasNewEvent = newChange.hasNewEvent()
+                }
             }
 
             if let viewModel = viewModel {
@@ -127,10 +147,10 @@ extension ReviewListAgent {
         cellViewModels = viewModels
     }
 
-    private func handleMessages(_ messages: [Message], for change: Change) -> (ReviewScore, Int) {
+    private func handleMessages(_ messages: [Message], for change: Change, originScore: ReviewScore?) -> (ReviewScore, Int) {
         var currentRevision: Int = 1
         var currentComments: Int = 0
-        var currentScore: ReviewScore = .Zero
+        var currentScore = originScore ?? .Zero
         var reviews = [String: (ReviewScore, Int)]()
         for message in messages {
             guard let name = message.author?.name,
@@ -145,7 +165,10 @@ extension ReviewListAgent {
                 if currentRevision != revisionNumber {
                     currentRevision = revisionNumber
                     currentComments = 0
-                    currentScore = .Zero
+                    // -2 不能被 Patch 的更新给消掉，只能根据新的 Code Review 打分
+                    if currentScore != .MinusTwo {
+                        currentScore = .Zero
+                    }
                     reviews.removeAll()
                 }
                 continue
@@ -153,12 +176,22 @@ extension ReviewListAgent {
 
             // 打分和评论的 Message 格式为:
             // Patch Set [revisionNumber]: Code-Review[+/-][1/2]\n\n([commentNumber] comments)
-            var score: ReviewScore = .Zero
-            var comments: Int = 0
-            if let range = content.range(of: #"(?<=Code-Review)[+-][12]"#,
+            // Patch Set [revisionNumber]: -Code-Review
+
+            // 从 Message 中筛选出打分
+            var score: ReviewScore? = nil
+            if content.contains("-Code-Review") {
+                score = .Zero
+            } else if let range = content.range(of: #"(?<=Code-Review)[+-][12]"#,
                                          options: .regularExpression) {
-                score = ReviewScore(rawValue: String(content[range])) ?? score
+                score = ReviewScore(rawValue: String(content[range]))
             }
+            if let score = score {
+                currentScore = score
+            }
+
+            // 从 Message 中筛选出评论
+            var comments: Int = 0
             if let range = content.range(of: #"(?<=\()\d+(?=\scomments?\))"#,
                                          options: .regularExpression) {
                 comments = Int(String(content[range])) ?? comments
@@ -167,25 +200,26 @@ extension ReviewListAgent {
             if message.author?.username != ConfigManager.shared.user {
                 currentComments += comments
             }
-            currentScore = updateScore(score, originalScore: currentScore)
 
+            // Reviewer 具体的 Review 操作
             if message.author?.username != ConfigManager.shared.user {
                 if var (s, c) = reviews[name] {
-                    s = updateScore(score, originalScore: s)
+                    s = score ?? s
                     c += comments
                 } else {
-                    reviews[name] = (score, comments)
+                    reviews[name] = (score ?? .Zero, comments)
                 }
             }
         }
 
         for (key, review) in reviews {
             let (score, comments) = review
-            var title = key
-            var imageName = "Comment"
             if score == .Zero && comments == 0 {
                 continue
             }
+
+            var title = key
+            var imageName = "Comment"
             if score != .Zero {
                 title += " Code-Review\(score.rawValue)"
                 imageName = "Review\(score.rawValue)"
@@ -202,14 +236,6 @@ extension ReviewListAgent {
         }
 
         return (currentScore, currentComments)
-    }
-
-    private func updateScore(_ newScore: ReviewScore, originalScore: ReviewScore) -> ReviewScore {
-        // 将 Score 更新为 0 认为是一种无效的设置，维持原值不变
-        if newScore == .Zero {
-            return originalScore
-        }
-        return newScore
     }
 
     private func reorderChanges(_ changes: [Change]) -> [Change] {
@@ -258,6 +284,10 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
     }
 
     private func postLocationNotification(title: String, imageName: String, change: Change) {
+        if isFirstLoading {
+            // 第一次加载该用户的 Review List 时，不做任何通知
+            return
+        }
         let notification = NSUserNotification()
         notification.title = title
         notification.informativeText = change.subject
@@ -265,9 +295,8 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
         if let id = change.id, let number = change.number {
             notification.userInfo = [ ReviewListAgent.ReviewChangeIdKey: id, ReviewListAgent.ReviewChangeNumberKey: number ]
         }
-        // TODO:
-//        NSUserNotificationCenter.default.deliver(notification)
         debugPrint(notification)
+        NSUserNotificationCenter.default.deliver(notification)
     }
 
 }

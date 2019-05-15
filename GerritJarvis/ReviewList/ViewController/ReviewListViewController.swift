@@ -13,6 +13,7 @@ class ReviewListViewController: NSViewController {
     
     @IBOutlet var settingMenu: NSMenu!
     @IBOutlet weak var refreshButton: NSButton!
+    @IBOutlet weak var clearButton: NSButton!
     @IBOutlet weak var tableView: NSTableView! {
         didSet {
             self.tableView.register(NSNib(nibNamed: "ReviewListCell", bundle: nil), forIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ReviewListCell"))
@@ -50,21 +51,32 @@ class ReviewListViewController: NSViewController {
             emptyView.titleLabel.stringValue = "No Gerrit User"
             emptyView.imageView.image = NSImage.init(named: "EmptyUser")
             emptyView.preferenceButton.isHidden = false
+            clearButton.isEnabled = false
+            refreshButton.isEnabled = false
         } else if ReviewListAgent.shared.cellViewModels.count == 0 {
             emptyView.isHidden = false
             emptyView.titleLabel.stringValue = "Empty Review"
             emptyView.imageView.image = NSImage.init(named: "EmptyReview")
             emptyView.preferenceButton.isHidden = true
+            clearButton.isEnabled = false
+            refreshButton.isEnabled = true
         } else {
             emptyView.isHidden = true
+            clearButton.isEnabled = true
+            refreshButton.isEnabled = true
         }
     }
 
-    @IBAction func refressButtonPressed(_ sender: Any) {
+    @IBAction func clearButtonClicked(_ sender: Any) {
+        ReviewListAgent.shared.clearNewEvent()
+        tableView.reloadData()
+    }
+
+    @IBAction func refressButtonClicked(_ sender: Any) {
         ReviewListAgent.shared.fetchReviewList()
     }
 
-    @IBAction func settingButtonPressed(_ sender: NSButton) {
+    @IBAction func settingButtonClicked(_ sender: NSButton) {
         var point = sender.frame.origin
         point.x = point.x + sender.frame.size.width
         settingMenu.popUp(positioning: nil, at: point, in: view)
