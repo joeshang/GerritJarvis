@@ -120,7 +120,7 @@ extension ReviewListAgent {
                     newChange.isOurs() && mergeable && !newMergeable {
                     viewModel?.hasNewEvent = true
                     postLocationNotification(title: "Merge Conflict",
-                                             imageName: "Conflict",
+                                             image: NSImage.init(named: "Conflict"),
                                              change: newChange)
                 }
             } else {
@@ -137,6 +137,7 @@ extension ReviewListAgent {
                 } else {
                     viewModel?.hasNewEvent = newChange.hasNewEvent()
                 }
+                notifyNewChange(newChange)
             }
 
             if let viewModel = viewModel {
@@ -198,7 +199,10 @@ extension ReviewListAgent {
             }
             // 自己的 Comment 不会通知也不显示红点，但是计入 Code Review 打分
             if message.author?.username != ConfigManager.shared.user {
-                currentComments += comments
+                // 只有自己的 Review 才应该显示 Comments 红点，或者在配置中设置了关心别人的 Review
+                if change.isOurs() || ConfigManager.shared.shouldNotifyIncomingReviewEvent {
+                    currentComments += comments
+                }
             }
 
             // Reviewer 具体的 Review 操作
@@ -212,28 +216,7 @@ extension ReviewListAgent {
             }
         }
 
-        for (key, review) in reviews {
-            let (score, comments) = review
-            if score == .Zero && comments == 0 {
-                continue
-            }
-
-            var title = key
-            var imageName = "Comment"
-            if score != .Zero {
-                title += " Code-Review\(score.rawValue)"
-                imageName = "Review\(score.rawValue)"
-            }
-            if comments != 0 {
-                title += " (\(comments) "
-                if comments == 1 {
-                    title += "Comment)"
-                } else {
-                    title += "Comments)"
-                }
-            }
-            postLocationNotification(title: title, imageName: imageName, change: change)
-        }
+        notifyUpdatedChange(change, reviews: reviews)
 
         return (currentScore, currentComments)
     }
@@ -283,7 +266,49 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
         }
     }
 
-    private func postLocationNotification(title: String, imageName: String, change: Change) {
+    private func notifyUpdatedChange(_ change: Change, reviews: [String: (ReviewScore, Int)]) {
+        guard change.isOurs() || ConfigManager.shared.shouldNotifyIncomingReviewEvent else {
+            return
+        }
+
+        for (key, review) in reviews {
+            let (score, comments) = review
+            if score == .Zero && comments == 0 {
+                continue
+            }
+
+            var title = key
+            var imageName = "Comment"
+            if score != .Zero {
+                title += " Code-Review\(score.rawValue)"
+                imageName = "Review\(score.rawValue)"
+            }
+            if comments != 0 {
+                title += " (\(comments) "
+                if comments == 1 {
+                    title += "Comment)"
+                } else {
+                    title += "Comments)"
+                }
+            }
+            postLocationNotification(title: title, image: NSImage.init(named: imageName), change: change)
+        }
+    }
+
+    private func notifyNewChange(_ change: Change) {
+        if change.isOurs() {
+            return
+        }
+        guard ConfigManager.shared.shouldNotifyNewIncomingReview && change.hasNewEvent() else {
+            return
+        }
+        let name = change.owner?.name ?? ""
+        postLocationNotification(title: "New Review by \(name)",
+            image: change.owner?.avatarImage(),
+            change: change)
+    }
+
+    private func postLocationNotification(title: String, image: NSImage?, change: Change) {
         if isFirstLoading {
             // 第一次加载该用户的 Review List 时，不做任何通知
             return
@@ -291,7 +316,7 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
         let notification = NSUserNotification()
         notification.title = title
         notification.informativeText = change.subject
-        notification.contentImage = NSImage.init(named: NSImage.Name(imageName))
+        notification.contentImage = image
         if let id = change.id, let number = change.number {
             notification.userInfo = [ ReviewListAgent.ReviewChangeIdKey: id, ReviewListAgent.ReviewChangeNumberKey: number ]
         }
@@ -357,7 +382,9 @@ extension ReviewListAgent {
                     name != mergedName else {
                     return
                 }
-                self.postLocationNotification(title: "我的 Review Merged!", imageName: "Merged", change: change)
+                self.postLocationNotification(title: "我的 Review Merged!",
+                                              image: NSImage.init(named: "Merged"),
+                                              change: change)
             })
         }
     }
