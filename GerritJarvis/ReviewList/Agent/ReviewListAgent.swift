@@ -16,6 +16,7 @@ class ReviewListAgent: NSObject {
     static let ReviewListNewEventsKey = "ReviewListNewEventsKey"
     static let ReviewChangeIdKey = "ReviewChangeIdKey"
     static let ReviewChangeNumberKey = "ReviewChangeNumberKey"
+    private let ReviewNewEventStatusKey = "ReviewNewEventStatusKey"
 
     private(set) var cellViewModels = [ReviewListCellViewModel]()
     private(set) var changes = [Change]()
@@ -23,6 +24,17 @@ class ReviewListAgent: NSObject {
     private var gerritService: GerritService?
     private var timer: Timer?
     private var isFirstLoading: Bool = false
+    private var newEventStates: [String : Bool] {
+        get  {
+            guard let status = UserDefaults.standard.object(forKey: ReviewNewEventStatusKey) as? [String : Bool] else {
+                return [String : Bool]()
+            }
+            return status
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ReviewNewEventStatusKey)
+        }
+    }
 
     override init() {
         super.init()
@@ -44,17 +56,35 @@ class ReviewListAgent: NSObject {
             let newChanges = self.reorderChanges(changes)
             self.checkMerged(newChanges)
             self.updateChanges(newChanges)
+            if self.isFirstLoading {
+                self.updateReviewNewEvent()
+            }
+            self.updateNewEventsCount()
             self.notifyReviewListUpdated()
-            self.notifyNewEventsCount()
             self.isFirstLoading = false
         }
+    }
+
+    func updateNewEventsCount() {
+        var newEvents = 0
+        for vm in cellViewModels {
+            if vm.hasNewEvent {
+                newEvents += 1
+            }
+        }
+        updateNewEventStates()
+        let userInfo = [ ReviewListAgent.ReviewListNewEventsKey: newEvents ]
+        NotificationCenter.default.post(name: ReviewListAgent.ReviewListNewEventsNotification,
+                                        object: nil,
+                                        userInfo: userInfo)
+
     }
 
     func clearNewEvent() {
         for vm in cellViewModels {
             vm.resetEvent()
         }
-        notifyNewEventsCount()
+        updateNewEventsCount()
     }
 
     private func startTimer() {
@@ -235,6 +265,30 @@ extension ReviewListAgent {
         return newChanges
     }
 
+    private func updateNewEventStates() {
+        var states = [String : Bool]()
+        for (index, change) in changes.enumerated() {
+            let vm = cellViewModels[index]
+            states[change.stateKey()] = vm.hasNewEvent
+        }
+        newEventStates = states
+    }
+
+    private func updateReviewNewEvent() {
+        for (index, change) in changes.enumerated() {
+            let vm = cellViewModels[index]
+            if let newEvent = newEventStates[change.stateKey()] {
+                vm.hasNewEvent = newEvent
+            }
+        }
+    }
+
+    private func notifyReviewListUpdated() {
+        NotificationCenter.default.post(name: ReviewListAgent.ReviewListUpdatedNotification,
+                                        object: nil,
+                                        userInfo: nil)
+    }
+
 }
 
 // MARK: - Local Notification
@@ -256,7 +310,7 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
             if let target = target {
                 let vm = cellViewModels[target]
                 vm.resetEvent()
-                notifyNewEventsCount()
+                updateNewEventsCount()
                 notifyReviewListUpdated()
             }
         }
@@ -322,30 +376,6 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
         }
         debugPrint(notification)
         NSUserNotificationCenter.default.deliver(notification)
-    }
-
-}
-
-extension ReviewListAgent {
-
-    func notifyNewEventsCount() {
-        var newEvents = 0
-        for vm in cellViewModels {
-            if vm.hasNewEvent {
-                newEvents += 1
-            }
-        }
-        let userInfo = [ ReviewListAgent.ReviewListNewEventsKey: newEvents ]
-        NotificationCenter.default.post(name: ReviewListAgent.ReviewListNewEventsNotification,
-                                        object: nil,
-                                        userInfo: userInfo)
-
-    }
-
-    private func notifyReviewListUpdated() {
-        NotificationCenter.default.post(name: ReviewListAgent.ReviewListUpdatedNotification,
-                                        object: nil,
-                                        userInfo: nil)
     }
 
 }

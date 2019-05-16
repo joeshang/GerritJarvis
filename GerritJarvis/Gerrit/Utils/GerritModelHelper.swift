@@ -74,6 +74,16 @@ extension Change {
         return message
     }
 
+    // 通过 mergeable 和 message 的个数来确定 change 是否有改变
+    func stateKey() -> String {
+        let user = ConfigManager.shared.user ?? ""
+        let id = String(number ?? 0)
+        let merge = String(mergeable ?? true)
+        let count = String(messages?.count ?? 1)
+
+        return "\(user)-\(id)-\(merge)-\(count)"
+    }
+
 }
 
 extension Author {

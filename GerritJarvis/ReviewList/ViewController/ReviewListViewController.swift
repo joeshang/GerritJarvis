@@ -125,7 +125,7 @@ extension ReviewListViewController {
 
         let vm: ReviewListCellViewModel = ReviewListAgent.shared.cellViewModels[table.selectedRow]
         vm.resetEvent()
-        ReviewListAgent.shared.notifyNewEventsCount()
+        ReviewListAgent.shared.updateNewEventsCount()
 
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return

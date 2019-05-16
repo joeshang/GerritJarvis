@@ -10,7 +10,7 @@ import Cocoa
 
 class ConfigManager {
      // 单位为分钟，值必须在 General Preference 的 frequency 选择列表中
-    static let DefaultRefreshFrequency: TimeInterval = 1
+    static let DefaultRefreshFrequency: TimeInterval = 3
 
     private let UserKey = "UserKey"
     private let PasswordKey = "PasswordKey"
@@ -82,6 +82,9 @@ class ConfigManager {
 
         if UserDefaults.standard.value(forKey: ShouldNotifyMergeConflict) == nil {
             self.shouldNotifyMergeConflict = true
+        }
+        if UserDefaults.standard.value(forKey: ShouldNotifyNewIncomingReviewKey) == nil {
+            self.shouldNotifyNewIncomingReview = true
         }
     }
 

@@ -40,8 +40,6 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
             showAlert("密码为空")
             return
         }
-        ConfigManager.shared.update(user: user, password: password)
-        ReviewListAgent.shared.changeAccount(user: user, password: password)
 
         let alert = NSAlert()
         alert.addButton(withTitle: "确定")
@@ -49,6 +47,11 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
         alert.informativeText = "\(user)，Jarvis 将为你服务"
         alert.alertStyle = .informational
         alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+
+        if user != ConfigManager.shared.user || password != ConfigManager.shared.password {
+            ConfigManager.shared.update(user: user, password: password)
+            ReviewListAgent.shared.changeAccount(user: user, password: password)
+        }
     }
 
     private func showAlert(_ message: String) {

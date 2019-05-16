@@ -38,7 +38,7 @@
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rae-h3-Jgf">
                     <rect key="frame" x="14" y="87" width="185" height="18"/>
-                    <buttonCell key="cell" type="check" title="通知新的 Incoming Review" bezelStyle="regularSquare" imagePosition="left" inset="2" id="4sU-W6-0d2">
+                    <buttonCell key="cell" type="check" title="通知新的 Incoming Review" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4sU-W6-0d2">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" usesAppearanceFont="YES"/>
                     </buttonCell>
