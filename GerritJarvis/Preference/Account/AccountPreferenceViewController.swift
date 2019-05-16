@@ -32,24 +32,31 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
     @IBAction func saveButtonClicked(_ sender: Any) {
         let user = userTextField.stringValue
         if user.isEmpty {
-            showAlert("gerrit user is empty")
+            showAlert("用户名为空")
             return
         }
         let password = passwordTextField.stringValue
         if password.isEmpty {
-            showAlert("http password is empty")
+            showAlert("密码为空")
             return
         }
         ConfigManager.shared.update(user: user, password: password)
         ReviewListAgent.shared.changeAccount(user: user, password: password)
+
+        let alert = NSAlert()
+        alert.addButton(withTitle: "确定")
+        alert.messageText = "保存成功"
+        alert.informativeText = "\(user)，Jarvis 将为你服务"
+        alert.alertStyle = .informational
+        alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
     }
 
     private func showAlert(_ message: String) {
         let alert = NSAlert()
-        alert.addButton(withTitle: "OK")
-        alert.messageText = "Save Failed"
+        alert.addButton(withTitle: "确定")
+        alert.messageText = "保存失败"
         alert.informativeText = message
-        alert.alertStyle = .informational
+        alert.alertStyle = .warning
         alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
     }
 

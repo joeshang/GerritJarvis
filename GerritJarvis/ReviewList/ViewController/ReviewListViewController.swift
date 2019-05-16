@@ -48,14 +48,14 @@ class ReviewListViewController: NSViewController {
         tableView.reloadData()
         if !ConfigManager.shared.hasUser() {
             emptyView.isHidden = false
-            emptyView.titleLabel.stringValue = "No Gerrit User"
+            emptyView.titleLabel.stringValue = "请设置 Gerrit 用户"
             emptyView.imageView.image = NSImage.init(named: "EmptyUser")
             emptyView.preferenceButton.isHidden = false
             clearButton.isEnabled = false
             refreshButton.isEnabled = false
         } else if ReviewListAgent.shared.cellViewModels.count == 0 {
             emptyView.isHidden = false
-            emptyView.titleLabel.stringValue = "Empty Review"
+            emptyView.titleLabel.stringValue = "暂无 Review"
             emptyView.imageView.image = NSImage.init(named: "EmptyReview")
             emptyView.preferenceButton.isHidden = true
             clearButton.isEnabled = false
@@ -83,6 +83,7 @@ class ReviewListViewController: NSViewController {
     }
 
     @IBAction func aboutItemClicked(_ sender: NSMenuItem) {
+        NSApplication.shared.orderFrontStandardAboutPanel()
     }
 
     @IBAction func preferencesItemClicked(_ sender: NSMenuItem) {
