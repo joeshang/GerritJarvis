@@ -17,6 +17,8 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
 
     @IBOutlet weak var userTextField: NSTextField!
     @IBOutlet weak var passwordTextField: PasteTextField!
+    @IBOutlet weak var saveButton: NSButton!
+    @IBOutlet weak var indicator: NSProgressIndicator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +43,31 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
             return
         }
 
-        let alert = NSAlert()
-        alert.addButton(withTitle: "确定")
-        alert.messageText = "保存成功"
-        alert.informativeText = "\(user)，Jarvis 将为你服务"
-        alert.alertStyle = .informational
-        alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+        saveButton.isEnabled = false
+        indicator.isHidden = false
+        indicator.startAnimation(nil)
+        GerritService(user: user, password: password).verifyAccount { name, statusCode in
+            self.saveButton.isEnabled = true
+            self.indicator.isHidden = true
+            self.indicator.stopAnimation(nil)
+            guard let name = name else {
+                if statusCode == 401 {
+                    self.showAlert("无效的用户名或密码，请确保是 HTTP 密码而非 Gerrit 登录密码")
+                } else {
+                    self.showAlert("网络错误，账户验证失败")
+                }
+                return
+            }
 
-        if user != ConfigManager.shared.user || password != ConfigManager.shared.password {
             ConfigManager.shared.update(user: user, password: password)
             ReviewListAgent.shared.changeAccount(user: user, password: password)
+
+            let alert = NSAlert()
+            alert.addButton(withTitle: "确定")
+            alert.messageText = "保存成功"
+            alert.informativeText = "\(name)，Jarvis 将为你服务"
+            alert.alertStyle = .informational
+            alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
         }
     }
 

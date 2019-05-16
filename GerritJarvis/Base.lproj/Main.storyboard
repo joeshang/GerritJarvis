@@ -169,14 +169,19 @@
                                     <action selector="clearButtonClicked:" target="XfG-lQ-9wD" id="rjN-I4-7En"/>
                                 </connections>
                             </button>
+                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="EvI-RZ-SRI">
+                                <rect key="frame" x="248" y="529" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstItem="9iI-oH-AY7" firstAttribute="leading" secondItem="nBL-vn-Xun" secondAttribute="trailing" constant="6" id="28F-ue-rxf"/>
                             <constraint firstAttribute="bottom" secondItem="JLX-3A-yoa" secondAttribute="bottom" id="5Eh-rB-aqy"/>
                             <constraint firstItem="nBL-vn-Xun" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="5aF-0p-Kmu"/>
+                            <constraint firstItem="nBL-vn-Xun" firstAttribute="centerY" secondItem="EvI-RZ-SRI" secondAttribute="centerY" id="CEp-1h-gda"/>
                             <constraint firstItem="JLX-3A-yoa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="40" id="DhC-Qq-Whh"/>
                             <constraint firstAttribute="trailing" secondItem="GRv-8N-46U" secondAttribute="trailing" constant="12" id="DyR-fb-YWk"/>
                             <constraint firstItem="nBL-vn-Xun" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="LbL-uA-2UE"/>
+                            <constraint firstItem="EvI-RZ-SRI" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="LeW-xm-dZG"/>
                             <constraint firstItem="GRv-8N-46U" firstAttribute="leading" secondItem="9iI-oH-AY7" secondAttribute="trailing" constant="8" symbolic="YES" id="cXQ-XZ-1hH"/>
                             <constraint firstItem="JLX-3A-yoa" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="hdn-dS-kJp"/>
                             <constraint firstAttribute="trailing" secondItem="JLX-3A-yoa" secondAttribute="trailing" id="hxx-Mj-dNs"/>
@@ -186,6 +191,7 @@
                     </view>
                     <connections>
                         <outlet property="clearButton" destination="nBL-vn-Xun" id="ckW-oa-UEN"/>
+                        <outlet property="indicator" destination="EvI-RZ-SRI" id="Xgk-G0-VSa"/>
                         <outlet property="refreshButton" destination="9iI-oH-AY7" id="9yo-QU-uyx"/>
                         <outlet property="settingMenu" destination="4HL-aB-HDg" id="8QG-he-oaC"/>
                         <outlet property="tableView" destination="Tdd-82-7JL" id="S5j-OE-wyd"/>

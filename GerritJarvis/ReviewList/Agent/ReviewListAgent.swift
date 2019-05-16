@@ -10,7 +10,6 @@ import Cocoa
 
 class ReviewListAgent: NSObject {
 
-    static let shared = ReviewListAgent()
     static let ReviewListUpdatedNotification = Notification.Name("ReviewListUpdatedNotification")
     static let ReviewListNewEventsNotification = Notification.Name("ReviewListNewEventsNotification")
     static let ReviewListNewEventsKey = "ReviewListNewEventsKey"
@@ -18,8 +17,11 @@ class ReviewListAgent: NSObject {
     static let ReviewChangeNumberKey = "ReviewChangeNumberKey"
     private let ReviewNewEventStatusKey = "ReviewNewEventStatusKey"
 
+    static let shared = ReviewListAgent()
+
     private(set) var cellViewModels = [ReviewListCellViewModel]()
     private(set) var changes = [Change]()
+    @objc dynamic var isFetchingList: Bool = false
 
     private var gerritService: GerritService?
     private var timer: Timer?
@@ -49,7 +51,12 @@ class ReviewListAgent: NSObject {
     }
 
     func fetchReviewList() {
+        if isFetchingList {
+            return
+        }
+        isFetchingList = true
         gerritService?.fetchReviewList { changes in
+            self.isFetchingList = false
             guard let changes = changes else {
                 return
             }

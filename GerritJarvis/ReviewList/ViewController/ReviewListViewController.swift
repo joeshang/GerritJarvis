@@ -12,6 +12,7 @@ import SnapKit
 class ReviewListViewController: NSViewController {
     
     @IBOutlet var settingMenu: NSMenu!
+    @IBOutlet weak var indicator: NSProgressIndicator!
     @IBOutlet weak var refreshButton: NSButton!
     @IBOutlet weak var clearButton: NSButton!
     @IBOutlet weak var tableView: NSTableView! {
@@ -29,11 +30,13 @@ class ReviewListViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUserInterface()
-        regiseterNotifications()
         renderContentView()
+        regiseterNotifications()
+        ReviewListAgent.shared.addObserver(self, forKeyPath: "isFetchingList", options: .new, context: nil)
     }
 
     deinit {
+        ReviewListAgent.shared.removeObserver(self, forKeyPath: "isFetchingList")
         unregisterNotifications()
     }
 
@@ -164,6 +167,26 @@ extension ReviewListViewController: NSTableViewDataSource {
 }
 
 extension ReviewListViewController: NSTableViewDelegate {
+}
+
+extension ReviewListViewController {
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard keyPath == "isFetchingList",
+            let isRefreshing = change?[.newKey] as? Bool else {
+            return
+        }
+        if isRefreshing {
+            indicator.isHidden = false
+            indicator.startAnimation(nil)
+            refreshButton.isEnabled = false
+        } else {
+            indicator.isHidden = true
+            indicator.stopAnimation(nil)
+            refreshButton.isEnabled = true
+        }
+    }
+
 }
 
 extension ReviewListViewController {

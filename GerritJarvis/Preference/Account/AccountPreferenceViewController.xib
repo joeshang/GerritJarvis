@@ -7,7 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AccountPreferenceViewController" customModule="GerritJarvis" customModuleProvider="target">
             <connections>
+                <outlet property="indicator" destination="tt9-Rh-cwl" id="z7T-6R-YGQ"/>
                 <outlet property="passwordTextField" destination="Iwb-Ta-BUl" id="RZp-Tk-0As"/>
+                <outlet property="saveButton" destination="A15-ia-Iak" id="Db2-pZ-PKM"/>
                 <outlet property="userTextField" destination="pCl-oF-MJX" id="Xfh-TQ-fZK"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -80,6 +82,9 @@
                         <action selector="saveButtonClicked:" target="-2" id="ZtA-jY-tq7"/>
                     </connections>
                 </button>
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="tt9-Rh-cwl">
+                    <rect key="frame" x="240" y="18" width="16" height="16"/>
+                </progressIndicator>
             </subviews>
             <constraints>
                 <constraint firstItem="Qeh-Mx-uNi" firstAttribute="top" secondItem="yGB-ac-e3t" secondAttribute="bottom" constant="13" id="2ou-hk-9WM"/>
@@ -96,7 +101,9 @@
                 <constraint firstItem="A15-ia-Iak" firstAttribute="top" secondItem="cfp-Z1-8p4" secondAttribute="bottom" constant="8" id="jrj-Tm-zyH"/>
                 <constraint firstItem="pCl-oF-MJX" firstAttribute="centerY" secondItem="yGB-ac-e3t" secondAttribute="centerY" id="oOt-BW-n2K"/>
                 <constraint firstItem="pCl-oF-MJX" firstAttribute="leading" secondItem="yGB-ac-e3t" secondAttribute="trailing" constant="43" id="rgg-bm-ErB"/>
+                <constraint firstItem="A15-ia-Iak" firstAttribute="centerY" secondItem="tt9-Rh-cwl" secondAttribute="centerY" id="wJf-Vw-ZeO"/>
                 <constraint firstItem="Iwb-Ta-BUl" firstAttribute="leading" secondItem="pCl-oF-MJX" secondAttribute="leading" id="wwt-6H-Zvh"/>
+                <constraint firstItem="A15-ia-Iak" firstAttribute="leading" secondItem="tt9-Rh-cwl" secondAttribute="trailing" constant="8" id="x4K-ts-nFW"/>
             </constraints>
             <point key="canvasLocation" x="83" y="248.5"/>
         </customView>

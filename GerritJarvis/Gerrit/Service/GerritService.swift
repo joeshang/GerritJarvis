@@ -11,7 +11,7 @@ import Alamofire
 import ObjectMapper
 
 class GerritService {
-    private let baseUrl = "http://gerrit.zhenguanyu.com/a/changes/"
+    private let baseUrl = "http://gerrit.zhenguanyu.com"
 
     private let user: String!
     private let password: String!
@@ -21,29 +21,62 @@ class GerritService {
         self.password = password
     }
 
+    func verifyAccount(_ completion: @escaping (String?, Int?) -> Void) {
+        let url = baseUrl + "/a/accounts/self/name"
+        Alamofire.request(url).authenticate(user: user, password: password).responseData { response in
+            let statusCode = response.response?.statusCode
+            switch response.result {
+            case .success(_):
+                guard let name = GerritResponseUtils.filterResponse(response.data) else {
+                    completion(nil, statusCode)
+                    return
+                }
+                completion(name, statusCode)
+                break
+            case .failure(_):
+                completion(nil, statusCode)
+                break
+            }
+        }
+    }
+
     func fetchReviewList(_ completion: @escaping ([Change]?) -> Void) {
         // 具体见 https://gerrit-review.googlesource.com/Documentation/user-search.html#_search_operators
         let query = "?q=(status:open+is:owner)OR(status:open+is:reviewer)&o=MESSAGES&o=DETAILED_ACCOUNTS"
-        let url = baseUrl + query
-        Alamofire.request(url).authenticate(user: user, password: password).responseJSON { response in
-            guard let jsonString = GerritResponseUtils.filterResponse(response.data),
-                let changes = Mapper<Change>().mapArray(JSONString: jsonString) else {
+        let url = baseUrl + "/a/changes/" + query
+        Alamofire.request(url).authenticate(user: user, password: password).responseData { response in
+            switch response.result {
+            case .success(_):
+                guard let jsonString = GerritResponseUtils.filterResponse(response.data),
+                    let changes = Mapper<Change>().mapArray(JSONString: jsonString) else {
+                        completion(nil)
+                        return
+                }
+                completion(changes)
+                break
+            case .failure(_):
                 completion(nil)
-                return
+                break
             }
-            completion(changes)
         }
     }
 
     func fetchChangeDetail(changeId: String, completion: @escaping ((Change?) -> Void)) {
-        let url = baseUrl + "\(changeId)/detail"
-        Alamofire.request(url).authenticate(user: user, password: password).responseJSON { response in
-            guard let jsonString = GerritResponseUtils.filterResponse(response.data),
-                let change = Mapper<Change>().map(JSONString: jsonString) else {
-                    completion(nil)
-                    return
+        let url = baseUrl + "/a/changes/" + "\(changeId)/detail"
+        Alamofire.request(url).authenticate(user: user, password: password).responseData { response in
+            switch response.result {
+            case .success(_):
+                guard let jsonString = GerritResponseUtils.filterResponse(response.data),
+                    let change = Mapper<Change>().map(JSONString: jsonString) else {
+                        completion(nil)
+                        return
+                }
+                completion(change)
+                break
+            case .failure(_):
+                completion(nil)
+                break
             }
-            completion(change)
         }
     }
 
