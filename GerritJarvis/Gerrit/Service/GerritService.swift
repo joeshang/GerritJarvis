@@ -21,17 +21,21 @@ class GerritService {
         self.password = password
     }
 
-    func verifyAccount(_ completion: @escaping (String?, Int?) -> Void) {
-        let url = baseUrl + "/a/accounts/self/name"
-        Alamofire.request(url).authenticate(user: user, password: password).responseData { response in
+    func verifyAccount(_ completion: @escaping (Author?, Int?) -> Void) {
+        let url = baseUrl + "/a/accounts/self"
+        Alamofire.request(url)
+            .authenticate(user: user, password: password, persistence: .none)
+            .validate(statusCode: 200..<300)
+            .responseData { response in
             let statusCode = response.response?.statusCode
             switch response.result {
             case .success(_):
-                guard let name = GerritResponseUtils.filterResponse(response.data) else {
+                guard let jsonString = GerritResponseUtils.filterResponse(response.data),
+                    let account = Mapper<Author>().map(JSONString: jsonString) else {
                     completion(nil, statusCode)
                     return
                 }
-                completion(name, statusCode)
+                completion(account, statusCode)
                 break
             case .failure(_):
                 completion(nil, statusCode)
@@ -44,7 +48,10 @@ class GerritService {
         // 具体见 https://gerrit-review.googlesource.com/Documentation/user-search.html#_search_operators
         let query = "?q=(status:open+is:owner)OR(status:open+is:reviewer)&o=MESSAGES&o=DETAILED_ACCOUNTS"
         let url = baseUrl + "/a/changes/" + query
-        Alamofire.request(url).authenticate(user: user, password: password).responseData { response in
+        Alamofire.request(url)
+            .authenticate(user: user, password: password)
+            .validate(statusCode: 200..<300)
+            .responseData { response in
             switch response.result {
             case .success(_):
                 guard let jsonString = GerritResponseUtils.filterResponse(response.data),
@@ -63,7 +70,10 @@ class GerritService {
 
     func fetchChangeDetail(changeId: String, completion: @escaping ((Change?) -> Void)) {
         let url = baseUrl + "/a/changes/" + "\(changeId)/detail"
-        Alamofire.request(url).authenticate(user: user, password: password).responseData { response in
+        Alamofire.request(url)
+            .authenticate(user: user, password: password)
+            .validate(statusCode: 200..<300)
+            .responseData { response in
             switch response.result {
             case .success(_):
                 guard let jsonString = GerritResponseUtils.filterResponse(response.data),
