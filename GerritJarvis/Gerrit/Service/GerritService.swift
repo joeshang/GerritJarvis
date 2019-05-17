@@ -11,14 +11,14 @@ import Alamofire
 import ObjectMapper
 
 class GerritService {
-    private let baseUrl = "http://gerrit.zhenguanyu.com"
-
+    private let baseUrl: String!
     private let user: String!
     private let password: String!
 
-    init(user: String, password: String) {
+    init(user: String, password: String, baseUrl: String) {
         self.user = user
         self.password = password
+        self.baseUrl = baseUrl
     }
 
     func verifyAccount(_ completion: @escaping (Author?, Int?) -> Void) {

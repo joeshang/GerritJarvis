@@ -9,29 +9,45 @@
 import Cocoa
 
 class ReviewListCellViewModel: NSObject {
-    var project: String = ""
-    var branch: String = ""
-    var name: String = ""
-    var avatar: NSImage?
-    var commitMessage: String = ""
-    var commentCounts: Int = 0
+    let stateKey: String
+    let project: String
+    let branch: String
+    let name: String
+    let commitMessage: String
+    let avatar: NSImage?
+    var newComments: Int = 0
     var reviewScore: ReviewScore = .Zero
     var hasNewEvent: Bool = false
     var isMergeConflict: Bool = false
+    var isOurNotReady: Bool = false
 
-    class func viewModel(with change: Change) -> ReviewListCellViewModel {
-        let vm = ReviewListCellViewModel()
-        vm.project = change.project ?? ""
-        vm.branch = change.branch ?? ""
-        vm.name = change.owner?.name ?? ""
-        vm.avatar = change.owner?.avatarImage()
-        vm.commitMessage = change.subject ?? ""
-        vm.isMergeConflict = !(change.mergeable ?? true)
-        return vm
+    init(change: Change) {
+        stateKey = change.stateKey()
+        project = change.project ?? ""
+        branch = change.branch ?? ""
+        name = change.owner?.name ?? ""
+        commitMessage = change.subject ?? ""
+        avatar = change.owner?.avatarImage()
+        hasNewEvent = change.hasNewEvent()
+        isMergeConflict = !(change.mergeable ?? true)
+        if change.shouldListenReviewEvent() {
+            newComments = change.calculateNewCommentCount()
+        }
+        let (score, author) = change.calculateReviewScore()
+        reviewScore = score
+        if change.isOurs() {
+            // 自己提的 Review 被自己 -2，说明还没准备好
+            if let author = author,
+                score == .MinusTwo && author.isMe() {
+                isOurNotReady = true
+            }
+        }
+
+        super.init()
     }
 
     func resetEvent() {
         hasNewEvent = false
-        commentCounts = 0
+        newComments = 0
     }
 }

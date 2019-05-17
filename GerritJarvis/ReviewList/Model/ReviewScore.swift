@@ -14,4 +14,23 @@ enum ReviewScore: String {
     case Zero = "0"
     case MinusOne = "-1"
     case MinusTwo = "-2"
+
+    static private let priorities: [ReviewScore] = [
+        .Zero,
+        .PlusOne,
+        .MinusOne,
+        .PlusTwo,
+        .MinusTwo
+    ]
+
+    func priority() -> Int {
+        var result = 0
+        for (index, score) in ReviewScore.priorities.enumerated() {
+            if self == score {
+                result = index
+                break
+            }
+        }
+        return result
+    }
 }

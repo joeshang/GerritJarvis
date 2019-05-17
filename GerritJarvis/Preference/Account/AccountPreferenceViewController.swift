@@ -50,7 +50,7 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
         saveButton.isEnabled = false
         indicator.isHidden = false
         indicator.startAnimation(nil)
-        GerritService(user: user, password: password).verifyAccount { account, statusCode in
+        GerritService(user: user, password: password, baseUrl: ConfigManager.GerritBaseUrl).verifyAccount { account, statusCode in
             self.saveButton.isEnabled = true
             self.indicator.isHidden = true
             self.indicator.stopAnimation(nil)

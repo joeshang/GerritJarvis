@@ -37,9 +37,9 @@ class ReviewListCell: NSTableCellView {
         newReviewImageView.isHidden = !viewModel.hasNewEvent
         conflictImageView.isHidden = !viewModel.isMergeConflict
 
-        commentLabel.stringValue = "\(viewModel.commentCounts)"
-        commentLabel.isHidden = (viewModel.commentCounts == 0)
-        commentImageView.isHidden = (viewModel.commentCounts == 0)
+        commentLabel.stringValue = "\(viewModel.newComments)"
+        commentLabel.isHidden = (viewModel.newComments == 0)
+        commentImageView.isHidden = (viewModel.newComments == 0)
 
         reviewImageView.image = NSImage.init(named: "Review\(viewModel.reviewScore.rawValue)")
     }

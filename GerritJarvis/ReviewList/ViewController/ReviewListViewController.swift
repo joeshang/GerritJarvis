@@ -71,7 +71,7 @@ class ReviewListViewController: NSViewController {
     }
 
     @IBAction func clearButtonClicked(_ sender: Any) {
-        ReviewListAgent.shared.clearNewEvent()
+        ReviewListAgent.shared.clearAllNewEvents()
         tableView.reloadData()
     }
 
@@ -128,7 +128,7 @@ extension ReviewListViewController {
 
         let vm: ReviewListCellViewModel = ReviewListAgent.shared.cellViewModels[table.selectedRow]
         vm.resetEvent()
-        ReviewListAgent.shared.updateNewEventsCount()
+        ReviewListAgent.shared.updateAllNewEventsCount()
 
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return
@@ -138,7 +138,7 @@ extension ReviewListViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             let change: Change = ReviewListAgent.shared.changes[table.selectedRow]
             if let number = change.number {
-                GerritOpenUrlUtils.openGerrit(number: number)
+                GerritUtils.openGerrit(number: number)
             }
             table.deselectRow(table.selectedRow)
             self.renderContentView()

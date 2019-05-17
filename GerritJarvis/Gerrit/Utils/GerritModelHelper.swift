@@ -20,11 +20,6 @@ extension Change {
         return owner.isUser(ldap)
     }
 
-    func hasNewMessages(diffWith newChange: Change) -> Bool {
-        // 如果没有变化，消息数是不变的
-        return messages?.count != newChange.messages?.count
-    }
-
     func hasNewEvent() -> Bool {
         guard let last = messages?.last?.author else {
             return false
@@ -36,13 +31,30 @@ extension Change {
         return !last.isUser(ldap)
     }
 
-    func newMessages(baseOn originChange: Change) -> [Message] {
+    func shouldListenReviewEvent() -> Bool {
+        return isOurs()
+    }
+
+    func isRaiseMergeConflict(with originChange: Change?) -> Bool {
+        guard let mergeable = mergeable else {
+            return false
+        }
+        guard let originChange = originChange, let originMergeable = originChange.mergeable else {
+            return !mergeable
+        }
+        return !mergeable && originMergeable
+    }
+
+    func newMessages(baseOn originChange: Change?) -> [Message] {
         var result = [Message]()
         guard let messages = messages else {
             return result
         }
-        guard let origin = originChange.messages else {
+        guard let origin = originChange?.messages else {
             return messages
+        }
+        if messages.count == origin.count {
+            return result
         }
         for new in messages {
             var found = false
@@ -84,9 +96,44 @@ extension Change {
         return "\(user)-\(id)-\(merge)-\(count)"
     }
 
+    func calculateNewCommentCount() -> Int {
+        var result = 0
+        guard let messages = messages else {
+            return result
+        }
+        let counts = GerritUtils.parseCommentCounts(messages)
+        for (author, count) in counts {
+            if author.isMe() {
+                continue
+            }
+            result += count
+        }
+        return result
+    }
+
+    func calculateReviewScore() -> (ReviewScore, Author?) {
+        var resultScore: ReviewScore = .Zero
+        var resultAuthor: Author? = nil
+        guard let messages = messages else {
+            return (resultScore, resultAuthor)
+        }
+        let scores = GerritUtils.parseReviewScores(messages)
+        for (author, score) in scores {
+            if resultScore.priority() <= score.priority() {
+                resultScore = score
+                resultAuthor = author
+            }
+        }
+        return (resultScore, resultAuthor)
+    }
+
 }
 
 extension Author {
+
+    func isMe() -> Bool {
+        return username == ConfigManager.shared.user
+    }
 
     func isUser(_ ldap: String) -> Bool {
         guard let username = username else {
@@ -96,8 +143,7 @@ extension Author {
     }
 
     func avatarImage() -> NSImage? {
-        if let currentUser = ConfigManager.shared.user,
-            currentUser == username {
+        if isMe() {
             return NSImage.init(named: NSImage.Name("AvatarMyself"))
         }
         var index = 0
@@ -110,5 +156,48 @@ extension Author {
 }
 
 extension Message {
+
+    func isOurEvent() -> Bool {
+        guard let author = author else {
+            return false
+        }
+        return author.isMe()
+    }
+
+    // 打分和评论的 Message 特点都是以 Patch Set [revisionNumber] 开头，结尾没有 was rebased.
+    func isReviewEvent() -> Bool {
+        guard let message = message,
+            let revisionNumber = revisionNumber else {
+            return false
+        }
+        return message.hasPrefix("Patch Set \(revisionNumber):") && !message.hasSuffix("was rebased.")
+    }
+
+    func reviewScore() -> ReviewScore? {
+        guard let message = message else {
+            return nil
+        }
+        // 从 Message 中筛选出打分
+        var score: ReviewScore? = nil
+        if message.contains("-Code-Review") {
+            score = .Zero
+        } else if let range = message.range(of: #"(?<=Code-Review)[+-][12]"#,
+                                            options: .regularExpression) {
+            score = ReviewScore(rawValue: String(message[range]))
+        }
+        return score
+    }
+
+    func commentCounts() -> Int {
+        var comments: Int = 0
+        guard let message = message else {
+            return comments
+        }
+        if let range = message.range(of: #"(?<=\()\d+(?=\scomments?\))"#,
+                                     options: .regularExpression) {
+            comments = Int(String(message[range])) ?? comments
+        }
+        return comments
+    }
 
 }
