@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ReviewListAgent: NSObject {
+class ReviewListDataController: NSObject {
 
     static let ReviewListUpdatedNotification = Notification.Name("ReviewListUpdatedNotification")
     static let ReviewListNewEventsNotification = Notification.Name("ReviewListNewEventsNotification")
@@ -16,8 +16,6 @@ class ReviewListAgent: NSObject {
     static let ReviewChangeIdKey = "ReviewChangeIdKey"
     static let ReviewChangeNumberKey = "ReviewChangeNumberKey"
     private let ReviewNewEventStatusKey = "ReviewNewEventStatusKey"
-
-    static let shared = ReviewListAgent()
 
     private(set) var cellViewModels = [ReviewListCellViewModel]()
     private(set) var changes = [Change]()
@@ -41,6 +39,15 @@ class ReviewListAgent: NSObject {
     override init() {
         super.init()
         NSUserNotificationCenter.default.delegate = self
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleAccountUpdated(notification:)),
+            name: ConfigManager.AccountUpdatedNotification,
+            object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     func changeAccount(user: String, password: String) {
@@ -77,8 +84,8 @@ class ReviewListAgent: NSObject {
             }
         }
         updateNewEventStates()
-        let userInfo = [ ReviewListAgent.ReviewListNewEventsKey: newEvents ]
-        NotificationCenter.default.post(name: ReviewListAgent.ReviewListNewEventsNotification,
+        let userInfo = [ ReviewListDataController.ReviewListNewEventsKey: newEvents ]
+        NotificationCenter.default.post(name: ReviewListDataController.ReviewListNewEventsNotification,
                                         object: nil,
                                         userInfo: userInfo)
 
@@ -91,10 +98,18 @@ class ReviewListAgent: NSObject {
         updateAllNewEventsCount()
     }
 
+    @objc func handleAccountUpdated(notification: Notification) {
+        guard let user = notification.userInfo?[ConfigManager.UserKey] as? String,
+            let password = notification.userInfo?[ConfigManager.PasswordKey] as? String else {
+            return
+        }
+        changeAccount(user: user, password: password)
+    }
+
 }
 
 // MARK: - Refresh Timer
-extension ReviewListAgent {
+extension ReviewListDataController {
 
     private func startTimer() {
         if timer != nil {
@@ -115,7 +130,7 @@ extension ReviewListAgent {
 }
 
 // MARK: - Update Changes
-extension ReviewListAgent {
+extension ReviewListDataController {
 
     private func updateChanges(_ newChanges: [Change]) {
         var viewModels = [ReviewListCellViewModel]()
@@ -200,7 +215,7 @@ extension ReviewListAgent {
     }
 
     private func sendReviewListUpdatedNotification() {
-        NotificationCenter.default.post(name: ReviewListAgent.ReviewListUpdatedNotification,
+        NotificationCenter.default.post(name: ReviewListDataController.ReviewListUpdatedNotification,
                                         object: nil,
                                         userInfo: nil)
     }
@@ -208,14 +223,14 @@ extension ReviewListAgent {
 }
 
 // MARK: - Local Notification
-extension ReviewListAgent : NSUserNotificationCenterDelegate {
+extension ReviewListDataController : NSUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
         guard let userInfo = notification.userInfo else {
             return
         }
 
-        if let id = userInfo[ReviewListAgent.ReviewChangeIdKey] as? String {
+        if let id = userInfo[ReviewListDataController.ReviewChangeIdKey] as? String {
             var target: Int? = nil
             for (index, change) in changes.enumerated() {
                 if change.id == id {
@@ -231,17 +246,16 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
             }
         }
 
-        if let number = userInfo[ReviewListAgent.ReviewChangeNumberKey] as? Int {
+        if let number = userInfo[ReviewListDataController.ReviewChangeNumberKey] as? Int {
             GerritUtils.openGerrit(number: number)
         }
     }
 
-    private func notifyReviewEvents(scores: [Author: ReviewScore],
-                                    comments: [Author: Int],
+    private func notifyReviewEvents(scores: [(Author, ReviewScore)],
+                                    comments: [(Author, Int)],
                                     change: Change) {
         let reviewEvents = GerritUtils.combineReviewEvents(scores: scores, comments: comments)
-        for (author, event) in reviewEvents {
-            let (score, comments) = event
+        for (author, score, comments) in reviewEvents {
             if author.isMe() || (score == .Zero && comments == 0) {
                 continue
             }
@@ -293,7 +307,7 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
         notification.informativeText = change.subject
         notification.contentImage = image
         if let id = change.id, let number = change.number {
-            notification.userInfo = [ ReviewListAgent.ReviewChangeIdKey: id, ReviewListAgent.ReviewChangeNumberKey: number ]
+            notification.userInfo = [ ReviewListDataController.ReviewChangeIdKey: id, ReviewListDataController.ReviewChangeNumberKey: number ]
         }
         debugPrint(notification)
         NSUserNotificationCenter.default.deliver(notification)
@@ -302,7 +316,7 @@ extension ReviewListAgent : NSUserNotificationCenterDelegate {
 }
 
 // MARK: - Merged
-extension ReviewListAgent {
+extension ReviewListDataController {
 
     private func checkMerged(_ newChanges: [Change]) {
         var leaveChanges = [Change]()

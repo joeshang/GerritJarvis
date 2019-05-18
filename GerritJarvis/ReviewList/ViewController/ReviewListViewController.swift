@@ -21,6 +21,7 @@ class ReviewListViewController: NSViewController {
         }
     }
 
+    private var dataController: ReviewListDataController!
     private lazy var emptyView: ReviewListEmptyView = {
         let view = ReviewListEmptyView()
         view.isHidden = true
@@ -32,11 +33,11 @@ class ReviewListViewController: NSViewController {
         setupUserInterface()
         renderContentView()
         regiseterNotifications()
-        ReviewListAgent.shared.addObserver(self, forKeyPath: "isFetchingList", options: .new, context: nil)
+        dataController.addObserver(self, forKeyPath: "isFetchingList", options: .new, context: nil)
     }
 
     deinit {
-        ReviewListAgent.shared.removeObserver(self, forKeyPath: "isFetchingList")
+        dataController.removeObserver(self, forKeyPath: "isFetchingList")
         unregisterNotifications()
     }
 
@@ -56,7 +57,7 @@ class ReviewListViewController: NSViewController {
             emptyView.preferenceButton.isHidden = false
             clearButton.isEnabled = false
             refreshButton.isEnabled = false
-        } else if ReviewListAgent.shared.cellViewModels.count == 0 {
+        } else if dataController.cellViewModels.count == 0 {
             emptyView.isHidden = false
             emptyView.titleLabel.stringValue = "暂无 Review"
             emptyView.imageView.image = NSImage.init(named: "EmptyReview")
@@ -71,12 +72,12 @@ class ReviewListViewController: NSViewController {
     }
 
     @IBAction func clearButtonClicked(_ sender: Any) {
-        ReviewListAgent.shared.clearAllNewEvents()
+        dataController.clearAllNewEvents()
         tableView.reloadData()
     }
 
     @IBAction func refressButtonClicked(_ sender: Any) {
-        ReviewListAgent.shared.fetchReviewList()
+        dataController.fetchReviewList()
     }
 
     @IBAction func settingButtonClicked(_ sender: NSButton) {
@@ -112,7 +113,7 @@ extension ReviewListViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reviewListDidChange(notification:)),
-            name: ReviewListAgent.ReviewListUpdatedNotification,
+            name: ReviewListDataController.ReviewListUpdatedNotification,
             object: nil)
     }
 
@@ -126,9 +127,9 @@ extension ReviewListViewController {
             return
         }
 
-        let vm: ReviewListCellViewModel = ReviewListAgent.shared.cellViewModels[table.selectedRow]
+        let vm: ReviewListCellViewModel = dataController.cellViewModels[table.selectedRow]
         vm.resetEvent()
-        ReviewListAgent.shared.updateAllNewEventsCount()
+        dataController.updateAllNewEventsCount()
 
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return
@@ -136,7 +137,7 @@ extension ReviewListViewController {
         appDelegate.closePopover(sender: nil)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            let change: Change = ReviewListAgent.shared.changes[table.selectedRow]
+            let change: Change = self.dataController.changes[table.selectedRow]
             if let number = change.number {
                 GerritUtils.openGerrit(number: number)
             }
@@ -154,12 +155,12 @@ extension ReviewListViewController {
 extension ReviewListViewController: NSTableViewDataSource {
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return ReviewListAgent.shared.cellViewModels.count
+        return dataController.cellViewModels.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ReviewListCell"), owner: self) as! ReviewListCell
-        let vm = ReviewListAgent.shared.cellViewModels[row]
+        let vm = dataController.cellViewModels[row]
         cell.bindData(with: vm)
         return cell
     }
@@ -192,13 +193,14 @@ extension ReviewListViewController {
 extension ReviewListViewController {
 
     // MARK: Storyboard instantiation
-    static func freshController() -> ReviewListViewController {
+    static func freshController(dataController: ReviewListDataController) -> ReviewListViewController {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let identifier = NSStoryboard.SceneIdentifier("ReviewListViewController")
-        guard let viewcontroller = storyboard.instantiateController(withIdentifier: identifier) as? ReviewListViewController else {
+        guard let viewController = storyboard.instantiateController(withIdentifier: identifier) as? ReviewListViewController else {
             fatalError("Why cant i find ReviewListViewController? - Check Main.storyboard")
         }
-        return viewcontroller
+        viewController.dataController = dataController
+        return viewController
     }
 
 }

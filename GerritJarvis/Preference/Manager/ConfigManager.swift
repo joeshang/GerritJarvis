@@ -12,9 +12,10 @@ class ConfigManager {
      // 单位为分钟，值必须在 General Preference 的 frequency 选择列表中
     static let DefaultRefreshFrequency: TimeInterval = 3
     static let GerritBaseUrl: String = "http://gerrit.zhenguanyu.com"
+    static let AccountUpdatedNotification = Notification.Name("AccountUpdatedNotification")
 
-    private let UserKey = "UserKey"
-    private let PasswordKey = "PasswordKey"
+    static let UserKey = "UserKey"
+    static let PasswordKey = "PasswordKey"
     private let RefreshFrequencyKey = "RefreshFrequencyKey"
     private let StartAfterLoginKey = "StartAfterLoginKey"
     private let ShouldNotifyMergeConflict = "ShouldNotifyMergeConflict"
@@ -27,7 +28,7 @@ class ConfigManager {
     private(set) var password: String?
     var refreshFrequency: TimeInterval {
         get {
-            let frequency = UserDefaults.standard.double(forKey: PasswordKey)
+            let frequency = UserDefaults.standard.double(forKey: RefreshFrequencyKey)
             guard frequency != 0 else {
                 return ConfigManager.DefaultRefreshFrequency
             }
@@ -37,7 +38,7 @@ class ConfigManager {
             guard newValue > 0 else {
                 return
             }
-            UserDefaults.standard.set(newValue, forKey: PasswordKey)
+            UserDefaults.standard.set(newValue, forKey: RefreshFrequencyKey)
         }
     }
 
@@ -78,8 +79,8 @@ class ConfigManager {
     }
 
     init() {
-        self.user = UserDefaults.standard.string(forKey: UserKey)
-        self.password = UserDefaults.standard.string(forKey: PasswordKey)
+        self.user = UserDefaults.standard.string(forKey: ConfigManager.UserKey)
+        self.password = UserDefaults.standard.string(forKey: ConfigManager.PasswordKey)
 
         if UserDefaults.standard.value(forKey: ShouldNotifyMergeConflict) == nil {
             self.shouldNotifyMergeConflict = true
@@ -99,10 +100,13 @@ class ConfigManager {
     }
 
     func update(user: String, password: String) {
-        UserDefaults.standard.set(user, forKey: UserKey)
+        UserDefaults.standard.set(user, forKey: ConfigManager.UserKey)
         self.user = user
-        UserDefaults.standard.set(password, forKey: PasswordKey)
+        UserDefaults.standard.set(password, forKey: ConfigManager.PasswordKey)
         self.password = password
+        NotificationCenter.default.post(name: ConfigManager.AccountUpdatedNotification,
+                                        object: nil,
+                                        userInfo: [ConfigManager.UserKey: user, ConfigManager.PasswordKey: password])
     }
 
 }

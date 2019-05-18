@@ -16,11 +16,12 @@ class GerritUtils {
         }
     }
 
-    static func parseReviewScores(_ messages: [Message]) -> [Author: ReviewScore] {
-        var scores = [Author: ReviewScore]()
+    static func parseReviewScores(_ messages: [Message]) -> [(Author, ReviewScore)] {
+        var scores = [Int: (Author, ReviewScore)]()
         var currentRevision = 1
         for message in messages {
             guard let author = message.author,
+                let accountId = author.accountId,
                 let revisionNumber = message.revisionNumber else {
                     continue
             }
@@ -33,59 +34,61 @@ class GerritUtils {
                 let score = message.reviewScore() else {
                 continue
             }
-            scores[author] = score
+            scores[accountId] = (author, score)
         }
-        return scores
+        return Array(scores.values)
     }
 
-    static func parseCommentCounts(_ messages: [Message]) -> [Author: Int] {
-        var counts = [Author: Int]()
-
+    static func parseCommentCounts(_ messages: [Message]) -> [(Author, Int)] {
+        var counts = [Int: (Author, Int)]()
         var currentRevision = 1
         for message in messages {
             guard let author = message.author,
+                let accountId = author.accountId,
                 let revisionNumber = message.revisionNumber else {
-                    continue
+                continue
             }
             if currentRevision != revisionNumber {
                 currentRevision = revisionNumber
-                for (author, _) in counts {
-                    counts[author] = 0
+                for (accountId, (author, _)) in counts {
+                    counts[accountId] = (author, 0)
                 }
                 continue
             }
             guard message.isReviewEvent() else {
                 continue
             }
-            counts[author] = message.commentCounts()
+            counts[accountId] = (author, message.commentCounts())
         }
-
-        return counts
+        return Array(counts.values)
     }
 
-    static func combineReviewEvents(scores: [Author: ReviewScore], comments: [Author: Int]) -> [Author: (ReviewScore, Int)] {
-        var reviewEvents = [Author: (ReviewScore, Int)]()
+    static func combineReviewEvents(scores: [(Author, ReviewScore)], comments: [(Author, Int)]) -> [(Author, ReviewScore, Int)] {
+        var reviewEvents = [Int: (Author, ReviewScore, Int)]()
         for (author, score) in scores {
-            reviewEvents[author] = (score, 0)
-        }
-        for (author, comment) in comments {
-            guard comment > 0 else {
+            guard let accountId = author.accountId else {
                 continue
             }
-            if var (_, c) = reviewEvents[author] {
-                c += comment
+            reviewEvents[accountId] = (author, score, 0)
+        }
+        for (author, comment) in comments {
+            guard let accountId = author.accountId, comment > 0 else {
+                continue
+            }
+            if let (_, s, _) = reviewEvents[accountId] {
+                reviewEvents[accountId] = (author, s, comment)
             } else {
-                reviewEvents[author] = (.Zero, comment)
+                reviewEvents[accountId] = (author, .Zero, comment)
             }
         }
-        return reviewEvents
+        return Array(reviewEvents.values)
     }
 
-    static private func resetScores(_ scores: [Author: ReviewScore]) -> [Author: ReviewScore] {
-        var scores = [Author: ReviewScore]()
-        for (author, score) in scores {
+    static private func resetScores(_ scores: [Int: (Author, ReviewScore)]) -> [Int: (Author, ReviewScore)] {
+        var scores = [Int: (Author, ReviewScore)]()
+        for (id, (author, score)) in scores {
             if score == .MinusTwo  {
-                scores[author] = score
+                scores[id] = (author, score)
             }
         }
         return scores

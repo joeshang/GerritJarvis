@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var popover: NSPopover = {
         let pop = NSPopover()
         pop.behavior = .transient
-        pop.contentViewController = ReviewListViewController.freshController()
+        pop.contentViewController = ReviewListViewController.freshController(dataController: self.reviewListDataController)
         return pop
     }()
 
@@ -33,19 +33,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
     )
 
+    var reviewListDataController = ReviewListDataController()
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         initPopover()
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reviewListUpdated(notification:)),
-                                               name: ReviewListAgent.ReviewListNewEventsNotification,
+                                               name: ReviewListDataController.ReviewListNewEventsNotification,
                                                object: nil)
 
         if ConfigManager.shared.hasUser(),
             let user = ConfigManager.shared.user,
             let password = ConfigManager.shared.password {
-            ReviewListAgent.shared.changeAccount(user: user, password: password)
+            reviewListDataController.changeAccount(user: user, password: password)
         }
     }
 
@@ -105,7 +107,7 @@ extension AppDelegate {
 
     @objc func reviewListUpdated(notification: Notification?) {
         guard let userInfo = notification?.userInfo,
-            let newEvents = userInfo[ReviewListAgent.ReviewListNewEventsKey] as? Int else {
+            let newEvents = userInfo[ReviewListDataController.ReviewListNewEventsKey] as? Int else {
             updateEventCount(0)
             return
         }

@@ -68,7 +68,6 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
                 return
             }
             ConfigManager.shared.update(user: user, password: password)
-            ReviewListAgent.shared.changeAccount(user: user, password: password)
 
             let alert = NSAlert()
             alert.addButton(withTitle: "确定")
