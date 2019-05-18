@@ -137,8 +137,7 @@ extension ReviewListViewController {
         appDelegate.closePopover(sender: nil)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            let change: Change = self.dataController.changes[table.selectedRow]
-            if let number = change.number {
+            if let number = self.dataController.cellViewModels[table.selectedRow].changeNumber {
                 GerritUtils.openGerrit(number: number)
             }
             table.deselectRow(table.selectedRow)

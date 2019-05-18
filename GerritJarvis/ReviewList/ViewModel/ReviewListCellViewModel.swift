@@ -9,6 +9,7 @@
 import Cocoa
 
 class ReviewListCellViewModel: NSObject {
+    let changeNumber: Int?
     let stateKey: String
     let project: String
     let branch: String
@@ -22,6 +23,7 @@ class ReviewListCellViewModel: NSObject {
     var isOurNotReady: Bool = false
 
     init(change: Change) {
+        changeNumber = change.number
         stateKey = change.stateKey()
         project = change.project ?? ""
         branch = change.branch ?? ""

@@ -47,7 +47,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W1b-QU-kSn">
-                    <rect key="frame" x="14" y="65" width="296" height="18"/>
+                    <rect key="frame" x="14" y="65" width="286" height="18"/>
                     <buttonCell key="cell" type="check" title="显示自己提的 Review 中被自己 -2 的 Review" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Nwv-hG-ioh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" usesAppearanceFont="YES"/>
@@ -67,7 +67,7 @@
                                 <menuItem title="3" state="on" id="mox-Yj-yk9"/>
                                 <menuItem title="5" id="pq3-tb-njL"/>
                                 <menuItem title="10" id="vbi-7d-Yla"/>
-                                <menuItem title="30" state="on" id="h34-lM-M1W"/>
+                                <menuItem title="30" id="h34-lM-M1W"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

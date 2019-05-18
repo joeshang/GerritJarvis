@@ -13,7 +13,6 @@ class ReviewListDataController: NSObject {
     static let ReviewListUpdatedNotification = Notification.Name("ReviewListUpdatedNotification")
     static let ReviewListNewEventsNotification = Notification.Name("ReviewListNewEventsNotification")
     static let ReviewListNewEventsKey = "ReviewListNewEventsKey"
-    static let ReviewChangeIdKey = "ReviewChangeIdKey"
     static let ReviewChangeNumberKey = "ReviewChangeNumberKey"
     private let ReviewNewEventStatusKey = "ReviewNewEventStatusKey"
 
@@ -226,29 +225,27 @@ extension ReviewListDataController {
 extension ReviewListDataController : NSUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
-        guard let userInfo = notification.userInfo else {
+        guard let userInfo = notification.userInfo,
+            let number = userInfo[ReviewListDataController.ReviewChangeNumberKey] as? Int else {
             return
         }
 
-        if let id = userInfo[ReviewListDataController.ReviewChangeIdKey] as? String {
-            var target: Int? = nil
-            for (index, change) in changes.enumerated() {
-                if change.id == id {
-                    target = index
-                    break
-                }
+        var target: ReviewListCellViewModel? = nil
+        for vm in cellViewModels {
+            guard let changeNumber = vm.changeNumber else {
+                continue
             }
-            if let target = target {
-                let vm = cellViewModels[target]
-                vm.resetEvent()
-                updateAllNewEventsCount()
-                sendReviewListUpdatedNotification()
+            if changeNumber == number {
+                target = vm
+                break
             }
         }
-
-        if let number = userInfo[ReviewListDataController.ReviewChangeNumberKey] as? Int {
-            GerritUtils.openGerrit(number: number)
+        if let target = target {
+            target.resetEvent()
+            updateAllNewEventsCount()
+            sendReviewListUpdatedNotification()
         }
+        GerritUtils.openGerrit(number: number)
     }
 
     private func notifyReviewEvents(scores: [(Author, ReviewScore)],
@@ -306,8 +303,8 @@ extension ReviewListDataController : NSUserNotificationCenterDelegate {
         notification.title = title
         notification.informativeText = change.subject
         notification.contentImage = image
-        if let id = change.id, let number = change.number {
-            notification.userInfo = [ ReviewListDataController.ReviewChangeIdKey: id, ReviewListDataController.ReviewChangeNumberKey: number ]
+        if let number = change.number {
+            notification.userInfo = [ ReviewListDataController.ReviewChangeNumberKey: number ]
         }
         debugPrint(notification)
         NSUserNotificationCenter.default.deliver(notification)
