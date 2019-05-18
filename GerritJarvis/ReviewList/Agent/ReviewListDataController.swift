@@ -17,7 +17,7 @@ class ReviewListDataController: NSObject {
     private let ReviewNewEventStatusKey = "ReviewNewEventStatusKey"
 
     private(set) var cellViewModels = [ReviewListCellViewModel]()
-    private(set) var changes = [Change]()
+    private(set) var changes: [Change]?
     @objc dynamic var isFetchingList: Bool = false
 
     private var gerritService: GerritService?
@@ -138,13 +138,15 @@ extension ReviewListDataController {
             guard let newId = change.id else {
                 continue
             }
-            for old in changes {
-                guard let oldId = old.id else {
-                    continue
-                }
-                if newId == oldId {
-                    originChange = old
-                    break
+            if let changes = changes {
+                for old in changes {
+                    guard let oldId = old.id else {
+                        continue
+                    }
+                    if newId == oldId {
+                        originChange = old
+                        break
+                    }
                 }
             }
 
@@ -316,6 +318,9 @@ extension ReviewListDataController : NSUserNotificationCenterDelegate {
 extension ReviewListDataController {
 
     private func checkMerged(_ newChanges: [Change]) {
+        guard let changes = changes else {
+            return
+        }
         var leaveChanges = [Change]()
         for change in changes {
             var found = false

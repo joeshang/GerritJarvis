@@ -59,8 +59,13 @@ class ReviewListViewController: NSViewController {
             refreshButton.isEnabled = false
         } else if dataController.cellViewModels.count == 0 {
             emptyView.isHidden = false
-            emptyView.titleLabel.stringValue = "暂无 Review"
-            emptyView.imageView.image = NSImage.init(named: "EmptyReview")
+            if !dataController.isFetchingList && dataController.changes == nil {
+                emptyView.titleLabel.stringValue = "无法获取 Review 列表，请检查网络或账户设置"
+                emptyView.imageView.image = NSImage.init(named: "EmptyReview")
+            } else {
+                emptyView.titleLabel.stringValue = "暂无 Review"
+                emptyView.imageView.image = NSImage.init(named: "EmptyReview")
+            }
             emptyView.preferenceButton.isHidden = true
             clearButton.isEnabled = false
             refreshButton.isEnabled = true
