@@ -18,7 +18,7 @@ class ConfigManager {
     private let StartAfterLoginKey = "StartAfterLoginKey"
     private let ShouldNotifyMergeConflict = "ShouldNotifyMergeConflict"
     private let ShouldNotifyNewIncomingReviewKey = "ShouldNotifyNewIncomingReviewKey"
-    private let ShouldNotifyIncomingReviewEventKey = "ShouldNotifyIncomingReviewEventKey"
+    private let ShowOurNotReadyReviewKey = "ShowOurNotReadyReviewKey"
 
     static let shared = ConfigManager()
 
@@ -67,12 +67,12 @@ class ConfigManager {
         }
     }
 
-    var shouldNotifyIncomingReviewEvent: Bool {
+    var showOurNotReadyReview: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: ShouldNotifyIncomingReviewEventKey)
+            return UserDefaults.standard.bool(forKey: ShowOurNotReadyReviewKey)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: ShouldNotifyIncomingReviewEventKey)
+            UserDefaults.standard.set(newValue, forKey: ShowOurNotReadyReviewKey)
         }
     }
 

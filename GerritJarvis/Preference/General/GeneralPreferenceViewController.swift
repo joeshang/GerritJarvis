@@ -17,7 +17,7 @@ class GeneralPreferenceViewController: NSViewController, PreferencePane {
 
     @IBOutlet weak var mergeConflictButton: NSButton!
     @IBOutlet weak var notifyNewIncomingButton: NSButton!
-    @IBOutlet weak var notifyIncomingEventButton: NSButton!
+    @IBOutlet weak var showOurNotReadyReviewButton: NSButton!
     @IBOutlet weak var frequencyButton: NSPopUpButton!
 
     @IBAction func startAfterLoginClicked(_ sender: NSButton) {
@@ -32,8 +32,8 @@ class GeneralPreferenceViewController: NSViewController, PreferencePane {
         ConfigManager.shared.shouldNotifyNewIncomingReview = (sender.state == .on)
     }
 
-    @IBAction func notifyIncomingEventClicked(_ sender: NSButton) {
-        ConfigManager.shared.shouldNotifyIncomingReviewEvent = (sender.state == .on)
+    @IBAction func showOurNotReadyReviewClicked(_ sender: NSButton) {
+        ConfigManager.shared.showOurNotReadyReview = (sender.state == .on)
     }
 
     @IBAction func popupItemSelected(_ sender: NSPopUpButton) {
@@ -50,7 +50,7 @@ class GeneralPreferenceViewController: NSViewController, PreferencePane {
 
         mergeConflictButton.state = ConfigManager.shared.shouldNotifyMergeConflict ? .on : .off
         notifyNewIncomingButton.state = ConfigManager.shared.shouldNotifyNewIncomingReview ? .on : .off
-        notifyIncomingEventButton.state = ConfigManager.shared.shouldNotifyIncomingReviewEvent ? .on : .off
+        showOurNotReadyReviewButton.state = ConfigManager.shared.showOurNotReadyReview ? .on : .off
 
         let values: [TimeInterval] = [1, 3, 5, 10, 30]
         let frequency = ConfigManager.shared.refreshFrequency

@@ -9,8 +9,8 @@
             <connections>
                 <outlet property="frequencyButton" destination="EiW-8i-KjB" id="S5S-Jz-3PX"/>
                 <outlet property="mergeConflictButton" destination="pSI-XB-BLp" id="R74-Jv-5hW"/>
-                <outlet property="notifyIncomingEventButton" destination="W1b-QU-kSn" id="rhi-6A-srn"/>
                 <outlet property="notifyNewIncomingButton" destination="rae-h3-Jgf" id="gGW-nW-9sZ"/>
+                <outlet property="showOurNotReadyReviewButton" destination="W1b-QU-kSn" id="TtT-Ye-Xe9"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -37,7 +37,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rae-h3-Jgf">
-                    <rect key="frame" x="14" y="87" width="185" height="18"/>
+                    <rect key="frame" x="14" y="87" width="181" height="18"/>
                     <buttonCell key="cell" type="check" title="通知新的 Incoming Review" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4sU-W6-0d2">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" usesAppearanceFont="YES"/>
@@ -47,13 +47,13 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W1b-QU-kSn">
-                    <rect key="frame" x="14" y="65" width="346" height="18"/>
-                    <buttonCell key="cell" type="check" title="通知 Incoming Review 中非自己操作的 Review Score" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Nwv-hG-ioh">
+                    <rect key="frame" x="14" y="65" width="296" height="18"/>
+                    <buttonCell key="cell" type="check" title="显示自己提的 Review 中被自己 -2 的 Review" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Nwv-hG-ioh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" usesAppearanceFont="YES"/>
                     </buttonCell>
                     <connections>
-                        <action selector="notifyIncomingEventClicked:" target="-2" id="pP7-Id-WBL"/>
+                        <action selector="showOurNotReadyReviewClicked:" target="-2" id="fAw-a1-675"/>
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EiW-8i-KjB">
@@ -83,7 +83,7 @@
                     </constraints>
                 </box>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pSI-XB-BLp">
-                    <rect key="frame" x="14" y="109" width="147" height="18"/>
+                    <rect key="frame" x="14" y="109" width="142" height="18"/>
                     <buttonCell key="cell" type="check" title="通知 Merge Conflict" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rQd-Tt-wjK">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" usesAppearanceFont="YES"/>
