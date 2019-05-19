@@ -10,7 +10,8 @@ import Cocoa
 
 class ReviewListCellViewModel: NSObject {
     let changeNumber: Int?
-    let stateKey: String
+    let newEventKey: String
+    let newCommentKey: String
     let project: String
     let branch: String
     let name: String
@@ -24,7 +25,8 @@ class ReviewListCellViewModel: NSObject {
 
     init(change: Change) {
         changeNumber = change.number
-        stateKey = change.stateKey()
+        newEventKey = change.newEventKey()
+        newCommentKey = change.newCommentKey()
         project = change.project ?? ""
         branch = change.branch ?? ""
         name = change.owner?.name ?? ""
@@ -32,9 +34,6 @@ class ReviewListCellViewModel: NSObject {
         avatar = change.owner?.avatarImage()
         hasNewEvent = change.hasNewEvent()
         isMergeConflict = !(change.mergeable ?? true)
-        if change.shouldListenReviewEvent() {
-            newComments = change.calculateNewCommentCount()
-        }
         let (score, author) = change.calculateReviewScore()
         reviewScore = score
         if change.isOurs() {

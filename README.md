@@ -29,12 +29,12 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
 
 关于 Review 列表：
 
-* Review 列表按照更新时间从新到旧进行排序，自己提交的 Outgoing Review 在顶部
+* Review 列表按照更新时间从新到旧进行排序，自己提交的 Outgoing Review 在顶部，默认不显示自己给自己 -2 的 Review（还没准备好给别人看），可以在设置中勾选“显示自己提的 Review 中被自己 -2 的 Review”进行配置
 * 点击 Cell 跳转到 Review 对应的网页，右上角显示 Score（-2、-1、0、+1、+2）的情况
 * 红点的显示逻辑是：
   * 对于我提的 Review，最新的消息不是由我操作或者出现了 Merge Conflict 时显示红点
   * 对于别人提的 Review，最新的消息不是由我操作时显示红点（不管是有新的 Patch 还是 Comments，都会显示红点）
-* 只有我提的 Review 才会显示 Comments 的数量。如果需要显示别人提给我的 Review 的 Comments 数量，需要在设置中将“通知 Incoming Review 中非自己操作的 Review Score”勾选上
+* 只有我提的 Review 才会显示新 Comments 的数量
 * Review 列表使用定时刷新的方式，列表刷新频率支持 1，3，5，10，30 分钟
 
 关于通知：
@@ -45,8 +45,6 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
   * Merged
 * 如果想知道别人给我提的 Review 的事件，需要在设置中进行配置：
   * 勾选“通知新的 Incoming Review”，当别人给我提 Reivew 且我还没看过时（Review 的消息中最新的消息不是由我操作的）会收到通知
-  * 勾选“通知 Incoming Review 中非自己操作的 Review Score”，别人给我提的 Review 中，当其他 Reviewer 进行了打分/评论时会收到通知
-
 
 ## TODO
 

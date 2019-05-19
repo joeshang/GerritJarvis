@@ -87,7 +87,7 @@ extension Change {
     }
 
     // 通过 mergeable 和 message 的个数来确定 change 是否有改变
-    func stateKey() -> String {
+    func newEventKey() -> String {
         let user = ConfigManager.shared.user ?? ""
         let id = String(number ?? 0)
         let merge = String(mergeable ?? true)
@@ -96,19 +96,11 @@ extension Change {
         return "\(user)-\(id)-\(merge)-\(count)"
     }
 
-    func calculateNewCommentCount() -> Int {
-        var result = 0
-        guard let messages = messages else {
-            return result
-        }
-        let counts = GerritUtils.parseCommentCounts(messages)
-        for (author, count) in counts {
-            if author.isMe() {
-                continue
-            }
-            result += count
-        }
-        return result
+    func newCommentKey() -> String {
+        let user = ConfigManager.shared.user ?? ""
+        let id = String(number ?? 0)
+
+        return "\(user)-\(id)"
     }
 
     func calculateReviewScore() -> (ReviewScore, Author?) {
@@ -117,10 +109,14 @@ extension Change {
         guard let messages = messages else {
             return (resultScore, resultAuthor)
         }
-        let scores = GerritUtils.parseReviewScores(messages)
+        let scores = GerritUtils.parseReviewScores(messages, originRevision: 1)
         for (author, score) in scores {
             if resultScore.priority() <= score.priority() {
                 resultScore = score
+                // 当出现被自己 -2 的情况，Author 始终为自己
+                if score == .MinusTwo && (resultAuthor?.isMe() ?? false) {
+                    continue
+                }
                 resultAuthor = author
             }
         }

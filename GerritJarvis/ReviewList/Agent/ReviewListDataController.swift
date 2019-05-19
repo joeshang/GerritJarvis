@@ -14,7 +14,9 @@ class ReviewListDataController: NSObject {
     static let ReviewListNewEventsNotification = Notification.Name("ReviewListNewEventsNotification")
     static let ReviewListNewEventsKey = "ReviewListNewEventsKey"
     static let ReviewChangeNumberKey = "ReviewChangeNumberKey"
+
     private let ReviewNewEventStatusKey = "ReviewNewEventStatusKey"
+    private let ReviewNewCommentsKey = "ReviewNewCommentsKey"
 
     private(set) var cellViewModels = [ReviewListCellViewModel]()
     private(set) var changes: [Change]?
@@ -32,6 +34,17 @@ class ReviewListDataController: NSObject {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: ReviewNewEventStatusKey)
+        }
+    }
+    private var newComments: [String : Int] {
+        get  {
+            guard let comments = UserDefaults.standard.object(forKey: ReviewNewCommentsKey) as? [String : Int] else {
+                return [String : Int]()
+            }
+            return comments
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ReviewNewCommentsKey)
         }
     }
 
@@ -82,7 +95,8 @@ class ReviewListDataController: NSObject {
                 newEvents += 1
             }
         }
-        updateNewEventStates()
+        saveNewEventStates()
+        saveNewComments()
         let userInfo = [ ReviewListDataController.ReviewListNewEventsKey: newEvents ]
         NotificationCenter.default.post(name: ReviewListDataController.ReviewListNewEventsNotification,
                                         object: nil,
@@ -151,22 +165,29 @@ extension ReviewListDataController {
             }
 
             let viewModel = ReviewListCellViewModel(change: change)
-            if viewModel.isOurNotReady && !ConfigManager.shared.showOurNotReadyReview {
-                continue
+
+            var commentCounts = 0
+            if let originCommentCounts = newComments[change.newCommentKey()] {
+                commentCounts = originCommentCounts
+            }
+            let messages = change.newMessages(baseOn: originChange)
+            let originRevision = originChange?.messages?.last?.revisionNumber ?? 1
+            let comments = GerritUtils.parseNewCommentCounts(messages, originRevision: originRevision)
+            if change.shouldListenReviewEvent() {
+                viewModel.newComments = GerritUtils.calculateNewCommentCount(originCount: commentCounts, comments: comments)
             }
 
             var raiseMergeConflict = false
-            if change.isOurs() {
-                raiseMergeConflict = change.isRaiseMergeConflict(with: originChange)
-                if raiseMergeConflict {
-                    viewModel.hasNewEvent = true
-                }
-            }
-            if let hasNewEvent = newEventStates[change.stateKey()] {
+            if let hasNewEvent = newEventStates[change.newEventKey()] {
                 if hasNewEvent {
                     viewModel.hasNewEvent = hasNewEvent
                 } else {
                     viewModel.resetEvent()
+                }
+            } else if change.isOurs() {
+                raiseMergeConflict = change.isRaiseMergeConflict(with: originChange)
+                if raiseMergeConflict {
+                    viewModel.hasNewEvent = true
                 }
             }
 
@@ -181,12 +202,13 @@ extension ReviewListDataController {
             }
 
             if change.shouldListenReviewEvent() {
-                let messages = change.newMessages(baseOn: originChange)
-                let scores = GerritUtils.parseReviewScores(messages)
-                let comments = GerritUtils.parseCommentCounts(messages)
-                notifyReviewEvents(scores: scores, comments: comments, change: change)
+                let scores = GerritUtils.parseReviewScores(messages, originRevision: originRevision)
+                notifyReviewEvents(scores: scores, comments: GerritUtils.filterComments(comments), change: change)
             }
 
+            if viewModel.isOurNotReady && !ConfigManager.shared.showOurNotReadyReview {
+                continue
+            }
             viewModels.append(viewModel)
         }
         changes = newChanges
@@ -207,12 +229,20 @@ extension ReviewListDataController {
         return newChanges
     }
 
-    private func updateNewEventStates() {
+    private func saveNewEventStates() {
         var states = [String : Bool]()
         for vm in cellViewModels {
-            states[vm.stateKey] = vm.hasNewEvent
+            states[vm.newEventKey] = vm.hasNewEvent
         }
         newEventStates = states
+    }
+
+    private func saveNewComments() {
+        var comments = [String : Int]()
+        for vm in cellViewModels {
+            comments[vm.newCommentKey] = vm.hasNewEvent ? vm.newComments : 0
+        }
+        newComments = comments
     }
 
     private func sendReviewListUpdatedNotification() {
