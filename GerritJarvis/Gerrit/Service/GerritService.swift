@@ -46,7 +46,7 @@ class GerritService {
 
     func fetchReviewList(_ completion: @escaping ([Change]?) -> Void) {
         // 具体见 https://gerrit-review.googlesource.com/Documentation/user-search.html#_search_operators
-        let query = "?q=(status:open+is:owner)OR(status:open+is:reviewer)&o=MESSAGES&o=DETAILED_ACCOUNTS"
+        let query = "?q=(status:open+is:owner)OR(status:open+is:reviewer)&o=MESSAGES&o=DETAILED_ACCOUNTS&o=DETAILED_LABELS"
         let url = baseUrl + "/a/changes/" + query
         Alamofire.request(url)
             .authenticate(user: user, password: password)

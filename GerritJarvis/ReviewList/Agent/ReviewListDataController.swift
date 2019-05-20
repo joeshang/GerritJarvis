@@ -219,6 +219,9 @@ extension ReviewListDataController {
         var newChanges = [Change]()
         var insert = 0
         for change in changes {
+            if change.hasNoReviewers() {
+                continue
+            }
             if change.isOurs() {
                 newChanges.insert(change, at: insert)
                 insert += 1

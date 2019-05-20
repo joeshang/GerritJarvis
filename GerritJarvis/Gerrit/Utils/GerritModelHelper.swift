@@ -20,6 +20,14 @@ extension Change {
         return owner.isUser(ldap)
     }
 
+    func hasNoReviewers() -> Bool {
+        guard let labels = labels,
+            let review = labels["Code-Review"] as? [String: Any] else {
+            return false
+        }
+        return review["all"] == nil
+    }
+
     func hasNewEvent() -> Bool {
         guard let last = messages?.last?.author else {
             return false
@@ -166,7 +174,8 @@ extension Message {
             let revisionNumber = revisionNumber else {
             return false
         }
-        return message.hasPrefix("Patch Set \(revisionNumber):") && !message.hasSuffix("was rebased.")
+        return (message.hasPrefix("Patch Set \(revisionNumber):") && !message.hasSuffix("was rebased."))
+            || (message.hasPrefix("Removed the following votes"))
     }
 
     func reviewScore() -> ReviewScore? {
@@ -176,6 +185,8 @@ extension Message {
         // 从 Message 中筛选出打分
         var score: ReviewScore? = nil
         if message.contains("-Code-Review") {
+            score = .Zero
+        } else if message.hasPrefix("Removed the following votes") {
             score = .Zero
         } else if let range = message.range(of: #"(?<=Code-Review)[+-][12]"#,
                                             options: .regularExpression) {

@@ -24,7 +24,7 @@ class Change : NSObject, NSCoding, Mappable{
 	var subject : String?
 	var submittable : Bool?
 	var updated : String?
-
+    var labels : [String: Any]?
 
 	class func newInstance(map: Map) -> Mappable?{
 		return Change()
@@ -50,7 +50,7 @@ class Change : NSObject, NSCoding, Mappable{
 		subject <- map["subject"]
 		submittable <- map["submittable"]
 		updated <- map["updated"]
-		
+		labels <- map["labels"]
 	}
 
     /**

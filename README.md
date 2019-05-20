@@ -29,11 +29,12 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
 
 关于 Review 列表：
 
-* Review 列表按照更新时间从新到旧进行排序，自己提交的 Outgoing Review 在顶部，默认不显示自己给自己 -2 的 Review（还没准备好给别人看），可以在设置中勾选“显示自己提的 Review 中被自己 -2 的 Review”进行配置
-* 点击 Cell 跳转到 Review 对应的网页，右上角显示 Score（-2、-1、0、+1、+2）的情况
+* Review 列表按照更新时间从新到旧进行排序，自己提交的 Outgoing Review 在顶部（不显示没有 Reviewer 的 Review），默认不显示自己给自己 -2 的 Review（还没准备好给别人看），可以在设置中勾选“显示自己提的 Review 中被自己 -2 的 Review”进行配置
+* 点击 Cell 跳转到 Review 对应的网页，Cell 右上角显示 Score（-2、-1、0、+1、+2）的情况，Score 左边显示是否 Merge Conflict
 * 红点的显示逻辑是：
   * 对于我提的 Review，最新的消息不是由我操作或者出现了 Merge Conflict 时显示红点
   * 对于别人提的 Review，最新的消息不是由我操作时显示红点（不管是有新的 Patch 还是 Comments，都会显示红点）
+* 状态栏显示的数量为显示红点的 Review 的个数
 * 只有我提的 Review 才会显示新 Comments 的数量
 * Review 列表使用定时刷新的方式，列表刷新频率支持 1，3，5，10，30 分钟
 
