@@ -56,6 +56,11 @@ class ReviewListDataController: NSObject {
             selector: #selector(handleAccountUpdated(notification:)),
             name: ConfigManager.AccountUpdatedNotification,
             object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleRefreshFrequencyUpdated(notification:)),
+            name: ConfigManager.RefreshFrequencyUpdatedNotification,
+            object: nil)
     }
 
     deinit {
@@ -117,6 +122,11 @@ class ReviewListDataController: NSObject {
             return
         }
         changeAccount(user: user, password: password)
+    }
+
+    @objc func handleRefreshFrequencyUpdated(notification: Notification) {
+        stopTimer()
+        startTimer()
     }
 
 }

@@ -13,10 +13,11 @@ class ConfigManager {
     static let DefaultRefreshFrequency: TimeInterval = 3
     static let GerritBaseUrl: String = "http://gerrit.zhenguanyu.com"
     static let AccountUpdatedNotification = Notification.Name("AccountUpdatedNotification")
+    static let RefreshFrequencyUpdatedNotification = Notification.Name("RefreshFrequencyUpdatedNotification")
 
     static let UserKey = "UserKey"
     static let PasswordKey = "PasswordKey"
-    private let RefreshFrequencyKey = "RefreshFrequencyKey"
+    static let RefreshFrequencyKey = "RefreshFrequencyKey"
     private let StartAfterLoginKey = "StartAfterLoginKey"
     private let ShouldNotifyMergeConflict = "ShouldNotifyMergeConflict"
     private let ShouldNotifyNewIncomingReviewKey = "ShouldNotifyNewIncomingReviewKey"
@@ -28,7 +29,7 @@ class ConfigManager {
     private(set) var password: String?
     var refreshFrequency: TimeInterval {
         get {
-            let frequency = UserDefaults.standard.double(forKey: RefreshFrequencyKey)
+            let frequency = UserDefaults.standard.double(forKey: ConfigManager.RefreshFrequencyKey)
             guard frequency != 0 else {
                 return ConfigManager.DefaultRefreshFrequency
             }
@@ -38,7 +39,10 @@ class ConfigManager {
             guard newValue > 0 else {
                 return
             }
-            UserDefaults.standard.set(newValue, forKey: RefreshFrequencyKey)
+            UserDefaults.standard.set(newValue, forKey: ConfigManager.RefreshFrequencyKey)
+            NotificationCenter.default.post(name: ConfigManager.RefreshFrequencyUpdatedNotification,
+                                            object: nil,
+                                            userInfo: [ConfigManager.RefreshFrequencyKey:  newValue])
         }
     }
 
