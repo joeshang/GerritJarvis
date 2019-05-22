@@ -14,10 +14,10 @@ extension Change {
         guard let owner = owner else {
             return false
         }
-        guard let ldap = ConfigManager.shared.user else {
+        guard let accountId = ConfigManager.shared.accountId else {
             return false
         }
-        return owner.isUser(ldap)
+        return owner.isUser(accountId)
     }
 
     func hasNoReviewers() -> Bool {
@@ -32,11 +32,11 @@ extension Change {
         guard let last = messages?.last?.author else {
             return false
         }
-        guard let ldap = ConfigManager.shared.user else {
+        guard let accountId = ConfigManager.shared.accountId else {
             return false
         }
         // 只要最新的 Message 不是自己导致，说明有更新或操作，就认为有新事件
-        return !last.isUser(ldap)
+        return !last.isUser(accountId)
     }
 
     func shouldListenReviewEvent() -> Bool {
@@ -96,7 +96,7 @@ extension Change {
 
     // 通过 mergeable 和 message 的个数来确定 change 是否有改变
     func newEventKey() -> String {
-        let user = ConfigManager.shared.user ?? ""
+        let user = ConfigManager.shared.accountId ?? 0
         let id = String(number ?? 0)
         let merge = String(mergeable ?? true)
         let count = String(messages?.count ?? 1)
@@ -105,7 +105,7 @@ extension Change {
     }
 
     func newCommentKey() -> String {
-        let user = ConfigManager.shared.user ?? ""
+        let user = ConfigManager.shared.accountId ?? 0
         let id = String(number ?? 0)
 
         return "\(user)-\(id)"
@@ -136,14 +136,14 @@ extension Change {
 extension Author {
 
     func isMe() -> Bool {
-        return username == ConfigManager.shared.user
+        return accountId == ConfigManager.shared.accountId
     }
 
-    func isUser(_ ldap: String) -> Bool {
-        guard let username = username else {
+    func isUser(_ id: Int) -> Bool {
+        guard let accountId = accountId else {
             return false
         }
-        return ldap == username
+        return id == accountId
     }
 
     func avatarImage() -> NSImage? {

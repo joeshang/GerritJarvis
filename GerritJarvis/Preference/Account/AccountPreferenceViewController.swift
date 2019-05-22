@@ -55,6 +55,7 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
             self.indicator.isHidden = true
             self.indicator.stopAnimation(nil)
             guard let account = account,
+                let accountId = account.accountId,
                 let name = account.username else {
                 if statusCode == 401 {
                     self.showAlert("无效的用户名或密码，请确保是 HTTP 密码而非 Gerrit 登录密码")
@@ -67,7 +68,7 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
                 self.showAlert("无效的用户名，账户验证失败")
                 return
             }
-            ConfigManager.shared.update(user: user, password: password)
+            ConfigManager.shared.update(user: user, password: password, accountId: accountId)
 
             let alert = NSAlert()
             alert.addButton(withTitle: "确定")

@@ -17,6 +17,7 @@ class ConfigManager {
 
     static let UserKey = "UserKey"
     static let PasswordKey = "PasswordKey"
+    static let AccountIdKey = "AccountIdKey"
     static let RefreshFrequencyKey = "RefreshFrequencyKey"
     private let StartAfterLoginKey = "StartAfterLoginKey"
     private let ShouldNotifyMergeConflict = "ShouldNotifyMergeConflict"
@@ -27,6 +28,7 @@ class ConfigManager {
 
     private(set) var user: String?
     private(set) var password: String?
+    private(set) var accountId: Int?
     var refreshFrequency: TimeInterval {
         get {
             let frequency = UserDefaults.standard.double(forKey: ConfigManager.RefreshFrequencyKey)
@@ -85,6 +87,7 @@ class ConfigManager {
     init() {
         self.user = UserDefaults.standard.string(forKey: ConfigManager.UserKey)
         self.password = UserDefaults.standard.string(forKey: ConfigManager.PasswordKey)
+        self.accountId = UserDefaults.standard.integer(forKey: ConfigManager.AccountIdKey)
 
         if UserDefaults.standard.value(forKey: ShouldNotifyMergeConflict) == nil {
             self.shouldNotifyMergeConflict = true
@@ -95,19 +98,21 @@ class ConfigManager {
     }
 
     func hasUser() -> Bool {
-        if let user = user, let password = password,
-            !user.isEmpty && !password.isEmpty {
+        if let user = user, let password = password, let accountId = accountId,
+            accountId != 0 && !user.isEmpty && !password.isEmpty {
             return true
         } else {
             return false
         }
     }
 
-    func update(user: String, password: String) {
+    func update(user: String, password: String, accountId: Int) {
         UserDefaults.standard.set(user, forKey: ConfigManager.UserKey)
         self.user = user
         UserDefaults.standard.set(password, forKey: ConfigManager.PasswordKey)
         self.password = password
+        UserDefaults.standard.set(accountId, forKey: ConfigManager.AccountIdKey)
+        self.accountId = accountId
         NotificationCenter.default.post(name: ConfigManager.AccountUpdatedNotification,
                                         object: nil,
                                         userInfo: [ConfigManager.UserKey: user, ConfigManager.PasswordKey: password])
