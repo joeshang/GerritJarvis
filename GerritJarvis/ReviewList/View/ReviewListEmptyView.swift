@@ -32,6 +32,10 @@ class ReviewListEmptyView: NSView {
         setup()
     }
 
+    override var allowsVibrancy: Bool {
+        return true
+    }
+
     private func setup() {
         let bundle = Bundle(for: type(of: self))
         let nib = NSNib(nibNamed: .init(String(describing: type(of: self))), bundle: bundle)!
