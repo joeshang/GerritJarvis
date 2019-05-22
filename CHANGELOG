@@ -1,0 +1,11 @@
+# CHANGELOG
+
+## 1.0.0
+
+### Features
+
+* Review 列表，包含 Review 的各种信息与状态
+* 通知 Review 事件，包括 Score、Comment、Merge Conflict、Merged
+* 状态栏显示当前有新事件的 Review 数量
+* 通知配置，账号管理
+* 强迫症选项：一键清红点
