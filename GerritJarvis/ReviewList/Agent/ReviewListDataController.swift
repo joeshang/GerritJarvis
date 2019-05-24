@@ -17,6 +17,7 @@ class ReviewListDataController: NSObject {
 
     private let ReviewNewEventStatusKey = "ReviewNewEventStatusKey"
     private let ReviewNewCommentsKey = "ReviewNewCommentsKey"
+    private let ReviewLastestMessageIdKey = "ReviewLastestMessageIdKey"
 
     private(set) var cellViewModels = [ReviewListCellViewModel]()
     private(set) var changes: [Change]?
@@ -45,6 +46,18 @@ class ReviewListDataController: NSObject {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: ReviewNewCommentsKey)
+        }
+    }
+
+    private var latestMessageIds: [String : String] {
+        get  {
+            guard let messageIds = UserDefaults.standard.object(forKey: ReviewLastestMessageIdKey) as? [String : String] else {
+                return [String : String]()
+            }
+            return messageIds
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ReviewLastestMessageIdKey)
         }
     }
 
@@ -102,6 +115,8 @@ class ReviewListDataController: NSObject {
         }
         saveNewEventStates()
         saveNewComments()
+        saveLatestMessageIds()
+
         let userInfo = [ ReviewListDataController.ReviewListNewEventsKey: newEvents ]
         NotificationCenter.default.post(name: ReviewListDataController.ReviewListNewEventsNotification,
                                         object: nil,
@@ -177,10 +192,14 @@ extension ReviewListDataController {
             let viewModel = ReviewListCellViewModel(change: change)
 
             var commentCounts = 0
-            if let originCommentCounts = newComments[change.newCommentKey()] {
+            if let originCommentCounts = newComments[change.changeNumberKey()] {
                 commentCounts = originCommentCounts
             }
-            let messages = change.newMessages(baseOn: originChange)
+            var messageId = originChange?.messages?.last?.id
+            if let originMessageId = latestMessageIds[change.changeNumberKey()] {
+                messageId = originMessageId
+            }
+            let messages = change.newMessages(baseOn: messageId)
             let originRevision = originChange?.messages?.last?.revisionNumber ?? 1
             let comments = GerritUtils.parseNewCommentCounts(messages, originRevision: originRevision)
             if change.shouldListenReviewEvent() {
@@ -253,9 +272,20 @@ extension ReviewListDataController {
     private func saveNewComments() {
         var comments = [String : Int]()
         for vm in cellViewModels {
-            comments[vm.newCommentKey] = vm.hasNewEvent ? vm.newComments : 0
+            comments[vm.changeNumberKey] = vm.hasNewEvent ? vm.newComments : 0
         }
         newComments = comments
+    }
+
+    private func saveLatestMessageIds() {
+        var messageIds = [String : String]()
+        for vm in cellViewModels {
+            guard let messageId = vm.latestMessageId else {
+                continue
+            }
+            messageIds[vm.changeNumberKey] = messageId
+        }
+        latestMessageIds = messageIds
     }
 
     private func sendReviewListUpdatedNotification() {

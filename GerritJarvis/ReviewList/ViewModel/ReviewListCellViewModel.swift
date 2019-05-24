@@ -11,7 +11,8 @@ import Cocoa
 class ReviewListCellViewModel: NSObject {
     let changeNumber: Int?
     let newEventKey: String
-    let newCommentKey: String
+    let changeNumberKey: String
+    let latestMessageId: String?
     let project: String
     let branch: String
     let name: String
@@ -26,7 +27,8 @@ class ReviewListCellViewModel: NSObject {
     init(change: Change) {
         changeNumber = change.number
         newEventKey = change.newEventKey()
-        newCommentKey = change.newCommentKey()
+        changeNumberKey = change.changeNumberKey()
+        latestMessageId = change.messages?.last?.id
         project = change.project ?? ""
         branch = change.branch ?? ""
         name = change.owner?.name ?? ""

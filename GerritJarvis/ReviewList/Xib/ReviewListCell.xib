@@ -47,7 +47,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ICE-Va-sp4"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-If-UDN">
-                    <rect key="frame" x="64" y="3" width="374" height="38"/>
+                    <rect key="frame" x="64" y="4" width="374" height="34"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="charWrapping" enabled="NO" allowsUndo="NO" title="Commit" id="Lpy-qs-ntx" customClass="VerticallyCenteredTextFieldCell" customModule="GerritJarvis" customModuleProvider="target">
                         <font key="font" metaFont="system"/>
@@ -56,9 +56,9 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-kf-J5y">
-                    <rect key="frame" x="14" y="12" width="45" height="17"/>
+                    <rect key="frame" x="13" y="3" width="45" height="34"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="猿辅导" id="gK8-vu-q2I">
+                    <textFieldCell key="cell" lineBreakMode="charWrapping" alignment="center" title="猿辅导" id="gK8-vu-q2I" customClass="VerticallyCenteredTextFieldCell" customModule="GerritJarvis" customModuleProvider="target">
                         <font key="font" metaFont="systemMedium" size="12"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -100,7 +100,7 @@
                 <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hxN-OX-Fw9">
                     <rect key="frame" x="416" y="52" width="26" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Conflict " id="EVG-JS-jkG"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Conflict" id="EVG-JS-jkG"/>
                 </imageView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cJC-vM-h5K">
                     <rect key="frame" x="446" y="2" width="52" height="27"/>
@@ -136,7 +136,7 @@
     </objects>
     <resources>
         <image name="Branch" width="24" height="24"/>
-        <image name="Conflict " width="64" height="64"/>
+        <image name="Conflict" width="64" height="64"/>
         <image name="Folder" width="24" height="24"/>
         <image name="RedPoint" width="64" height="64"/>
     </resources>

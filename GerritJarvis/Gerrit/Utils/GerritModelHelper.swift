@@ -53,27 +53,25 @@ extension Change {
         return !mergeable && originMergeable
     }
 
-    func newMessages(baseOn originChange: Change?) -> [Message] {
+    func newMessages(baseOn originMessageId: String?) -> [Message] {
         var result = [Message]()
         guard let messages = messages else {
             return result
         }
-        guard let origin = originChange?.messages else {
+        guard let originMessageId = originMessageId else {
             return messages
         }
-        if messages.count == origin.count {
-            return result
-        }
-        for new in messages {
-            var found = false
-            for old in origin {
-                if new.id == old.id {
-                    found = true
-                    break
-                }
+        var found = false
+        for message in messages {
+            guard let messageId = message.id else {
+                continue
             }
-            if !found {
-                result.append(new)
+            if (messageId == originMessageId) {
+                found = true
+                continue
+            }
+            if found {
+                result.append(message)
             }
         }
         return result
@@ -104,7 +102,7 @@ extension Change {
         return "\(user)-\(id)-\(merge)-\(count)"
     }
 
-    func newCommentKey() -> String {
+    func changeNumberKey() -> String {
         let user = ConfigManager.shared.accountId ?? 0
         let id = String(number ?? 0)
 
