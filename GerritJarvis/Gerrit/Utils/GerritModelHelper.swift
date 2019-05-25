@@ -40,7 +40,35 @@ extension Change {
     }
 
     func shouldListenReviewEvent() -> Bool {
-        return isOurs()
+        if isOurs() {
+            return true
+        } else {
+            // 对于别人提的 Review，只要我曾经触发过 Event，就应该关心
+            guard let messages = messages else {
+                return false
+            }
+            for message in messages {
+                guard let accountId = message.author?.accountId else {
+                    continue
+                }
+                if accountId == ConfigManager.shared.accountId {
+                    return true
+                }
+            }
+            return false
+        }
+    }
+
+    func shouldListen(author: Author) -> Bool {
+        if isOurs() {
+            return true
+        } else {
+            // 对于别人提的 Review，只关心 Owner 的 Event
+            guard let userId = owner?.accountId else {
+                return false
+            }
+            return author.isUser(userId)
+        }
     }
 
     func isRaiseMergeConflict(with originChange: Change?) -> Bool {

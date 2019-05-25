@@ -69,28 +69,35 @@ class GerritUtils {
 
     // 根据以前的值+最新评论的情况，算出最新值
     // 如果出现了我的评论，说明之前的评论都看过，将 count 重置为 0
-    static func calculateNewCommentCount(originCount: Int, comments: [(Author, Int)]) -> Int {
+    static func calculateNewCommentCount(originCount: Int,
+                                         comments: [(Author, Int)],
+                                         authorFilter: (Author) -> Bool) -> Int {
         var result = originCount
         for (author, count) in comments {
             if author.isMe() {
                 result = 0
                 continue
             }
-            result += count
+            if authorFilter(author) {
+                result += count
+            }
         }
         return result
     }
 
     // 将自己已经看过的评论进行过滤
     // 假设 comments 是顺序的，如果出现了我的评论，说明之前的评论都看过了，需要过滤掉
-    static func filterComments(_ comments: [(Author, Int)]) -> [(Author, Int)] {
+    static func filterComments(_ comments: [(Author, Int)],
+                               authorFilter: (Author) -> Bool) -> [(Author, Int)] {
         var result = [(Author, Int)]()
         for (author, count) in comments {
             if author.isMe() {
                 result.removeAll()
                 continue
             }
-            result.append((author, count))
+            if authorFilter(author) {
+                result.append((author, count))
+            }
         }
         return result
     }

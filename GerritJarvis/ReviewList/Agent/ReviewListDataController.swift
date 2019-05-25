@@ -203,7 +203,9 @@ extension ReviewListDataController {
             let originRevision = originChange?.messages?.last?.revisionNumber ?? 1
             let comments = GerritUtils.parseNewCommentCounts(messages, originRevision: originRevision)
             if change.shouldListenReviewEvent() {
-                viewModel.newComments = GerritUtils.calculateNewCommentCount(originCount: commentCounts, comments: comments)
+                viewModel.newComments = GerritUtils.calculateNewCommentCount(originCount: commentCounts, comments: comments, authorFilter: { author in
+                    return change.shouldListen(author: author)
+                })
             }
 
             var raiseMergeConflict = false
@@ -232,7 +234,12 @@ extension ReviewListDataController {
 
             if change.shouldListenReviewEvent() {
                 let scores = GerritUtils.parseReviewScores(messages, originRevision: originRevision)
-                notifyReviewEvents(scores: scores, comments: GerritUtils.filterComments(comments), change: change)
+                let filterComments = GerritUtils.filterComments(comments, authorFilter: { author in
+                    return change.shouldListen(author: author)
+                })
+                notifyReviewEvents(scores: scores,
+                                   comments: filterComments,
+                                   change: change)
             }
 
             if viewModel.isOurNotReady && !ConfigManager.shared.showOurNotReadyReview {
