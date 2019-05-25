@@ -22,6 +22,7 @@ class ReviewListViewController: NSViewController {
     }
 
     private var dataController: ReviewListDataController!
+    private var triggerController: MergedTriggerWindowController?
     private lazy var emptyView: ReviewListEmptyView = {
         let view = ReviewListEmptyView()
         view.isHidden = true
@@ -166,12 +167,31 @@ extension ReviewListViewController: NSTableViewDataSource {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ReviewListCell"), owner: self) as! ReviewListCell
         let vm = dataController.cellViewModels[row]
         cell.bindData(with: vm)
+        cell.delegate = self
         return cell
     }
 
 }
 
 extension ReviewListViewController: NSTableViewDelegate {
+}
+
+extension ReviewListViewController: ReviewListCellDelegate {
+
+    func reviewListCellDidClickButton(_ cell: ReviewListCell) {
+        let row = tableView.row(for: cell)
+        guard let changes = dataController.changes,
+            row >= 0 && row < changes.count else {
+            return
+        }
+        if triggerController != nil {
+            triggerController?.close()
+        }
+        triggerController = MergedTriggerWindowController(windowNibName: "MergedTriggerWindowController")
+        triggerController?.change = changes[row]
+        triggerController?.showWindow(NSApplication.shared.delegate)
+    }
+
 }
 
 extension ReviewListViewController {

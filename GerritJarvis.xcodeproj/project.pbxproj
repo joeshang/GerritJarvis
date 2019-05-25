@@ -34,6 +34,9 @@
 		D291E320228B2C300033614B /* PasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E31F228B2C300033614B /* PasteTextField.swift */; };
 		D291E324228B343E0033614B /* ReviewListEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D291E323228B343E0033614B /* ReviewListEmptyView.xib */; };
 		D291E328228B34BD0033614B /* ReviewListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E327228B34BD0033614B /* ReviewListEmptyView.swift */; };
+		D2BBB37F2299862700288865 /* MergedTriggerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BBB37D2299862700288865 /* MergedTriggerWindowController.swift */; };
+		D2BBB3802299862700288865 /* MergedTriggerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2BBB37E2299862700288865 /* MergedTriggerWindowController.xib */; };
+		D2BBB38222998E0D00288865 /* PasteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BBB38122998E0D00288865 /* PasteTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +72,9 @@
 		D291E31F228B2C300033614B /* PasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTextField.swift; sourceTree = "<group>"; };
 		D291E323228B343E0033614B /* ReviewListEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewListEmptyView.xib; sourceTree = "<group>"; };
 		D291E327228B34BD0033614B /* ReviewListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListEmptyView.swift; sourceTree = "<group>"; };
+		D2BBB37D2299862700288865 /* MergedTriggerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedTriggerWindowController.swift; sourceTree = "<group>"; };
+		D2BBB37E2299862700288865 /* MergedTriggerWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MergedTriggerWindowController.xib; sourceTree = "<group>"; };
+		D2BBB38122998E0D00288865 /* PasteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				D291E2F4228581CA0033614B /* ReviewList */,
+				D2BBB371229978CF00288865 /* MergedTrigger */,
 				D291E314228B157F0033614B /* Preference */,
 				D291E325228B34610033614B /* Foundation */,
 				D2885986220B125F003495BC /* Gerrit */,
@@ -284,9 +291,35 @@
 			isa = PBXGroup;
 			children = (
 				D291E31F228B2C300033614B /* PasteTextField.swift */,
+				D2BBB38122998E0D00288865 /* PasteTextView.swift */,
 				D291E2F222856E1C0033614B /* VerticallyCenteredTextFieldCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D2BBB371229978CF00288865 /* MergedTrigger */ = {
+			isa = PBXGroup;
+			children = (
+				D2BBB3842299917D00288865 /* Xib */,
+				D2BBB3832299917200288865 /* ViewController */,
+			);
+			path = MergedTrigger;
+			sourceTree = "<group>";
+		};
+		D2BBB3832299917200288865 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D2BBB37D2299862700288865 /* MergedTriggerWindowController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D2BBB3842299917D00288865 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				D2BBB37E2299862700288865 /* MergedTriggerWindowController.xib */,
+			);
+			path = Xib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +385,7 @@
 			files = (
 				D291E319228B15EC0033614B /* GeneralPreferenceViewController.xib in Resources */,
 				D291E31E228B172E0033614B /* AccountPreferenceViewController.xib in Resources */,
+				D2BBB3802299862700288865 /* MergedTriggerWindowController.xib in Resources */,
 				D26AC9AC227319F100D65397 /* ReviewListCell.xib in Resources */,
 				D2350AE72180616B0002A17D /* Assets.xcassets in Resources */,
 				D291E324228B343E0033614B /* ReviewListEmptyView.xib in Resources */,
@@ -426,6 +460,7 @@
 				D291E328228B34BD0033614B /* ReviewListEmptyView.swift in Sources */,
 				D291E318228B15EC0033614B /* GeneralPreferenceViewController.swift in Sources */,
 				D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */,
+				D2BBB37F2299862700288865 /* MergedTriggerWindowController.swift in Sources */,
 				D26AC9A42272D5BE00D65397 /* GerritModelHelper.swift in Sources */,
 				D291E320228B2C300033614B /* PasteTextField.swift in Sources */,
 				D291E309228976610033614B /* GerritUtils.swift in Sources */,
@@ -435,6 +470,7 @@
 				D291E2F9228582060033614B /* ReviewListCellViewModel.swift in Sources */,
 				D2350AE32180616A0002A17D /* AppDelegate.swift in Sources */,
 				D288598E220BE3C1003495BC /* Message.swift in Sources */,
+				D2BBB38222998E0D00288865 /* PasteTextView.swift in Sources */,
 				D207F0DD2272BBA5000EB2B4 /* Avatar.swift in Sources */,
 				D288598D220BE3C1003495BC /* Author.swift in Sources */,
 				D288598C220BE3C1003495BC /* Change.swift in Sources */,

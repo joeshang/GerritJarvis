@@ -8,7 +8,13 @@
 
 import Cocoa
 
+protocol ReviewListCellDelegate: NSObjectProtocol {
+    func reviewListCellDidClickButton(_ cell: ReviewListCell)
+}
+
 class ReviewListCell: NSTableCellView {
+
+    weak var delegate: ReviewListCellDelegate?
 
     @IBOutlet weak var projectLabel: NSTextField!
     @IBOutlet weak var branchLabel: NSTextField!
@@ -24,7 +30,7 @@ class ReviewListCell: NSTableCellView {
     @IBOutlet weak var conflictImageView: NSImageView!
 
     @IBAction func buttonAction(_ sender: Any) {
-        print("Button Pressed")
+        delegate?.reviewListCellDidClickButton(self)
     }
 
     func bindData(with viewModel: ReviewListCellViewModel) {
