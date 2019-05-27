@@ -8,9 +8,11 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MergedTriggerWindowController" customModule="GerritJarvis" customModuleProvider="target">
             <connections>
                 <outlet property="commandTextView" destination="Fq6-Ce-Uuf" id="FEe-Iz-KCC"/>
+                <outlet property="loadingIndicator" destination="pm1-qj-tXB" id="Cuq-f4-Mxq"/>
                 <outlet property="nameLabel" destination="4yn-PA-I5D" id="dUC-AI-Hcr"/>
+                <outlet property="pathInputField" destination="X8W-2D-LpH" id="9xX-pq-mff"/>
                 <outlet property="reviewLabel" destination="9KU-oI-vgR" id="iex-GU-APB"/>
-                <outlet property="shellSelectButton" destination="FX4-bu-3iz" id="bn6-zf-rWq"/>
+                <outlet property="saveButton" destination="fko-AH-jFb" id="Lag-g1-P4E"/>
                 <outlet property="window" destination="t4I-Ha-1aq" id="tTD-pe-zNY"/>
             </connections>
         </customObject>
@@ -24,22 +26,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="371"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FX4-bu-3iz">
-                        <rect key="frame" x="14" y="284" width="130" height="25"/>
-                        <popUpButtonCell key="cell" type="push" title="/bin/bash" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="BtY-87-IPb" id="lHA-up-khL">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" id="BEL-Kn-Cq0">
-                                <items>
-                                    <menuItem title="/bin/bash" state="on" id="BtY-87-IPb"/>
-                                    <menuItem title="/usr/bin/python" id="ImS-aF-K67"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                        <connections>
-                            <action selector="shellSelectClicked:" target="-2" id="dbb-Is-R4O"/>
-                        </connections>
-                    </popUpButton>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X8W-2D-LpH">
+                        <rect key="frame" x="59" y="287" width="303" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="MGd-5M-DQT">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="X7V-4t-pjF">
                         <rect key="frame" x="16" y="20" width="448" height="247"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="1yp-db-1Xf">
@@ -96,28 +90,45 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="pm1-qj-tXB">
+                        <rect key="frame" x="382" y="290" width="16" height="16"/>
+                    </progressIndicator>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kSl-J8-MRP">
+                        <rect key="frame" x="14" y="290" width="37" height="17"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="PATH" id="bNp-km-cSQ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="X8W-2D-LpH" firstAttribute="leading" secondItem="kSl-J8-MRP" secondAttribute="trailing" constant="10" id="0e9-i6-TbX"/>
                     <constraint firstAttribute="trailing" secondItem="4yn-PA-I5D" secondAttribute="trailing" constant="16" id="47A-Tf-oSR"/>
                     <constraint firstItem="9KU-oI-vgR" firstAttribute="trailing" secondItem="4yn-PA-I5D" secondAttribute="trailing" id="5hV-Ek-qHF"/>
-                    <constraint firstItem="FX4-bu-3iz" firstAttribute="top" secondItem="9KU-oI-vgR" secondAttribute="bottom" constant="11" id="6yb-yV-7YI"/>
+                    <constraint firstItem="pm1-qj-tXB" firstAttribute="leading" secondItem="X8W-2D-LpH" secondAttribute="trailing" constant="20" id="6fN-sf-aGp"/>
                     <constraint firstAttribute="trailing" secondItem="X7V-4t-pjF" secondAttribute="trailing" constant="16" id="909-HL-TzY"/>
                     <constraint firstItem="4yn-PA-I5D" firstAttribute="top" secondItem="anw-Yr-Qei" secondAttribute="top" constant="15" id="9WY-TQ-H8W"/>
-                    <constraint firstItem="fko-AH-jFb" firstAttribute="centerY" secondItem="FX4-bu-3iz" secondAttribute="centerY" id="D2v-IE-BHE"/>
+                    <constraint firstItem="fko-AH-jFb" firstAttribute="centerY" secondItem="pm1-qj-tXB" secondAttribute="centerY" id="ANm-V3-lBc"/>
+                    <constraint firstItem="X8W-2D-LpH" firstAttribute="centerY" secondItem="kSl-J8-MRP" secondAttribute="centerY" id="GJx-MA-eis"/>
                     <constraint firstAttribute="trailing" secondItem="fko-AH-jFb" secondAttribute="trailing" constant="16" id="L1Y-0W-k9v"/>
                     <constraint firstItem="9KU-oI-vgR" firstAttribute="top" secondItem="4yn-PA-I5D" secondAttribute="bottom" constant="3" id="PCK-zt-2Sn"/>
+                    <constraint firstItem="X8W-2D-LpH" firstAttribute="leading" secondItem="kSl-J8-MRP" secondAttribute="trailing" constant="10" id="RTI-AJ-rdl"/>
                     <constraint firstItem="4yn-PA-I5D" firstAttribute="leading" secondItem="anw-Yr-Qei" secondAttribute="leading" constant="16" id="Wd5-9N-h1x"/>
                     <constraint firstItem="X7V-4t-pjF" firstAttribute="leading" secondItem="anw-Yr-Qei" secondAttribute="leading" constant="16" id="XqK-B7-ksN"/>
                     <constraint firstAttribute="bottom" secondItem="X7V-4t-pjF" secondAttribute="bottom" constant="20" id="cWo-Lg-o3f"/>
+                    <constraint firstItem="X7V-4t-pjF" firstAttribute="top" secondItem="X8W-2D-LpH" secondAttribute="bottom" constant="20" id="d3i-9i-l85"/>
                     <constraint firstItem="9KU-oI-vgR" firstAttribute="leading" secondItem="4yn-PA-I5D" secondAttribute="leading" id="fvj-MB-CUl"/>
+                    <constraint firstItem="fko-AH-jFb" firstAttribute="leading" secondItem="pm1-qj-tXB" secondAttribute="trailing" constant="8" id="gAV-QW-ope"/>
                     <constraint firstItem="X7V-4t-pjF" firstAttribute="top" secondItem="fko-AH-jFb" secondAttribute="bottom" constant="20" id="nGZ-Pc-xSq"/>
-                    <constraint firstItem="FX4-bu-3iz" firstAttribute="leading" secondItem="anw-Yr-Qei" secondAttribute="leading" constant="16" id="wRT-s4-9Eb"/>
+                    <constraint firstItem="kSl-J8-MRP" firstAttribute="leading" secondItem="anw-Yr-Qei" secondAttribute="leading" constant="16" id="q4B-xN-bh5"/>
+                    <constraint firstItem="X8W-2D-LpH" firstAttribute="top" secondItem="9KU-oI-vgR" secondAttribute="bottom" constant="10" id="vrj-cG-Qnv"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="uGo-th-RPk"/>
             </connections>
-            <point key="canvasLocation" x="48" y="97"/>
+            <point key="canvasLocation" x="48" y="96.5"/>
         </window>
     </objects>
 </document>

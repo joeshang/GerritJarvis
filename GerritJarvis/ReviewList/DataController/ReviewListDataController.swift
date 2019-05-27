@@ -424,12 +424,22 @@ extension ReviewListDataController {
                 guard let change = change, change.isMerged() else {
                     return
                 }
-                guard let name = change.owner?.name,
+                var title = ""
+                if let name = change.owner?.name,
                     let mergedName = change.mergedBy(),
-                    name != mergedName else {
+                    name != mergedName {
+                    title += "我的 Review 已合并"
+                }
+                if MergedTriggerManager.shared.hasTrigger(change: change) {
+                    if !title.isEmpty {
+                        title += "，"
+                    }
+                    title += "执行 Merged Trigger"
+                }
+                if title.isEmpty {
                     return
                 }
-                self.postLocationNotification(title: "我的 Review Merged!",
+                self.postLocationNotification(title: title,
                                               image: NSImage.init(named: "Merged"),
                                               change: change)
             })

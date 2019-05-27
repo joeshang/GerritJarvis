@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.1.0
+
+### Features
+
+* 支持开机启动
+* 支持 Merged Trigger，在某个 Review 被 Merge 之后自动触发一段脚本
+
 ## 1.0.0
 
 ### Features

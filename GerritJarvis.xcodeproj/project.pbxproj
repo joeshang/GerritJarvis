@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -34,6 +34,7 @@
 		D291E320228B2C300033614B /* PasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E31F228B2C300033614B /* PasteTextField.swift */; };
 		D291E324228B343E0033614B /* ReviewListEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D291E323228B343E0033614B /* ReviewListEmptyView.xib */; };
 		D291E328228B34BD0033614B /* ReviewListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E327228B34BD0033614B /* ReviewListEmptyView.swift */; };
+		D297346D229B99F800C51043 /* MergedTriggerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297346C229B99F800C51043 /* MergedTriggerManager.swift */; };
 		D2BBB37F2299862700288865 /* MergedTriggerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BBB37D2299862700288865 /* MergedTriggerWindowController.swift */; };
 		D2BBB3802299862700288865 /* MergedTriggerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2BBB37E2299862700288865 /* MergedTriggerWindowController.xib */; };
 		D2BBB38222998E0D00288865 /* PasteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BBB38122998E0D00288865 /* PasteTextView.swift */; };
@@ -72,6 +73,7 @@
 		D291E31F228B2C300033614B /* PasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTextField.swift; sourceTree = "<group>"; };
 		D291E323228B343E0033614B /* ReviewListEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewListEmptyView.xib; sourceTree = "<group>"; };
 		D291E327228B34BD0033614B /* ReviewListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListEmptyView.swift; sourceTree = "<group>"; };
+		D297346C229B99F800C51043 /* MergedTriggerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedTriggerManager.swift; sourceTree = "<group>"; };
 		D2BBB37D2299862700288865 /* MergedTriggerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedTriggerWindowController.swift; sourceTree = "<group>"; };
 		D2BBB37E2299862700288865 /* MergedTriggerWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MergedTriggerWindowController.xib; sourceTree = "<group>"; };
 		D2BBB38122998E0D00288865 /* PasteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTextView.swift; sourceTree = "<group>"; };
@@ -183,7 +185,7 @@
 		D291E2F4228581CA0033614B /* ReviewList */ = {
 			isa = PBXGroup;
 			children = (
-				D291E3022287FB440033614B /* Agent */,
+				D291E3022287FB440033614B /* DataController */,
 				D291E2FC22858A690033614B /* Model */,
 				D291E2F7228581EE0033614B /* ViewModel */,
 				D291E2F6228581E90033614B /* View */,
@@ -226,12 +228,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D291E3022287FB440033614B /* Agent */ = {
+		D291E3022287FB440033614B /* DataController */ = {
 			isa = PBXGroup;
 			children = (
 				D291E3062287FEB90033614B /* ReviewListDataController.swift */,
 			);
-			path = Agent;
+			path = DataController;
 			sourceTree = "<group>";
 		};
 		D291E314228B157F0033614B /* Preference */ = {
@@ -297,9 +299,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D297346B229B99DE00C51043 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D297346C229B99F800C51043 /* MergedTriggerManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		D2BBB371229978CF00288865 /* MergedTrigger */ = {
 			isa = PBXGroup;
 			children = (
+				D297346B229B99DE00C51043 /* Manager */,
 				D2BBB3842299917D00288865 /* Xib */,
 				D2BBB3832299917200288865 /* ViewController */,
 			);
@@ -357,6 +368,11 @@
 					D2350ADE2180616A0002A17D = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -402,22 +418,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Preferences.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-GerritJarvis/Pods-GerritJarvis-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -460,6 +465,7 @@
 				D291E328228B34BD0033614B /* ReviewListEmptyView.swift in Sources */,
 				D291E318228B15EC0033614B /* GeneralPreferenceViewController.swift in Sources */,
 				D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */,
+				D297346D229B99F800C51043 /* MergedTriggerManager.swift in Sources */,
 				D2BBB37F2299862700288865 /* MergedTriggerWindowController.swift in Sources */,
 				D26AC9A42272D5BE00D65397 /* GerritModelHelper.swift in Sources */,
 				D291E320228B2C300033614B /* PasteTextField.swift in Sources */,
@@ -612,10 +618,10 @@
 			baseConfigurationReference = 1FF6B182DE0D111FB41DB06F /* Pods-GerritJarvis.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = GerritJarvis/GerritJarvis.entitlements;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V4NCBEHL9S;
 				INFOPLIST_FILE = GerritJarvis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -633,10 +639,10 @@
 			baseConfigurationReference = CE23891BEBE2BB3A0F844D90 /* Pods-GerritJarvis.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = GerritJarvis/GerritJarvis.entitlements;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V4NCBEHL9S;
 				INFOPLIST_FILE = GerritJarvis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

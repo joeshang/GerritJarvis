@@ -12,8 +12,10 @@ class MergedTriggerWindowController: NSWindowController {
 
     @IBOutlet weak var nameLabel: NSTextField!
     @IBOutlet weak var reviewLabel: NSTextField!
-    @IBOutlet weak var shellSelectButton: NSPopUpButton!
+    @IBOutlet weak var pathInputField: NSTextField!
     @IBOutlet var commandTextView: PasteTextView!
+    @IBOutlet weak var saveButton: NSButton!
+    @IBOutlet weak var loadingIndicator: NSProgressIndicator!
 
     var change: Change!
 
@@ -25,20 +27,42 @@ class MergedTriggerWindowController: NSWindowController {
         if let name = change.owner?.name {
             text += name
         }
-        if let project = change.project {
-            text += "  " + project
-        }
         if let branch = change.branch {
             text += "  " + branch
         }
+        if let project = change.project {
+            text += "@" + project
+        }
         nameLabel.stringValue = text
         reviewLabel.stringValue = change.subject ?? ""
+        pathInputField.stringValue = MergedTriggerManager.shared.path ?? MergedTriggerManager.DefaultPath
+        commandTextView.string = MergedTriggerManager.shared.fetchTrigger(change: change) ?? ""
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimation(nil)
+        MergedTriggerManager.shared.path = pathInputField.stringValue
+        MergedTriggerManager.shared.saveTrigger(content: commandTextView.string, change: change, completion: { result in
+            loadingIndicator.stopAnimation(nil)
+            loadingIndicator.isHidden = true
+            guard result else {
+                self.showAlertPanel(message: "保存失败", style: .warning, close: false)
+                return
+            }
+            self.showAlertPanel(message: "保存成功", style: .informational, close: true)
+        })
     }
 
-    @IBAction func shellSelectClicked(_ sender: Any) {
+    private func showAlertPanel(message: String, style: NSAlert.Style, close: Bool) {
+        let alert = NSAlert()
+        alert.addButton(withTitle: "确定")
+        alert.messageText = message
+        alert.alertStyle = style
+        alert.beginSheetModal(for: window!, completionHandler: { response in
+            if close {
+                self.dismissController(nil)
+            }
+        })
     }
-
 }
