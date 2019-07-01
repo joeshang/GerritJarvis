@@ -19,7 +19,7 @@ class ConfigManager {
     static let PasswordKey = "PasswordKey"
     static let AccountIdKey = "AccountIdKey"
     static let RefreshFrequencyKey = "RefreshFrequencyKey"
-    private let StartAfterLoginKey = "StartAfterLoginKey"
+    private let LaunchAtLoginKey = "LaunchAtLoginKey"
     private let ShouldNotifyMergeConflict = "ShouldNotifyMergeConflict"
     private let ShouldNotifyNewIncomingReviewKey = "ShouldNotifyNewIncomingReviewKey"
     private let ShowOurNotReadyReviewKey = "ShowOurNotReadyReviewKey"
@@ -48,12 +48,12 @@ class ConfigManager {
         }
     }
 
-    var startAfterLogin: Bool {
+    var launchAtLogin: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: StartAfterLoginKey)
+            return UserDefaults.standard.bool(forKey: LaunchAtLoginKey)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: StartAfterLoginKey)
+            UserDefaults.standard.set(newValue, forKey: LaunchAtLoginKey)
         }
     }
 

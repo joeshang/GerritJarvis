@@ -8,6 +8,7 @@
 
 import Cocoa
 import Preferences
+import LaunchAtLogin
 
 class GeneralPreferenceViewController: NSViewController, PreferencePane {
 
@@ -15,13 +16,15 @@ class GeneralPreferenceViewController: NSViewController, PreferencePane {
     let preferencePaneTitle = "General"
     let toolbarItemIcon = NSImage(named: NSImage.preferencesGeneralName)!
 
+    @IBOutlet weak var launchAtLoginButton: NSButton!
     @IBOutlet weak var mergeConflictButton: NSButton!
     @IBOutlet weak var notifyNewIncomingButton: NSButton!
     @IBOutlet weak var showOurNotReadyReviewButton: NSButton!
     @IBOutlet weak var frequencyButton: NSPopUpButton!
 
-    @IBAction func startAfterLoginClicked(_ sender: NSButton) {
-        ConfigManager.shared.startAfterLogin = (sender.state == .on)
+    @IBAction func launchAtLoginClicked(_ sender: NSButton) {
+        ConfigManager.shared.launchAtLogin = (sender.state == .on)
+        LaunchAtLogin.isEnabled = ConfigManager.shared.launchAtLogin
     }
 
     @IBAction func notifyMergeConflictClicked(_ sender: NSButton) {
