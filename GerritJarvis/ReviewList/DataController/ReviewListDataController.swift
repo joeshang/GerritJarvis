@@ -416,7 +416,8 @@ extension ReviewListDataController {
         }
 
         for change in leaveChanges {
-            guard change.isOurs(),
+            let hasTrigger = MergedTriggerManager.shared.hasTrigger(change: change)
+            guard (change.isOurs() || hasTrigger),
                 let changeId = change.changeId else {
                 continue
             }
@@ -425,16 +426,18 @@ extension ReviewListDataController {
                     return
                 }
                 var title = ""
-                if let name = change.owner?.name,
+                if change.isOurs(),
+                    let name = change.owner?.name,
                     let mergedName = change.mergedBy(),
                     name != mergedName {
                     title += "我的 Review 已合并"
                 }
-                if MergedTriggerManager.shared.hasTrigger(change: change) {
+                if hasTrigger {
+                    MergedTriggerManager.shared.callTrigger(change: change)
                     if !title.isEmpty {
                         title += "，"
                     }
-                    title += "执行 Merged Trigger"
+                    title += "执行 Trigger"
                 }
                 if title.isEmpty {
                     return

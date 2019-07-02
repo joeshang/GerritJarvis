@@ -54,6 +54,10 @@ class MergedTriggerWindowController: NSWindowController {
         })
     }
 
+    @IBAction func pathChanged(_ sender: Any) {
+        MergedTriggerManager.shared.path = pathInputField.stringValue
+    }
+
     private func showAlertPanel(message: String, style: NSAlert.Style, close: Bool) {
         let alert = NSAlert()
         alert.addButton(withTitle: "确定")
@@ -61,7 +65,7 @@ class MergedTriggerWindowController: NSWindowController {
         alert.alertStyle = style
         alert.beginSheetModal(for: window!, completionHandler: { response in
             if close {
-                self.dismissController(nil)
+                self.close()
             }
         })
     }
