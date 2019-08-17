@@ -12,6 +12,7 @@ import Preferences
 extension PreferencePane.Identifier {
     static let general = Identifier("general")
     static let account = Identifier("account")
+    static let blacklist = Identifier("blacklist")
 }
 
 @NSApplicationMain
@@ -29,7 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
             GeneralPreferenceViewController(),
-            AccountPreferenceViewController()
+            AccountPreferenceViewController(),
+            BlackListPreferenceViewController()
         ]
     )
 

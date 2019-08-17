@@ -17,6 +17,8 @@
 		D26AC9A62272E96900D65397 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AC9A52272E96900D65397 /* ReviewListViewController.swift */; };
 		D26AC9AC227319F100D65397 /* ReviewListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D26AC9AB227319F100D65397 /* ReviewListCell.xib */; };
 		D26AC9AE22731A1500D65397 /* ReviewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26AC9AD22731A1500D65397 /* ReviewListCell.swift */; };
+		D2758AF823083CE900CD2DA7 /* BlackListPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2758AF623083CE900CD2DA7 /* BlackListPreferenceViewController.swift */; };
+		D2758AF923083CE900CD2DA7 /* BlackListPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2758AF723083CE900CD2DA7 /* BlackListPreferenceViewController.xib */; };
 		D288598C220BE3C1003495BC /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2885989220BE3C1003495BC /* Change.swift */; };
 		D288598D220BE3C1003495BC /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598A220BE3C1003495BC /* Author.swift */; };
 		D288598E220BE3C1003495BC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598B220BE3C1003495BC /* Message.swift */; };
@@ -72,6 +74,8 @@
 		D26AC9A52272E96900D65397 /* ReviewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		D26AC9AB227319F100D65397 /* ReviewListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewListCell.xib; sourceTree = "<group>"; };
 		D26AC9AD22731A1500D65397 /* ReviewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCell.swift; sourceTree = "<group>"; };
+		D2758AF623083CE900CD2DA7 /* BlackListPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackListPreferenceViewController.swift; sourceTree = "<group>"; };
+		D2758AF723083CE900CD2DA7 /* BlackListPreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlackListPreferenceViewController.xib; sourceTree = "<group>"; };
 		D2885989220BE3C1003495BC /* Change.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
 		D288598A220BE3C1003495BC /* Author.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		D288598B220BE3C1003495BC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -172,6 +176,15 @@
 			path = GerritJarvis;
 			sourceTree = "<group>";
 		};
+		D2758AF523083CA400CD2DA7 /* BlackList */ = {
+			isa = PBXGroup;
+			children = (
+				D2758AF623083CE900CD2DA7 /* BlackListPreferenceViewController.swift */,
+				D2758AF723083CE900CD2DA7 /* BlackListPreferenceViewController.xib */,
+			);
+			path = BlackList;
+			sourceTree = "<group>";
+		};
 		D2885986220B125F003495BC /* Gerrit */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +274,7 @@
 				D291E321228B33CD0033614B /* Manager */,
 				D291E315228B15C60033614B /* General */,
 				D291E31A228B161F0033614B /* Account */,
+				D2758AF523083CA400CD2DA7 /* BlackList */,
 			);
 			path = Preference;
 			sourceTree = "<group>";
@@ -433,6 +447,7 @@
 				D2BBB3802299862700288865 /* MergedTriggerWindowController.xib in Resources */,
 				D26AC9AC227319F100D65397 /* ReviewListCell.xib in Resources */,
 				D2350AE72180616B0002A17D /* Assets.xcassets in Resources */,
+				D2758AF923083CE900CD2DA7 /* BlackListPreferenceViewController.xib in Resources */,
 				D291E324228B343E0033614B /* ReviewListEmptyView.xib in Resources */,
 				D2350AEA2180616B0002A17D /* Main.storyboard in Resources */,
 			);
@@ -513,6 +528,7 @@
 				D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */,
 				D297346D229B99F800C51043 /* MergedTriggerManager.swift in Sources */,
 				D2BBB37F2299862700288865 /* MergedTriggerWindowController.swift in Sources */,
+				D2758AF823083CE900CD2DA7 /* BlackListPreferenceViewController.swift in Sources */,
 				D26AC9A42272D5BE00D65397 /* GerritModelHelper.swift in Sources */,
 				D291E320228B2C300033614B /* PasteTextField.swift in Sources */,
 				D291E309228976610033614B /* GerritUtils.swift in Sources */,

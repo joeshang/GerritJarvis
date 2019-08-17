@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
-  - ObjectMapper (3.4.2)
+  - ObjectMapper (3.5.1)
   - Preferences (0.3.0)
   - SnapKit (5.0.0)
 
@@ -19,7 +19,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
   Preferences: 517b5aa40e68f54a47c41ca3853ccd68e99c418b
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 

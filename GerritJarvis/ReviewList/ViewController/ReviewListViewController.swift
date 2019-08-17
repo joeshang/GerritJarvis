@@ -129,7 +129,7 @@ extension ReviewListViewController {
 
     @objc func tableViewSelectionDidChange(notification: NSNotification) {
         let table = notification.object as! NSTableView
-        guard table.selectedRow >= 0 else {
+        guard table == tableView, table.selectedRow >= 0 else {
             return
         }
 

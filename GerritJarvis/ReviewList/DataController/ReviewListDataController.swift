@@ -246,6 +246,9 @@ extension ReviewListDataController {
             if viewModel.isOurNotReady && !ConfigManager.shared.showOurNotReadyReview {
                 continue
             }
+            if change.isInBlacklist() {
+                continue
+            }
             viewModels.append(viewModel)
         }
         changes = newChanges
@@ -380,6 +383,9 @@ extension ReviewListDataController : NSUserNotificationCenterDelegate {
     private func postLocationNotification(title: String, image: NSImage?, change: Change) {
         if isFirstLoading {
             // 第一次加载该用户的 Review List 时，不做任何通知
+            return
+        }
+        if change.isInBlacklist() {
             return
         }
         let notification = NSUserNotification()

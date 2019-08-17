@@ -157,6 +157,28 @@ extension Change {
         return (resultScore, resultAuthor)
     }
 
+    func isInBlacklist() -> Bool {
+        guard let name = owner?.name,
+            let username = owner?.username,
+            let project = project?.description else {
+            return false
+        }
+        var inBlacklist = false
+        for (type, value) in ConfigManager.shared.blacklist {
+            if type == ConfigManager.BlacklistType.User
+                && (value == name || value == username) {
+                inBlacklist = true
+                break
+            }
+            if type == ConfigManager.BlacklistType.Project
+                && value == project {
+                inBlacklist = true
+                break
+            }
+        }
+        return inBlacklist
+    }
+
 }
 
 extension Author {

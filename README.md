@@ -51,8 +51,7 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
 
 - [x] 开机启动
 - [x] Merge Trigger，合并时可以触发指定的 Bash 脚本
-- [ ] 支持黑名单/白名单
-- [ ] 支持 Scheme，可以通过 Alfred 快速跳转到某个 Review
+- [x] 支持黑名单/白名单
 
 ## 👨🏻‍💻 作者
 

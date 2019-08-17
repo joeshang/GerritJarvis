@@ -19,10 +19,16 @@ class ConfigManager {
     static let PasswordKey = "PasswordKey"
     static let AccountIdKey = "AccountIdKey"
     static let RefreshFrequencyKey = "RefreshFrequencyKey"
+    static let BlacklistKey = "BlacklistKey"
     private let LaunchAtLoginKey = "LaunchAtLoginKey"
     private let ShouldNotifyMergeConflict = "ShouldNotifyMergeConflict"
     private let ShouldNotifyNewIncomingReviewKey = "ShouldNotifyNewIncomingReviewKey"
     private let ShowOurNotReadyReviewKey = "ShowOurNotReadyReviewKey"
+
+    enum BlacklistType {
+        static let User = "User"
+        static let Project = "Project"
+    }
 
     static let shared = ConfigManager()
 
@@ -30,6 +36,7 @@ class ConfigManager {
     private(set) var user: String?
     private(set) var password: String?
     private(set) var accountId: Int?
+    private(set) var blacklist = [(String, String)]()
 
     var refreshFrequency: TimeInterval {
         get {
@@ -91,6 +98,7 @@ class ConfigManager {
         self.user = UserDefaults.standard.string(forKey: ConfigManager.UserKey)
         self.password = UserDefaults.standard.string(forKey: ConfigManager.PasswordKey)
         self.accountId = UserDefaults.standard.integer(forKey: ConfigManager.AccountIdKey)
+        fetchBlacklist()
 
         if UserDefaults.standard.value(forKey: ShouldNotifyMergeConflict) == nil {
             self.shouldNotifyMergeConflict = true
@@ -110,7 +118,7 @@ class ConfigManager {
     }
 
     func update(baseUrl: String, user: String, password: String, accountId: Int) {
-        UserDefaults.standard.set(user, forKey: ConfigManager.BaseUrlKey)
+        UserDefaults.standard.set(baseUrl, forKey: ConfigManager.BaseUrlKey)
         self.baseUrl = baseUrl
         UserDefaults.standard.set(user, forKey: ConfigManager.UserKey)
         self.user = user
@@ -123,6 +131,42 @@ class ConfigManager {
                                         userInfo: [ConfigManager.UserKey: user,
                                                    ConfigManager.PasswordKey: password,
                                                    ConfigManager.BaseUrlKey: baseUrl])
+    }
+
+    func appendBlacklist(type: String, value: String) {
+        blacklist.append((type, value))
+        saveBlacklist()
+    }
+
+    func removeBlacklist(at index: Int) {
+        guard index > 0 && index < blacklist.count else {
+            return
+        }
+        blacklist.remove(at: index)
+        saveBlacklist()
+    }
+
+    private func fetchBlacklist() {
+        guard let list = UserDefaults.standard.array(forKey: ConfigManager.BlacklistKey) as? [String] else {
+            return
+        }
+
+        blacklist = list.compactMap { string in
+            let array = string.split(separator: ",")
+            if array.count != 2 {
+                return nil
+            }
+            let type = array[0]
+            let value = array[1]
+            return (String(type), String(value))
+        }
+    }
+
+    private func saveBlacklist() {
+        let list = blacklist.map { (t, v) in
+            return t + "," + v
+        }
+        UserDefaults.standard.set(list, forKey: ConfigManager.BlacklistKey)
     }
 
 }
