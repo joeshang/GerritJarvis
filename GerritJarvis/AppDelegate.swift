@@ -45,9 +45,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                object: nil)
 
         if ConfigManager.shared.hasUser(),
+            let baseUrl = ConfigManager.shared.baseUrl,
             let user = ConfigManager.shared.user,
             let password = ConfigManager.shared.password {
-            reviewListDataController.changeAccount(user: user, password: password)
+            reviewListDataController.changeAccount(baseUrl: baseUrl, user: user, password: password)
         }
     }
 

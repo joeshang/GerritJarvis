@@ -11,7 +11,7 @@ import Cocoa
 class GerritUtils {
 
     static func openGerrit(number: Int) {
-        if let url = URL(string: "\(ConfigManager.GerritBaseUrl)/#/c/\(number)") {
+        if let baseUrl = ConfigManager.shared.baseUrl, let url = URL(string: "\(baseUrl)/#/c/\(number)") {
             NSWorkspace.shared.open(url)
         }
     }

@@ -15,6 +15,7 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
     let preferencePaneTitle = "Account"
     let toolbarItemIcon = NSImage(named: NSImage.advancedName)!
 
+    @IBOutlet weak var baseUrlTextField: NSTextField!
     @IBOutlet weak var userTextField: NSTextField!
     @IBOutlet weak var passwordTextField: PasteTextField!
     @IBOutlet weak var saveButton: NSButton!
@@ -36,6 +37,11 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {
+        let baseUrl = baseUrlTextField.stringValue
+        if baseUrl.isEmpty {
+            showAlert("Gerrit BaseURL 为空")
+            return
+        }
         let user = userTextField.stringValue
         if user.isEmpty {
             showAlert("用户名为空")
@@ -50,7 +56,7 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
         saveButton.isEnabled = false
         indicator.isHidden = false
         indicator.startAnimation(nil)
-        GerritService(user: user, password: password, baseUrl: ConfigManager.GerritBaseUrl).verifyAccount { account, statusCode in
+        GerritService(user: user, password: password, baseUrl: baseUrl).verifyAccount { account, statusCode in
             self.saveButton.isEnabled = true
             self.indicator.isHidden = true
             self.indicator.stopAnimation(nil)
@@ -68,7 +74,8 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
                 self.showAlert("无效的用户名，账户验证失败")
                 return
             }
-            ConfigManager.shared.update(user: user, password: password, accountId: accountId)
+
+            ConfigManager.shared.update(baseUrl: baseUrl, user: user, password: password, accountId: accountId)
 
             let alert = NSAlert()
             alert.addButton(withTitle: "确定")

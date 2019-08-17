@@ -11,10 +11,10 @@ import Cocoa
 class ConfigManager {
      // 单位为分钟，值必须在 General Preference 的 frequency 选择列表中
     static let DefaultRefreshFrequency: TimeInterval = 3
-    static let GerritBaseUrl: String = "http://gerrit.zhenguanyu.com"
     static let AccountUpdatedNotification = Notification.Name("AccountUpdatedNotification")
     static let RefreshFrequencyUpdatedNotification = Notification.Name("RefreshFrequencyUpdatedNotification")
 
+    static let BaseUrlKey = "BaseUrlKey"
     static let UserKey = "UserKey"
     static let PasswordKey = "PasswordKey"
     static let AccountIdKey = "AccountIdKey"
@@ -26,9 +26,11 @@ class ConfigManager {
 
     static let shared = ConfigManager()
 
+    private(set) var baseUrl: String?
     private(set) var user: String?
     private(set) var password: String?
     private(set) var accountId: Int?
+
     var refreshFrequency: TimeInterval {
         get {
             let frequency = UserDefaults.standard.double(forKey: ConfigManager.RefreshFrequencyKey)
@@ -85,6 +87,7 @@ class ConfigManager {
     }
 
     init() {
+        self.baseUrl = UserDefaults.standard.string(forKey: ConfigManager.BaseUrlKey)
         self.user = UserDefaults.standard.string(forKey: ConfigManager.UserKey)
         self.password = UserDefaults.standard.string(forKey: ConfigManager.PasswordKey)
         self.accountId = UserDefaults.standard.integer(forKey: ConfigManager.AccountIdKey)
@@ -98,15 +101,17 @@ class ConfigManager {
     }
 
     func hasUser() -> Bool {
-        if let user = user, let password = password, let accountId = accountId,
-            accountId != 0 && !user.isEmpty && !password.isEmpty {
+        if let url = baseUrl, let user = user, let password = password, let accountId = accountId,
+            accountId != 0 && !url.isEmpty && !user.isEmpty && !password.isEmpty {
             return true
         } else {
             return false
         }
     }
 
-    func update(user: String, password: String, accountId: Int) {
+    func update(baseUrl: String, user: String, password: String, accountId: Int) {
+        UserDefaults.standard.set(user, forKey: ConfigManager.BaseUrlKey)
+        self.baseUrl = baseUrl
         UserDefaults.standard.set(user, forKey: ConfigManager.UserKey)
         self.user = user
         UserDefaults.standard.set(password, forKey: ConfigManager.PasswordKey)
@@ -115,7 +120,9 @@ class ConfigManager {
         self.accountId = accountId
         NotificationCenter.default.post(name: ConfigManager.AccountUpdatedNotification,
                                         object: nil,
-                                        userInfo: [ConfigManager.UserKey: user, ConfigManager.PasswordKey: password])
+                                        userInfo: [ConfigManager.UserKey: user,
+                                                   ConfigManager.PasswordKey: password,
+                                                   ConfigManager.BaseUrlKey: baseUrl])
     }
 
 }

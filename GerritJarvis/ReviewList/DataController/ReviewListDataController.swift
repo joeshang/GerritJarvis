@@ -80,10 +80,10 @@ class ReviewListDataController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func changeAccount(user: String, password: String) {
+    func changeAccount(baseUrl: String, user: String, password: String) {
         stopTimer()
         isFirstLoading = true
-        gerritService = GerritService(user: user, password: password, baseUrl: ConfigManager.GerritBaseUrl)
+        gerritService = GerritService(user: user, password: password, baseUrl: baseUrl)
         startTimer()
     }
 
@@ -133,10 +133,11 @@ class ReviewListDataController: NSObject {
 
     @objc func handleAccountUpdated(notification: Notification) {
         guard let user = notification.userInfo?[ConfigManager.UserKey] as? String,
-            let password = notification.userInfo?[ConfigManager.PasswordKey] as? String else {
+            let password = notification.userInfo?[ConfigManager.PasswordKey] as? String,
+            let baseUrl = notification.userInfo?[ConfigManager.BaseUrlKey] as? String else {
             return
         }
-        changeAccount(user: user, password: password)
+        changeAccount(baseUrl: baseUrl, user: user, password: password)
     }
 
     @objc func handleRefreshFrequencyUpdated(notification: Notification) {
