@@ -53,7 +53,7 @@ class ReviewListViewController: NSViewController {
         tableView.reloadData()
         if !ConfigManager.shared.hasUser() {
             emptyView.isHidden = false
-            emptyView.titleLabel.stringValue = "请设置 Gerrit 用户"
+            emptyView.titleLabel.stringValue = NSLocalizedString("ConfigGerritUser", comment: "")
             emptyView.imageView.image = NSImage.init(named: "EmptyUser")
             emptyView.preferenceButton.isHidden = false
             clearButton.isEnabled = false
@@ -61,10 +61,10 @@ class ReviewListViewController: NSViewController {
         } else if dataController.cellViewModels.count == 0 {
             emptyView.isHidden = false
             if !dataController.isFetchingList && dataController.changes == nil {
-                emptyView.titleLabel.stringValue = "无法获取 Review 列表，请检查网络或账户设置"
+                emptyView.titleLabel.stringValue = NSLocalizedString("FetchListFailed", comment: "")
                 emptyView.imageView.image = NSImage.init(named: "EmptyReview")
             } else {
-                emptyView.titleLabel.stringValue = "暂无 Review"
+                emptyView.titleLabel.stringValue = NSLocalizedString("NoReview", comment: "")
                 emptyView.imageView.image = NSImage.init(named: "EmptyReview")
             }
             emptyView.preferenceButton.isHidden = true

@@ -1,0 +1,33 @@
+
+/* Class = "NSTextFieldCell"; title = "分钟"; ObjectID = "0ce-8R-Cox"; */
+"0ce-8R-Cox.title" = "分钟";
+
+/* Class = "NSTextFieldCell"; title = "列表刷新频率"; ObjectID = "2uN-3Y-Zup"; */
+"2uN-3Y-Zup.title" = "列表刷新频率";
+
+/* Class = "NSButtonCell"; title = "通知新的 Incoming Review"; ObjectID = "4sU-W6-0d2"; */
+"4sU-W6-0d2.title" = "通知新的 Incoming Review";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "B6F-JS-NgY"; */
+"B6F-JS-NgY.title" = "1";
+
+/* Class = "NSButtonCell"; title = "开机启动"; ObjectID = "DCV-lx-nFN"; */
+"DCV-lx-nFN.title" = "开机启动";
+
+/* Class = "NSButtonCell"; title = "显示自己提的 Review 中被自己 -2 的 Review"; ObjectID = "Nwv-hG-ioh"; */
+"Nwv-hG-ioh.title" = "显示自己提的 Review 中被自己 -2 的 Review";
+
+/* Class = "NSMenuItem"; title = "30"; ObjectID = "h34-lM-M1W"; */
+"h34-lM-M1W.title" = "30";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "mox-Yj-yk9"; */
+"mox-Yj-yk9.title" = "3";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "pq3-tb-njL"; */
+"pq3-tb-njL.title" = "5";
+
+/* Class = "NSButtonCell"; title = "通知 Merge Conflict"; ObjectID = "rQd-Tt-wjK"; */
+"rQd-Tt-wjK.title" = "通知 Merge Conflict";
+
+/* Class = "NSMenuItem"; title = "10"; ObjectID = "vbi-7d-Yla"; */
+"vbi-7d-Yla.title" = "10";

@@ -23,6 +23,8 @@
 		D288598D220BE3C1003495BC /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598A220BE3C1003495BC /* Author.swift */; };
 		D288598E220BE3C1003495BC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598B220BE3C1003495BC /* Message.swift */; };
 		D2885990220BE633003495BC /* GerritService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D288598F220BE633003495BC /* GerritService.swift */; };
+		D28FB85F23099F2200E00339 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D28FB86123099F2200E00339 /* Localizable.strings */; };
+		D28FB8632309A7C100E00339 /* GeneralPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D28FB8652309A7C100E00339 /* GeneralPreferenceViewController.xib */; };
 		D291E2F322856E1C0033614B /* VerticallyCenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2F222856E1C0033614B /* VerticallyCenteredTextFieldCell.swift */; };
 		D291E2F9228582060033614B /* ReviewListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2F8228582060033614B /* ReviewListCellViewModel.swift */; };
 		D291E2FB22858A620033614B /* ReviewScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E2FA22858A620033614B /* ReviewScore.swift */; };
@@ -30,7 +32,6 @@
 		D291E3072287FEB90033614B /* ReviewListDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E3062287FEB90033614B /* ReviewListDataController.swift */; };
 		D291E309228976610033614B /* GerritUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E308228976610033614B /* GerritUtils.swift */; };
 		D291E318228B15EC0033614B /* GeneralPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E316228B15EC0033614B /* GeneralPreferenceViewController.swift */; };
-		D291E319228B15EC0033614B /* GeneralPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D291E317228B15EC0033614B /* GeneralPreferenceViewController.xib */; };
 		D291E31D228B172E0033614B /* AccountPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E31B228B172E0033614B /* AccountPreferenceViewController.swift */; };
 		D291E31E228B172E0033614B /* AccountPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D291E31C228B172E0033614B /* AccountPreferenceViewController.xib */; };
 		D291E320228B2C300033614B /* PasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291E31F228B2C300033614B /* PasteTextField.swift */; };
@@ -80,6 +81,11 @@
 		D288598A220BE3C1003495BC /* Author.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		D288598B220BE3C1003495BC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		D288598F220BE633003495BC /* GerritService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerritService.swift; sourceTree = "<group>"; };
+		D28FB86023099F2200E00339 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D28FB86223099F4A00E00339 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D28FB8642309A7C100E00339 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferenceViewController.xib; sourceTree = "<group>"; };
+		D28FB8672309A7ED00E00339 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/GeneralPreferenceViewController.strings; sourceTree = "<group>"; };
+		D28FB8692309A7EF00E00339 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/GeneralPreferenceViewController.strings"; sourceTree = "<group>"; };
 		D291E2F222856E1C0033614B /* VerticallyCenteredTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyCenteredTextFieldCell.swift; sourceTree = "<group>"; };
 		D291E2F8228582060033614B /* ReviewListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCellViewModel.swift; sourceTree = "<group>"; };
 		D291E2FA22858A620033614B /* ReviewScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScore.swift; sourceTree = "<group>"; };
@@ -87,7 +93,6 @@
 		D291E3062287FEB90033614B /* ReviewListDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListDataController.swift; sourceTree = "<group>"; };
 		D291E308228976610033614B /* GerritUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerritUtils.swift; sourceTree = "<group>"; };
 		D291E316228B15EC0033614B /* GeneralPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferenceViewController.swift; sourceTree = "<group>"; };
-		D291E317228B15EC0033614B /* GeneralPreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferenceViewController.xib; sourceTree = "<group>"; };
 		D291E31B228B172E0033614B /* AccountPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPreferenceViewController.swift; sourceTree = "<group>"; };
 		D291E31C228B172E0033614B /* AccountPreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPreferenceViewController.xib; sourceTree = "<group>"; };
 		D291E31F228B2C300033614B /* PasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTextField.swift; sourceTree = "<group>"; };
@@ -172,6 +177,7 @@
 				D2350AE82180616B0002A17D /* Main.storyboard */,
 				D2350AEB2180616B0002A17D /* Info.plist */,
 				D2350AEC2180616B0002A17D /* GerritJarvis.entitlements */,
+				D28FB86123099F2200E00339 /* Localizable.strings */,
 			);
 			path = GerritJarvis;
 			sourceTree = "<group>";
@@ -283,7 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				D291E316228B15EC0033614B /* GeneralPreferenceViewController.swift */,
-				D291E317228B15EC0033614B /* GeneralPreferenceViewController.xib */,
+				D28FB8652309A7C100E00339 /* GeneralPreferenceViewController.xib */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -426,6 +432,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = D2350AD62180616A0002A17D;
 			productRefGroup = D2350AE02180616A0002A17D /* Products */;
@@ -442,10 +449,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D291E319228B15EC0033614B /* GeneralPreferenceViewController.xib in Resources */,
+				D28FB8632309A7C100E00339 /* GeneralPreferenceViewController.xib in Resources */,
 				D291E31E228B172E0033614B /* AccountPreferenceViewController.xib in Resources */,
 				D2BBB3802299862700288865 /* MergedTriggerWindowController.xib in Resources */,
 				D26AC9AC227319F100D65397 /* ReviewListCell.xib in Resources */,
+				D28FB85F23099F2200E00339 /* Localizable.strings in Resources */,
 				D2350AE72180616B0002A17D /* Assets.xcassets in Resources */,
 				D2758AF923083CE900CD2DA7 /* BlackListPreferenceViewController.xib in Resources */,
 				D291E324228B343E0033614B /* ReviewListEmptyView.xib in Resources */,
@@ -557,6 +565,25 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		D28FB86123099F2200E00339 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D28FB86023099F2200E00339 /* en */,
+				D28FB86223099F4A00E00339 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D28FB8652309A7C100E00339 /* GeneralPreferenceViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D28FB8642309A7C100E00339 /* Base */,
+				D28FB8672309A7ED00E00339 /* en */,
+				D28FB8692309A7EF00E00339 /* zh-Hans */,
+			);
+			name = GeneralPreferenceViewController.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -564,6 +591,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -625,6 +653,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

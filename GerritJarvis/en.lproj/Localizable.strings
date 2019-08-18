@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  GerritJarvis
+
+  Created by Joe Shang on 2019/8/18.
+  Copyright © 2019 Chuanren Shang. All rights reserved.
+*/
+
+"RunTrigger" = "Run Trigger";
+"ReviewMerged" = "My Review is Merged";
+"ConfigGerritUser" = "Please Config Gerrit User";
+"FetchListFailed" = "Can't Fetch Review List, Please Check Network or Account Settings";
+"EmptyReview" = "No Review";
+"SaveFailed" = "Save Failed";
+"SaveSuccess" = "Save Successfully";
+"OK" = "OK";
+"EmptyUrl" = "Base Url of Gerrit is Empty";
+"EmptyUser" = "User is Empty";
+"EmptyPassword" = "Password is Empty";
+"Unauthorized" = "Invalid User or Password, Please Check Password (HTTP Password, NOT Login Password)";
+"NetworkError" = "Network or Service Error, Authorization Failed";
+"InvalidUser" = "Invalid User, Authorization Failed";
+"JarvisService" = "Jarvis is at your service";

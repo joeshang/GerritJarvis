@@ -47,10 +47,10 @@ class MergedTriggerWindowController: NSWindowController {
             loadingIndicator.stopAnimation(nil)
             loadingIndicator.isHidden = true
             guard result else {
-                self.showAlertPanel(message: "保存失败", style: .warning, close: false)
+                self.showAlertPanel(message: NSLocalizedString("SaveFailed", comment: ""), style: .warning, close: false)
                 return
             }
-            self.showAlertPanel(message: "保存成功", style: .informational, close: true)
+            self.showAlertPanel(message: NSLocalizedString("SaveSuccess", comment: ""), style: .informational, close: true)
         })
     }
 
@@ -60,7 +60,7 @@ class MergedTriggerWindowController: NSWindowController {
 
     private func showAlertPanel(message: String, style: NSAlert.Style, close: Bool) {
         let alert = NSAlert()
-        alert.addButton(withTitle: "确定")
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
         alert.messageText = message
         alert.alertStyle = style
         alert.beginSheetModal(for: window!, completionHandler: { response in

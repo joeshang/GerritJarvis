@@ -39,17 +39,17 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
     @IBAction func saveButtonClicked(_ sender: Any) {
         let baseUrl = baseUrlTextField.stringValue
         if baseUrl.isEmpty {
-            showAlert("Gerrit BaseURL 为空")
+            showAlert(NSLocalizedString("EmptyUrl", comment: ""))
             return
         }
         let user = userTextField.stringValue
         if user.isEmpty {
-            showAlert("用户名为空")
+            showAlert(NSLocalizedString("EmptyUser", comment: ""))
             return
         }
         let password = passwordTextField.stringValue
         if password.isEmpty {
-            showAlert("密码为空")
+            showAlert(NSLocalizedString("EmptyPassword", comment: ""))
             return
         }
 
@@ -64,23 +64,23 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
                 let accountId = account.accountId,
                 let name = account.username else {
                 if statusCode == 401 {
-                    self.showAlert("无效的用户名或密码，请确保是 HTTP 密码而非 Gerrit 登录密码")
+                    self.showAlert(NSLocalizedString("Unauthorized", comment: ""))
                 } else {
-                    self.showAlert("网络或服务错误，账户验证失败")
+                    self.showAlert(NSLocalizedString("NetworkError", comment: ""))
                 }
                 return
             }
             if user != name {
-                self.showAlert("无效的用户名，账户验证失败")
+                self.showAlert(NSLocalizedString("InvalidUser", comment: ""))
                 return
             }
 
             ConfigManager.shared.update(baseUrl: baseUrl, user: user, password: password, accountId: accountId)
 
             let alert = NSAlert()
-            alert.addButton(withTitle: "确定")
-            alert.messageText = "保存成功"
-            alert.informativeText = "\(account.name ?? name)，Jarvis 将为你服务"
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+            alert.messageText = NSLocalizedString("SaveSuccess", comment: "")
+            alert.informativeText = "\(account.name ?? name)，" + NSLocalizedString("JarvisService", comment: "")
             alert.alertStyle = .informational
             alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
         }
@@ -88,8 +88,8 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
 
     private func showAlert(_ message: String) {
         let alert = NSAlert()
-        alert.addButton(withTitle: "确定")
-        alert.messageText = "保存失败"
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+        alert.messageText = NSLocalizedString("SaveFailed", comment: "")
         alert.informativeText = message
         alert.alertStyle = .warning
         alert.beginSheetModal(for: self.view.window!, completionHandler: nil)

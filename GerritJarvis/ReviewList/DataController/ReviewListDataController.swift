@@ -437,14 +437,14 @@ extension ReviewListDataController {
                     let name = change.owner?.name,
                     let mergedName = change.mergedBy(),
                     name != mergedName {
-                    title += "我的 Review 已合并"
+                    title += NSLocalizedString("ReviewMerged", comment: "")
                 }
                 if hasTrigger {
                     MergedTriggerManager.shared.callTrigger(change: change)
                     if !title.isEmpty {
                         title += "，"
                     }
-                    title += "执行 Trigger"
+                    title += NSLocalizedString("RunTrigger", comment: "")
                 }
                 if title.isEmpty {
                     return

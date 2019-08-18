@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  GerritJarvis
+
+  Created by Joe Shang on 2019/8/18.
+  Copyright © 2019 Chuanren Shang. All rights reserved.
+*/
+
+"RunTrigger" = "执行 Trigger";
+"ReviewMerged" = "我的 Review 已合并";
+"ConfigGerritUser" = "请设置 Gerrit 用户";
+"FetchListFailed" = "无法获取 Review 列表，请检查网络或账户设置";
+"NoReview" = "暂无 Review";
+"SaveFailed" = "保存失败";
+"SaveSuccess" = "保存成功";
+"OK" = "确定";
+"EmptyUrl" = "Gerrit BaseURL 为空";
+"EmptyUser" = "用户名为空";
+"EmptyPassword" = "密码为空";
+"Unauthorized" = "无效的用户名或密码，请确保是 HTTP 密码而非 Gerrit 登录密码";
+"NetworkError" = "网络或服务错误，账户验证失败";
+"InvalidUser" = "无效的用户名，账户验证失败";
+"JarvisService" = "Jarvis 将为你服务";
