@@ -15,6 +15,7 @@
 "SaveSuccess" = "保存成功";
 "OK" = "确定";
 "EmptyUrl" = "Gerrit BaseURL 为空";
+"InvalidUrl" = "Gerrit BaseURL 不是合法的 URL";
 "EmptyUser" = "用户名为空";
 "EmptyPassword" = "密码为空";
 "Unauthorized" = "无效的用户名或密码，请确保是 HTTP 密码而非 Gerrit 登录密码";

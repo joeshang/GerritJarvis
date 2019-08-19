@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AccountPreferenceViewController" customModule="GerritJarvis" customModuleProvider="target">
             <connections>
-                <outlet property="baseURLTextField" destination="TwP-yy-OQ4" id="rT0-dN-jOQ"/>
                 <outlet property="baseUrlTextField" destination="TwP-yy-OQ4" id="zIQ-s1-LPh"/>
                 <outlet property="indicator" destination="tt9-Rh-cwl" id="z7T-6R-YGQ"/>
                 <outlet property="passwordTextField" destination="Iwb-Ta-BUl" id="RZp-Tk-0As"/>

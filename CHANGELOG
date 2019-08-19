@@ -1,8 +1,23 @@
 # CHANGELOG
 
+## 1.2.0
+
+### Features
+
+* Blacklist
+* Configuration of Gerrit's base url
+* Multi-language
+
+* 支持黑名单
+* 支持配置 Gerrit 的 BaseUrl
+* 支持多语言
+
 ## 1.1.0
 
 ### Features
+
+* Launch at login
+* Merged trigger
 
 * 支持开机启动
 * 支持 Merged Trigger，在某个 Review 被 Merge 之后自动触发一段脚本
@@ -10,6 +25,12 @@
 ## 1.0.0
 
 ### Features
+
+* Review list which including all status and info
+* Notify event of review, including score, comment, merge conflict, merged
+* Show the count of new event in status bar
+* Notification and account management
+* Clear all events in one button
 
 * Review 列表，包含 Review 的各种信息与状态
 * 通知 Review 事件，包括 Score、Comment、Merge Conflict、Merged

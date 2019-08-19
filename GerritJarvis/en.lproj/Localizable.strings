@@ -15,6 +15,7 @@
 "SaveSuccess" = "Save Successfully";
 "OK" = "OK";
 "EmptyUrl" = "Base Url of Gerrit is Empty";
+"InvalidUrl" = "Base Url of Gerrit is Invalid";
 "EmptyUser" = "User is Empty";
 "EmptyPassword" = "Password is Empty";
 "Unauthorized" = "Invalid User or Password, Please Check Password (HTTP Password, NOT Login Password)";

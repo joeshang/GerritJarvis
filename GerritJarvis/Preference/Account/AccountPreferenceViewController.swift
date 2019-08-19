@@ -28,6 +28,9 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
     override func viewDidAppear() {
         super.viewDidAppear()
 
+        if let url = ConfigManager.shared.baseUrl {
+            baseUrlTextField.stringValue = url
+        }
         if let user = ConfigManager.shared.user {
             userTextField.stringValue = user
         }
@@ -40,6 +43,10 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
         let baseUrl = baseUrlTextField.stringValue
         if baseUrl.isEmpty {
             showAlert(NSLocalizedString("EmptyUrl", comment: ""))
+            return
+        }
+        if !verifyUrl(urlString: baseUrl) {
+            showAlert(NSLocalizedString("InvalidUrl", comment: ""))
             return
         }
         let user = userTextField.stringValue
@@ -93,6 +100,16 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
         alert.informativeText = message
         alert.alertStyle = .warning
         alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+    }
+
+    private func verifyUrl(urlString: String) -> Bool {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        if let match = detector.firstMatch(in: urlString, options: [], range: NSRange(location: 0, length: urlString.utf16.count)) {
+            // it is a link, if the match covers the whole string
+            return match.range.length == urlString.utf16.count
+        } else {
+            return false
+        }
     }
 
 }

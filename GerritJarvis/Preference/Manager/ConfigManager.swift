@@ -139,7 +139,7 @@ class ConfigManager {
     }
 
     func removeBlacklist(at index: Int) {
-        guard index > 0 && index < blacklist.count else {
+        guard index >= 0 && index < blacklist.count else {
             return
         }
         blacklist.remove(at: index)
