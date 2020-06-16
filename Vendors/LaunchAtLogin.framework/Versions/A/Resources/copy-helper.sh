@@ -13,4 +13,5 @@ defaults write "$helper_path/Contents/Info" CFBundleIdentifier -string "$PRODUCT
 if [[ $CONFIGURATION == "Release" ]]; then
 	rm -rf "$origin_helper_path"
 	rm "$(dirname "$origin_helper_path")/copy-helper.sh"
+	rm "$(dirname "$origin_helper_path")/LaunchAtLogin.entitlements"
 fi
