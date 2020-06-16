@@ -177,21 +177,55 @@ extension ReviewListViewController: NSTableViewDelegate {
 }
 
 extension ReviewListViewController: ReviewListCellDelegate {
-
-    func reviewListCellDidClickButton(_ cell: ReviewListCell) {
-        let row = tableView.row(for: cell)
-        guard let changes = dataController.changes,
-            row >= 0 && row < changes.count else {
+    func reviewListCellDidClickTriggerButton(_ cell: ReviewListCell) {
+        guard let change = reviewChange(for: cell) else {
             return
         }
         if triggerController != nil {
             triggerController?.close()
         }
         triggerController = MergedTriggerWindowController(windowNibName: "MergedTriggerWindowController")
-        triggerController?.change = changes[row]
+        triggerController?.change = change
         triggerController?.showWindow(NSApplication.shared.delegate)
     }
 
+    func reviewListCellDidClickAuthor(_ cell: ReviewListCell) {
+        guard let change = reviewChange(for: cell) else {
+            return
+        }
+        GerritUtils.openGerrit(email: change.owner?.email)
+    }
+
+    func reviewListCellDidClickProject(_ cell: ReviewListCell) {
+        guard let change = reviewChange(for: cell) else {
+            return
+        }
+        GerritUtils.openGerrit(project: change.project)
+    }
+
+    func reviewListCellDidClickBranch(_ cell: ReviewListCell) {
+        guard let change = reviewChange(for: cell) else {
+            return
+        }
+        GerritUtils.openGerrit(project: change.project, branch: change.branch)
+    }
+
+    private func reviewChange(for cell: ReviewListCell) -> Change? {
+        let row = tableView.row(for: cell)
+        // 注意，changes 和 cellViewModels 并不是一一对应的
+        guard row >= 0 && row < dataController.cellViewModels.count,
+            let changes = dataController.changes,
+            let number = dataController.cellViewModels[row].changeNumber else {
+            return nil
+        }
+
+        for change in changes {
+            if change.number == number {
+                return change
+            }
+        }
+        return nil
+    }
 }
 
 extension ReviewListViewController {

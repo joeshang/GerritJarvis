@@ -10,10 +10,33 @@ import Cocoa
 
 class GerritUtils {
 
-    static func openGerrit(number: Int) {
-        if let baseUrl = ConfigManager.shared.baseUrl, let url = URL(string: "\(baseUrl)/#/c/\(number)") {
-            NSWorkspace.shared.open(url)
+    static func openGerrit(prefix: String) {
+        guard let baseUrl = ConfigManager.shared.baseUrl, let url = URL(string: "\(baseUrl)/\(prefix)") else {
+            return
         }
+        NSWorkspace.shared.open(url)
+    }
+
+    static func openGerrit(number: Int) {
+        openGerrit(prefix: "#/c/\(number)")
+    }
+
+    static func openGerrit(email: String?) {
+        guard let email = email?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            return
+        }
+        openGerrit(prefix: "q/owner:\(email)")
+    }
+
+    static func openGerrit(project: String?, branch: String? = nil) {
+        guard let project = project else {
+            return
+        }
+        var prefix = "q/project:\(project)"
+        if let branch = branch {
+            prefix += "+branch:\(branch)"
+        }
+        openGerrit(prefix: prefix)
     }
 
     // 从 messages 中解析出打分情况，不按照 messages 中的顺序，包含自己的打分

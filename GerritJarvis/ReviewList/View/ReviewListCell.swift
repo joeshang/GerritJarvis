@@ -9,7 +9,10 @@
 import Cocoa
 
 protocol ReviewListCellDelegate: NSObjectProtocol {
-    func reviewListCellDidClickButton(_ cell: ReviewListCell)
+    func reviewListCellDidClickTriggerButton(_ cell: ReviewListCell)
+    func reviewListCellDidClickAuthor(_ cell: ReviewListCell)
+    func reviewListCellDidClickProject(_ cell: ReviewListCell)
+    func reviewListCellDidClickBranch(_ cell: ReviewListCell)
 }
 
 class ReviewListCell: NSTableCellView {
@@ -30,7 +33,19 @@ class ReviewListCell: NSTableCellView {
     @IBOutlet weak var conflictImageView: NSImageView!
 
     @IBAction func buttonAction(_ sender: Any) {
-        delegate?.reviewListCellDidClickButton(self)
+        delegate?.reviewListCellDidClickTriggerButton(self)
+    }
+
+    @IBAction func authorPressAction(_ sender: Any) {
+        delegate?.reviewListCellDidClickAuthor(self)
+    }
+
+    @IBAction func projectPressAction(_ sender: Any) {
+        delegate?.reviewListCellDidClickProject(self)
+    }
+
+    @IBAction func branchPressAction(_ sender: Any) {
+        delegate?.reviewListCellDidClickBranch(self)
     }
 
     func bindData(with viewModel: ReviewListCellViewModel) {
