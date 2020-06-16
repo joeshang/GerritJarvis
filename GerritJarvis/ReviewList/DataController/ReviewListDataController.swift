@@ -131,6 +131,20 @@ class ReviewListDataController: NSObject {
         updateAllNewEventsCount()
     }
 
+    func revisionRange(of changeNumber: Int) -> (Int, Int)? {
+        guard let changes = changes else {
+            return nil
+        }
+        var target: Change? = nil
+        for change in changes {
+            if let number = change.number, number == changeNumber {
+                target = change
+                break
+            }
+        }
+        return target?.diffRevisionRange()
+    }
+
     @objc func handleAccountUpdated(notification: Notification) {
         guard let user = notification.userInfo?[ConfigManager.UserKey] as? String,
             let password = notification.userInfo?[ConfigManager.PasswordKey] as? String,
@@ -331,7 +345,7 @@ extension ReviewListDataController : NSUserNotificationCenterDelegate {
             updateAllNewEventsCount()
             sendReviewListUpdatedNotification()
         }
-        GerritUtils.openGerrit(number: number)
+        GerritUtils.openGerrit(number: number, revisionRange: revisionRange(of: number))
     }
 
     private func notifyReviewEvents(scores: [(Author, ReviewScore)],

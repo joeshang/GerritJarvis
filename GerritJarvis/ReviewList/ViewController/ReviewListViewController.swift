@@ -144,7 +144,7 @@ extension ReviewListViewController {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             if let number = self.dataController.cellViewModels[table.selectedRow].changeNumber {
-                GerritUtils.openGerrit(number: number)
+                GerritUtils.openGerrit(number: number, revisionRange: self.dataController.revisionRange(of: number))
             }
             table.deselectRow(table.selectedRow)
             self.renderContentView()

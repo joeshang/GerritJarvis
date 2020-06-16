@@ -179,6 +179,35 @@ extension Change {
         return inBlacklist
     }
 
+    // 找到一个 Change 中我没看过的 PatchSet 的范围
+    func diffRevisionRange() -> (Int, Int)? {
+        // 自己的 Change 不关心
+        if isOurs() {
+            return nil
+        }
+        guard let messages = messages else {
+            return nil
+        }
+        var our = 0
+        var final = 1
+        // 找到我看过的最大的 PatchSet
+        for message in messages {
+            guard let rev = message.revisionNumber else {
+                continue
+            }
+            final = rev
+            if message.isOurEvent() {
+                our = rev
+            }
+        }
+        // our == final 说明看过的还没提新的 PatchSet
+        // our 为 0 说明 Change 完全没看过
+        if our >= final || our == 0 {
+            return nil
+        }
+        return (our, final)
+    }
+
 }
 
 extension Author {
