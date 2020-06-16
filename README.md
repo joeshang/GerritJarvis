@@ -14,6 +14,11 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
 - 轻量级页面，在状态栏显示图标和新消息个数，点击后弹出列表页，访问方便
 - 支持配置一些通知策略，支持一键清除红点
 - UI 重新设计，参考 IM 风格，使用更现代的排版和图标
+- 可以跳转到 Gerrit 的 Review/Author/Project/Branch 页面
+- 支持开机启动
+- 支持 Merge Trigger，合并时可以触发指定的 Bash 脚本
+- 支持黑名单/白名单
+- 支持点击 Review 时，指定上次 Review 距离现在的 PatchSet 范围，方便看 Diff
 
 ## 安装与使用
 
@@ -47,11 +52,6 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
 * 如果想知道别人给我提的 Review 的事件，需要在设置中进行配置：
   * 勾选“通知新的 Incoming Review”，当别人给我提 Reivew 且我还没看过时（Review 的消息中最新的消息不是由我操作的）会收到通知
 
-## TODO
-
-- [x] 开机启动
-- [x] Merge Trigger，合并时可以触发指定的 Bash 脚本
-- [x] 支持黑名单/白名单
 
 ## 👨🏻‍💻 作者
 
