@@ -353,7 +353,7 @@ extension ReviewListDataController : NSUserNotificationCenterDelegate {
                                     change: Change) {
         let reviewEvents = GerritUtils.combineReviewEvents(scores: scores, comments: comments)
         for (author, score, comments) in reviewEvents {
-            if author.isMe() || (score == .Zero && comments == 0) {
+            if author.isMe() || author.isInBlackList() || (score == .Zero && comments == 0) {
                 continue
             }
 

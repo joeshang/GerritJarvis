@@ -223,6 +223,16 @@ extension Author {
         return id == accountId
     }
 
+    func isInBlackList() -> Bool {
+        for (type, value) in ConfigManager.shared.blacklist {
+            if type == ConfigManager.BlacklistType.User
+                && (value == name || value == username) {
+                return true
+            }
+        }
+        return false
+    }
+
     func avatarImage() -> NSImage? {
         if isMe() {
             return NSImage.init(named: NSImage.Name("AvatarMyself"))
