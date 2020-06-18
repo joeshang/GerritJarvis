@@ -263,6 +263,7 @@ extension Message {
         }
         return (message.hasPrefix("Patch Set \(revisionNumber):") && !message.hasSuffix("was rebased."))
             || (message.hasPrefix("Removed the following votes"))
+            || (message.hasPrefix("Removed Code-Review"))
     }
 
     func reviewScore() -> ReviewScore? {
@@ -274,6 +275,8 @@ extension Message {
         if message.contains("-Code-Review") {
             score = .Zero
         } else if message.hasPrefix("Removed the following votes") {
+            score = .Zero
+        } else if message.hasPrefix("Removed Code-Review") {
             score = .Zero
         } else if let range = message.range(of: #"(?<=Code-Review)[+-][12]"#,
                                             options: .regularExpression) {
