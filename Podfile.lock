@@ -1,11 +1,20 @@
 PODS:
   - Alamofire (5.4.1)
+  - AppCenter (4.1.0):
+    - AppCenter/Analytics (= 4.1.0)
+    - AppCenter/Crashes (= 4.1.0)
+  - AppCenter/Analytics (4.1.0):
+    - AppCenter/Core
+  - AppCenter/Core (4.1.0)
+  - AppCenter/Crashes (4.1.0):
+    - AppCenter/Core
   - ObjectMapper (4.2.0)
   - Preferences (2.2.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
+  - AppCenter
   - ObjectMapper
   - Preferences
   - SnapKit
@@ -13,16 +22,18 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AppCenter
     - ObjectMapper
     - Preferences
     - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  AppCenter: 8832b158d17e54845c3b88a91076218f0b07174d
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   Preferences: 4894cc28df3557336b0b72440c893d95203d3e33
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 045090f668749d795587d7d41c51214df096f161
+PODFILE CHECKSUM: 5e98e6e8f57f35df48dc4188704cef4ddb39135b
 
 COCOAPODS: 1.10.0

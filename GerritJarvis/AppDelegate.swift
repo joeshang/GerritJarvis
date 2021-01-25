@@ -9,6 +9,10 @@
 import Cocoa
 import Preferences
 
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
     static let account = Self("account")
@@ -39,6 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+
         initPopover()
 
         NotificationCenter.default.addObserver(self,

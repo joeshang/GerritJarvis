@@ -12,5 +12,6 @@ target 'GerritJarvis' do
   pod 'ObjectMapper'
   pod 'SnapKit'
   pod 'Preferences'
+  pod 'AppCenter'
 
 end
