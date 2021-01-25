@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>19D76</string>
+	<string>20C69</string>
 	<key>CFBundleExecutable</key>
 	<string>LaunchAtLogin</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.joeshang.LaunchAtLogin</string>
+	<string>com.sindresorhus.LaunchAtLogin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.1</string>
+	<string>4.0.0</string>
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>MacOSX</string>
@@ -25,17 +25,19 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>11E146</string>
+	<string>12B45b</string>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
 	<key>DTPlatformVersion</key>
-	<string>GM</string>
+	<string>11.0</string>
 	<key>DTSDKBuild</key>
-	<string>19E258</string>
+	<string>20A2408</string>
 	<key>DTSDKName</key>
-	<string>macosx10.15</string>
+	<string>macosx11.0</string>
 	<key>DTXcode</key>
-	<string>1140</string>
+	<string>1220</string>
 	<key>DTXcodeBuild</key>
-	<string>11E146</string>
+	<string>12B45b</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.12</string>
 	<key>NSHumanReadableCopyright</key>

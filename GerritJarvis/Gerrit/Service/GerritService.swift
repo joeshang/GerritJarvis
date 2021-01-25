@@ -23,8 +23,8 @@ class GerritService {
 
     func verifyAccount(_ completion: @escaping (Author?, Int?) -> Void) {
         let url = baseUrl + "/a/accounts/self"
-        Alamofire.request(url)
-            .authenticate(user: user, password: password, persistence: .none)
+        AF.request(url)
+            .authenticate(username: user, password: password, persistence: .none)
             .validate(statusCode: 200..<300)
             .responseData { response in
             let statusCode = response.response?.statusCode
@@ -48,8 +48,8 @@ class GerritService {
         // 具体见 https://gerrit-review.googlesource.com/Documentation/user-search.html#_search_operators
         let query = "?q=(status:open+is:owner)OR(status:open+is:reviewer)&o=MESSAGES&o=DETAILED_ACCOUNTS&o=DETAILED_LABELS"
         let url = baseUrl + "/a/changes/" + query
-        Alamofire.request(url)
-            .authenticate(user: user, password: password)
+        AF.request(url)
+            .authenticate(username: user, password: password)
             .validate(statusCode: 200..<300)
             .responseData { response in
             switch response.result {
@@ -70,8 +70,8 @@ class GerritService {
 
     func fetchChangeDetail(changeId: String, completion: @escaping ((Change?) -> Void)) {
         let url = baseUrl + "/a/changes/" + "\(changeId)/detail"
-        Alamofire.request(url)
-            .authenticate(user: user, password: password)
+        AF.request(url)
+            .authenticate(username: user, password: password)
             .validate(statusCode: 200..<300)
             .responseData { response in
             switch response.result {

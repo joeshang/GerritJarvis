@@ -9,10 +9,10 @@
 import Cocoa
 import Preferences
 
-extension PreferencePane.Identifier {
-    static let general = Identifier("general")
-    static let account = Identifier("account")
-    static let blacklist = Identifier("blacklist")
+extension Preferences.PaneIdentifier {
+    static let general = Self("general")
+    static let account = Self("account")
+    static let blacklist = Self("blacklist")
 }
 
 @NSApplicationMain

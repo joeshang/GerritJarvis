@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,11 +24,11 @@
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NO8-Gp-JoL">
                     <rect key="frame" x="20" y="41" width="357" height="220"/>
                     <clipView key="contentView" id="KuK-58-L3X">
-                        <rect key="frame" x="1" y="0.0" width="355" height="219"/>
+                        <rect key="frame" x="1" y="1" width="355" height="218"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="MKT-Wx-Obx" viewBased="YES" id="8Iv-0G-FiE">
-                                <rect key="frame" x="0.0" y="0.0" width="359" height="194"/>
+                                <rect key="frame" x="0.0" y="0.0" width="368" height="193"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -35,7 +36,6 @@
                                 <tableColumns>
                                     <tableColumn width="120" minWidth="40" maxWidth="1000" id="rMI-zR-N49">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Type">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -47,11 +47,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="TypeCell" id="PoO-U1-0E3">
-                                                <rect key="frame" x="1" y="1" width="120" height="17"/>
+                                                <rect key="frame" x="11" y="1" width="125" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="hT1-Xw-5tj">
-                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="17"/>
+                                                        <rect key="frame" x="0.0" y="1" width="125" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="PFb-61-wHT">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -72,7 +72,6 @@
                                     </tableColumn>
                                     <tableColumn width="233" minWidth="40" maxWidth="1000" id="vus-iG-oGm">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -84,11 +83,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="ValueCell" id="ULH-S4-Gs3">
-                                                <rect key="frame" x="124" y="1" width="233" height="17"/>
+                                                <rect key="frame" x="139" y="1" width="237" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="avp-NB-qDm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="233" height="17"/>
+                                                        <rect key="frame" x="0.0" y="1" width="237" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="p8X-U0-Qpd">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -127,8 +126,8 @@
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="MKT-Wx-Obx">
-                        <rect key="frame" x="0.0" y="0.0" width="359" height="25"/>
+                    <tableHeaderView key="headerView" wantsLayer="YES" id="MKT-Wx-Obx">
+                        <rect key="frame" x="0.0" y="0.0" width="368" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
@@ -169,7 +168,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kgK-Qg-U5q">
-                    <rect key="frame" x="75" y="8" width="97" height="25"/>
+                    <rect key="frame" x="74" y="8" width="99" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="92" id="PE6-te-vBL"/>
                     </constraints>
@@ -207,7 +206,7 @@
         </customView>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
     </resources>
 </document>

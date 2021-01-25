@@ -11,7 +11,7 @@ import Preferences
 
 class BlackListPreferenceViewController: NSViewController, PreferencePane, NSTableViewDataSource, NSTableViewDelegate {
 
-    let preferencePaneIdentifier = PreferencePane.Identifier.blacklist
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.blacklist
     let preferencePaneTitle = "Blacklist"
     let toolbarItemIcon = NSImage(named: NSImage.userName)!
 

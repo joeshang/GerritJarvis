@@ -11,7 +11,7 @@ import Preferences
 
 class AccountPreferenceViewController: NSViewController, PreferencePane {
 
-    let preferencePaneIdentifier = PreferencePane.Identifier.account
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.account
     let preferencePaneTitle = "Account"
     let toolbarItemIcon = NSImage(named: NSImage.advancedName)!
 
