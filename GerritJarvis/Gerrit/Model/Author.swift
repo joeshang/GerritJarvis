@@ -13,6 +13,7 @@ class Author : NSObject, NSCoding, Mappable{
 	var email : String?
 	var name : String?
 	var username : String?
+    var displayName: String?
 
 
 	class func newInstance(map: Map) -> Mappable?{
@@ -28,7 +29,7 @@ class Author : NSObject, NSCoding, Mappable{
 		email <- map["email"]
 		name <- map["name"]
 		username <- map["username"]
-		
+		displayName <- map["display_name"]
 	}
 
     /**
@@ -42,7 +43,7 @@ class Author : NSObject, NSCoding, Mappable{
          email = aDecoder.decodeObject(forKey: "email") as? String
          name = aDecoder.decodeObject(forKey: "name") as? String
          username = aDecoder.decodeObject(forKey: "username") as? String
-
+         displayName = aDecoder.decodeObject(forKey: "display_name") as? String
 	}
 
     /**
@@ -66,7 +67,9 @@ class Author : NSObject, NSCoding, Mappable{
 		if username != nil{
 			aCoder.encode(username, forKey: "username")
 		}
-
+        if displayName != nil{
+            aCoder.encode(displayName, forKey: "display_name")
+        }
 	}
 
 }

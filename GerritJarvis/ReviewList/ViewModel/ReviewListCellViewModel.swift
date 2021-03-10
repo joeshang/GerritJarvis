@@ -31,7 +31,11 @@ class ReviewListCellViewModel: NSObject {
         latestMessageId = change.messages?.last?.id
         project = change.project ?? ""
         branch = change.branch ?? ""
-        name = change.owner?.name ?? ""
+        if let displayName = change.owner?.displayName {
+            name = displayName
+        } else {
+            name = change.owner?.name ?? ""
+        }
         commitMessage = change.subject ?? ""
         avatar = change.owner?.avatarImage()
         hasNewEvent = change.hasNewEvent()
