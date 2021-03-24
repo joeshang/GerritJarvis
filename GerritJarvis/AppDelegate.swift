@@ -62,6 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let user = ConfigManager.shared.user,
             let password = ConfigManager.shared.password {
             reviewListDataController.changeAccount(baseUrl: baseUrl, user: user, password: password)
+            Analytics.trackEvent("launch", withProperties: ["user": user])
         }
     }
 

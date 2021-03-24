@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,11 +19,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="372" height="179"/>
+            <rect key="frame" x="0.0" y="0.0" width="372" height="177"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yGB-ac-e3t">
-                    <rect key="frame" x="14" y="110" width="71" height="17"/>
+                    <rect key="frame" x="14" y="109" width="71" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Gerrit User" id="6eM-oH-LrA">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -30,7 +31,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qeh-Mx-uNi">
-                    <rect key="frame" x="14" y="80" width="100" height="17"/>
+                    <rect key="frame" x="14" y="80" width="100" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="HTTP Password" id="Kz3-GA-eMs">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -43,14 +44,14 @@
                         <constraint firstAttribute="height" constant="28" id="JpP-A9-983"/>
                         <constraint firstAttribute="width" constant="226" id="noT-ty-a6w"/>
                     </constraints>
-                    <textFieldCell key="cell" title="Gerrit -&gt; &quot;Settings&quot; -&gt; &quot;HTTP Password&quot;, Click &quot;Generate Password&quot;" id="ISW-1u-JoL">
+                    <textFieldCell key="cell" title="Gerrit -&gt; Settings -&gt; HTTP Credentials, Click &quot;Generate New Password&quot;" id="ISW-1u-JoL">
                         <font key="font" metaFont="menu" size="11"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pCl-oF-MJX">
-                    <rect key="frame" x="126" y="107" width="226" height="22"/>
+                    <rect key="frame" x="126" y="106" width="226" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="HxB-aN-b23"/>
                         <constraint firstAttribute="width" constant="226" id="sKx-8L-T80"/>
@@ -62,7 +63,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Iwb-Ta-BUl" customClass="PasteTextField" customModule="GerritJarvis" customModuleProvider="target">
-                    <rect key="frame" x="126" y="77" width="226" height="22"/>
+                    <rect key="frame" x="126" y="77" width="226" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="dbT-za-dnW">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -70,7 +71,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A15-ia-Iak">
-                    <rect key="frame" x="258" y="8" width="100" height="32"/>
+                    <rect key="frame" x="257" y="8" width="102" height="33"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="0Ux-6f-EDt"/>
                         <constraint firstAttribute="width" constant="88" id="ekg-k4-coc"/>
@@ -87,7 +88,7 @@
                     <rect key="frame" x="240" y="18" width="16" height="16"/>
                 </progressIndicator>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TwP-yy-OQ4">
-                    <rect key="frame" x="126" y="137" width="226" height="22"/>
+                    <rect key="frame" x="126" y="135" width="226" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="JFe-vG-gLA"/>
                         <constraint firstAttribute="width" constant="226" id="XTS-RO-V1J"/>
@@ -99,7 +100,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aEW-H6-H1L">
-                    <rect key="frame" x="14" y="140" width="63" height="17"/>
+                    <rect key="frame" x="14" y="138" width="63" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Base URL" id="0dg-SY-XNp">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

@@ -8,6 +8,7 @@
 
 import Cocoa
 import Preferences
+import AppCenterAnalytics
 
 class AccountPreferenceViewController: NSViewController, PreferencePane {
 
@@ -83,6 +84,7 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
             }
 
             ConfigManager.shared.update(baseUrl: baseUrl, user: user, password: password, accountId: accountId)
+            Analytics.trackEvent("login", withProperties: ["user": user])
 
             let alert = NSAlert()
             alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
