@@ -44,6 +44,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
 
+        // use your own secret
+//        AppCenter.start(withAppSecret: "", services:[
+//          Analytics.self,
+//          Crashes.self
+//        ])
+
         initPopover()
 
         NotificationCenter.default.addObserver(self,
