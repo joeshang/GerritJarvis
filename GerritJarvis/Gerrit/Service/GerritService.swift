@@ -22,7 +22,7 @@ class GerritService {
     }
 
     func verifyAccount(_ completion: @escaping (Author?, Int?) -> Void) {
-        let url = baseUrl + "/a/accounts/self"
+        let url = baseUrl + "/a/accounts/self/detail"
         AF.request(url)
             .authenticate(username: user, password: password, persistence: .none)
             .validate(statusCode: 200..<300)

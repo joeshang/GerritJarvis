@@ -87,7 +87,7 @@ class AccountPreferenceViewController: NSViewController, PreferencePane {
             let alert = NSAlert()
             alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
             alert.messageText = NSLocalizedString("SaveSuccess", comment: "")
-            alert.informativeText = "\(account.name ?? name)，" + NSLocalizedString("JarvisService", comment: "")
+            alert.informativeText = "\(account.displayName ?? name)，" + NSLocalizedString("JarvisService", comment: "")
             alert.alertStyle = .informational
             alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
         }
