@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 1.4.0
+
+### Features
+
+* Show display name in review list
+* Integrate AppCenter for crashes and analysis
+
+* 在 Review 列表中显示 display name 而不是 name
+* 集成 AppCenter 用于崩溃收集和数据分析
+
+### Fix
+
+* 403 forbidden issue of /a/accounts/self api when gerrit version >= 3.2.7
+
+* 修复当 gerrit 版本大于等于 3.2.7 时，REST API /a/accounts/self 一直 403
+Forbidden 的问题
+
+
 ## 1.3.0
 
 ### Features
