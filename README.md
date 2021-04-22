@@ -24,6 +24,15 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
 
 ### 安装
 
+#### 使用 HomeBrew 安装
+
+1. make sure you are using MacOS.
+2. make sure you have brew installed.
+3. run `brew tap alwaystest/tap`
+4. `brew cask install gerrit-jarvis`
+
+#### 手动安装
+
 解压 zip 包，将 GerritJarvis.app 拷贝到系统 Applications 目录，右键点击 GerritJarvis.app，选择打开（不要使用双击打开），会弹框询问是否信任，点击信任即可。打开后会在状态栏看到 GerritJarvis 的图标。
 
 ### 使用
@@ -31,6 +40,8 @@ GerritJarvis 是一个由 Swift 语言（5.0）编写的 Mac App，主要用于 
 使用 GerritJarvis 时需要配置对应的 Gerrit 账号和密码。**请注意密码不是 Gerrit 的登录密码，而是 HTTP 密码，需要专门生成！**，具体方式为打开 Gerrit 网页，点击头像，到 Setting -> HTTP Pasword，如果没有 HTTP Password，点击 Generate Password 生成密码，如果已经有了，拷贝此密码即可。
 
 如果 GerritJarvis 还未设置账号密码，列表页中会出现 Go To Preferences 的按钮，点击按钮到 Preference，选择 Account 的 Tab，将 Gerrit 的用户名和 HTTP Password 填到输入框中，点击 Save 进行保存。
+
+BaseURL 项需要填写 Gerrit Server 的地址。eg: `http://gerrit.sample.com`
 
 关于 Review 列表：
 
