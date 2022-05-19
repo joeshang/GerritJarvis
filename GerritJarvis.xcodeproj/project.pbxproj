@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		34234613F759A8FDA570579D /* Pods_GerritJarvis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B26E29560B9E746C992026B /* Pods_GerritJarvis.framework */; };
+		8624BE6828361C8200630976 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 8624BE6728361C8200630976 /* LaunchAtLogin */; };
 		D207F0DD2272BBA5000EB2B4 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207F0DC2272BBA4000EB2B4 /* Avatar.swift */; };
 		D207F0E02272BE06000EB2B4 /* GerritResponseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207F0DF2272BE06000EB2B4 /* GerritResponseUtils.swift */; };
 		D2350AE32180616A0002A17D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2350AE22180616A0002A17D /* AppDelegate.swift */; };
@@ -41,8 +42,6 @@
 		D2BBB37F2299862700288865 /* MergedTriggerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BBB37D2299862700288865 /* MergedTriggerWindowController.swift */; };
 		D2BBB3802299862700288865 /* MergedTriggerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2BBB37E2299862700288865 /* MergedTriggerWindowController.xib */; };
 		D2BBB38222998E0D00288865 /* PasteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BBB38122998E0D00288865 /* PasteTextView.swift */; };
-		D2D407B522C9FB4500411610 /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D407B322C9F73B00411610 /* LaunchAtLogin.framework */; };
-		D2D407B622C9FB4500411610 /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2D407B322C9F73B00411610 /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,7 +51,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D2D407B622C9FB4500411610 /* LaunchAtLogin.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,7 +100,6 @@
 		D2BBB37D2299862700288865 /* MergedTriggerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedTriggerWindowController.swift; sourceTree = "<group>"; };
 		D2BBB37E2299862700288865 /* MergedTriggerWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MergedTriggerWindowController.xib; sourceTree = "<group>"; };
 		D2BBB38122998E0D00288865 /* PasteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTextView.swift; sourceTree = "<group>"; };
-		D2D407B322C9F73B00411610 /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LaunchAtLogin.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8624BE6828361C8200630976 /* LaunchAtLogin in Frameworks */,
 				34234613F759A8FDA570579D /* Pods_GerritJarvis.framework in Frameworks */,
-				D2D407B522C9FB4500411610 /* LaunchAtLogin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				D2350AE12180616A0002A17D /* GerritJarvis */,
-				D2D407AF22C9F6CA00411610 /* Vendors */,
 				D2350AE02180616A0002A17D /* Products */,
 				16F9A22B1FC8DDE16E5F6120 /* Pods */,
 				823CDCC9841A8CA39E6370FB /* Frameworks */,
@@ -372,14 +368,6 @@
 			path = Xib;
 			sourceTree = "<group>";
 		};
-		D2D407AF22C9F6CA00411610 /* Vendors */ = {
-			isa = PBXGroup;
-			children = (
-				D2D407B322C9F73B00411610 /* LaunchAtLogin.framework */,
-			);
-			path = Vendors;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -392,7 +380,7 @@
 				D2350ADC2180616A0002A17D /* Frameworks */,
 				D2350ADD2180616A0002A17D /* Resources */,
 				92BF40094E15E4C335813F84 /* [CP] Embed Pods Frameworks */,
-				D2D407B222C9F70C00411610 /* ShellScript */,
+				D2D407B222C9F70C00411610 /* Copy “Launch at Login Helper” */,
 				D2D407B722C9FB4500411610 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -400,6 +388,9 @@
 			dependencies = (
 			);
 			name = GerritJarvis;
+			packageProductDependencies = (
+				8624BE6728361C8200630976 /* LaunchAtLogin */,
+			);
 			productName = GerritJarvis;
 			productReference = D2350ADF2180616A0002A17D /* GerritJarvis.app */;
 			productType = "com.apple.product-type.application";
@@ -435,6 +426,9 @@
 				"zh-Hans",
 			);
 			mainGroup = D2350AD62180616A0002A17D;
+			packageReferences = (
+				8624BE6628361C8100630976 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+			);
 			productRefGroup = D2350AE02180616A0002A17D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -503,7 +497,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D2D407B222C9F70C00411610 /* ShellScript */ = {
+		D2D407B222C9F70C00411610 /* Copy “Launch at Login Helper” */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -512,13 +506,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Copy “Launch at Login Helper”";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/Vendors/LaunchAtLogin.framework/Resources/copy-helper.sh\"\n";
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -780,6 +775,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8624BE6628361C8100630976 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8624BE6728361C8200630976 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8624BE6628361C8100630976 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D2350AD72180616A0002A17D /* Project object */;
 }
